@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/opennetlab/onl-backend/routers"
 
 	_ "github.com/opennetlab/onl-backend/routers"
 )
@@ -15,6 +16,10 @@ func main() {
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
+
+	// https://studygolang.com/articles/2303
+	beego.InsertFilter("/", beego.BeforeRouter, routers.TransparentStatic) // must has this for default page
+	beego.InsertFilter("/*", beego.BeforeRouter, routers.TransparentStatic)
 
 	beego.BConfig.WebConfig.Session.SessionProvider="file"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = "./tmp"
