@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/context"
+
 	"github.com/opennetlab/onl-horizon/util"
 )
 
