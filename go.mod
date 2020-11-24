@@ -1,4 +1,4 @@
-module github.com/opennetlab/onl-backend
+module github.com/opennetlab/onl-horizon
 
 go 1.15
 

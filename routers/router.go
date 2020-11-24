@@ -3,7 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/opennetlab/onl-backend/controllers"
+	"github.com/opennetlab/onl-horizon/controllers"
 )
 
 func init() {

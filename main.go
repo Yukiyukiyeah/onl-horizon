@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
-	"github.com/opennetlab/onl-backend/routers"
+	"github.com/opennetlab/onl-horizon/routers"
 
-	_ "github.com/opennetlab/onl-backend/routers"
+	_ "github.com/opennetlab/onl-horizon/routers"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/context"
-	"github.com/opennetlab/onl-backend/util"
+	"github.com/opennetlab/onl-horizon/util"
 )
 
 func TransparentStatic(ctx *context.Context) {
