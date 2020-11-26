@@ -3,8 +3,11 @@ import './App.css';
 import * as Setting from "./Setting";
 import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Col, Dropdown, Layout, Menu, Row} from 'antd';
-import {Switch, withRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import * as AccountBackend from "./backend/AccountBackend";
+import HomePage from "./HomePage";
+import CreateJobPage from "./CreateJobPage";
+import JobListPage from "./JobListPage";
 
 const { Header, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -17,6 +20,8 @@ class App extends Component {
       selectedMenuKey: 0,
       account: undefined,
     };
+
+    Setting.initServerUrl();
   }
 
   componentWillMount() {
@@ -29,6 +34,10 @@ class App extends Component {
     const uri = location.pathname;
     if (uri === '/') {
       this.setState({ selectedMenuKey: 0 });
+    } else if (uri.includes('jobs/create')) {
+      this.setState({ selectedMenuKey: 1 });
+    } else if (uri.includes('jobs')) {
+      this.setState({ selectedMenuKey: 2 });
     } else {
       this.setState({ selectedMenuKey: -1 });
     }
@@ -209,7 +218,7 @@ class App extends Component {
       <Menu
         // onClick={this.handleClick.bind(this)}
         // style={{ width: 256 }}
-        // selectedKeys={["1"]}
+        defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
         defaultOpenKeys={['sub1']}
         mode="inline"
         // How to remove padding in Ant Design menu?
@@ -218,9 +227,9 @@ class App extends Component {
         // theme="dark"
       >
         <SubMenu key="sub1" title={<span><AppstoreOutlined/><span>Menu</span></span>}>
-          <Menu.Item key="1">Home</Menu.Item>
-          <Menu.Item key="2">Create Job</Menu.Item>
-          <Menu.Item key="3">Job List</Menu.Item>
+          <Menu.Item key="0" onClick={() => this.props.history.push("/")}>Home</Menu.Item>
+          <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>Create Job</Menu.Item>
+          <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>Job List</Menu.Item>
         </SubMenu>
       </Menu>
     )
@@ -255,7 +264,9 @@ class App extends Component {
           </Col>
           <Col span={20}>
             <Switch>
-              {/*<Route exact path="/" component={ProgramPage}/>*/}
+              <Route exact path="/" component={HomePage}/>
+              <Route exact path="/jobs/create" component={CreateJobPage}/>
+              <Route exact path="/jobs" component={JobListPage}/>
             </Switch>
           </Col>
         </Row>
