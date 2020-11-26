@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import './App.css';
 import * as Setting from "./Setting";
-import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
-import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
-import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
+import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {Avatar, BackTop, Col, Dropdown, Layout, Menu, Row} from 'antd';
+import {Switch, withRouter, Redirect} from 'react-router-dom';
 import * as AccountBackend from "./backend/AccountBackend";
 
 const { Header, Footer } = Layout;
+const { SubMenu } = Menu;
 
 class App extends Component {
   constructor(props) {
@@ -127,13 +128,13 @@ class App extends Component {
     if (this.state.account !== null && this.state.account !== undefined) {
       res.push(this.renderRightDropdown());
     } else {
-      res.push(
-        <Menu.Item key="1" style={{float: 'right', marginRight: '20px'}}>
-          <a href="/register">
-            Register
-          </a>
-        </Menu.Item>
-      );
+      // res.push(
+      //   <Menu.Item key="1" style={{float: 'right', marginRight: '20px'}}>
+      //     <a href="/register">
+      //       Register
+      //     </a>
+      //   </Menu.Item>
+      // );
       res.push(
         <Menu.Item key="2" style={{float: 'right'}}>
           <a href="/login">
@@ -141,13 +142,13 @@ class App extends Component {
           </a>
         </Menu.Item>
       );
-      res.push(
-        <Menu.Item key="4" style={{float: 'right'}}>
-          <a href="/">
-            Home
-          </a>
-        </Menu.Item>
-      );
+      // res.push(
+      //   <Menu.Item key="4" style={{float: 'right'}}>
+      //     <a href="/">
+      //       Home
+      //     </a>
+      //   </Menu.Item>
+      // );
     }
 
     return res;
@@ -203,6 +204,28 @@ class App extends Component {
       window.location.pathname === '/';
   }
 
+  renderLeftMenu() {
+    return (
+      <Menu
+        // onClick={this.handleClick.bind(this)}
+        // style={{ width: 256 }}
+        // selectedKeys={["1"]}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+        // How to remove padding in Ant Design menu?
+        // https://stackoverflow.com/questions/51050707/how-to-remove-padding-in-ant-design-menu/51064320
+        inlineIndent={10}
+        // theme="dark"
+      >
+        <SubMenu key="sub1" title={<span><AppstoreOutlined/><span>Menu</span></span>}>
+          <Menu.Item key="1">Home</Menu.Item>
+          <Menu.Item key="2">Create Job</Menu.Item>
+          <Menu.Item key="3">Job List</Menu.Item>
+        </SubMenu>
+      </Menu>
+    )
+  }
+
   renderContent() {
     return (
       <div>
@@ -224,9 +247,18 @@ class App extends Component {
             }
           </Menu>
         </Header>
-        <Switch>
-          {/*<Route exact path="/" component={ProgramPage}/>*/}
-        </Switch>
+        <Row>
+          <Col span={4}>
+            {
+              this.renderLeftMenu()
+            }
+          </Col>
+          <Col span={20}>
+            <Switch>
+              {/*<Route exact path="/" component={ProgramPage}/>*/}
+            </Switch>
+          </Col>
+        </Row>
       </div>
     )
   }
