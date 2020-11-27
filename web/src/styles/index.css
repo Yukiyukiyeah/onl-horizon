@@ -13,7 +13,7 @@ code {
 }
 
 .logo {
-  background: url("logo.png");
+  background: url("../assets/logo.png");
   background-size: 168px, 40px;
   width: 168px;
   height: 32px;

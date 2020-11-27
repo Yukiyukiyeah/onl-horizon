@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import './App.css';
-import * as Setting from "./Setting";
+import '../styles/App.css';
+import * as Setting from "../utils/Setting";
 import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Col, Dropdown, Layout, Menu, Row} from 'antd';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import * as AccountBackend from "./backend/AccountBackend";
+import * as AccountBackend from "../backend/AccountBackend";
 import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
