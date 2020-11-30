@@ -1,0 +1,40 @@
+.info-card-container {
+  .wrapper {
+    min-width: 230px;
+    min-height: 230px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 32px;
+    padding: 23px 40px 0 40px;
+  }
+
+  .title {
+    font-size: 32px;
+    color: #0078d4;
+  }
+
+  .row {
+    border-bottom: 1px grey solid;
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  .row-container {
+    margin-top: 70px;
+  }
+
+  .key {
+    margin-left: 3px;
+  }
+
+  .value {
+    margin-right: 3px;
+  }
+
+}
+

@@ -16,7 +16,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="container">
+    <div className="landing-container">
       <Row className="home-hero">
         <div className="bg">
           <p className="bg-title">What's OpenNetLab</p>
