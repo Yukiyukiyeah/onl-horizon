@@ -32,7 +32,7 @@ class App extends Component {
   updateMenuKey() {
     // eslint-disable-next-line no-restricted-globals
     const uri = location.pathname;
-    if (uri === '/') {
+    if (uri === '/home') {
       this.setState({ selectedMenuKey: 0 });
     } else if (uri.includes('jobs/create')) {
       this.setState({ selectedMenuKey: 1 });
@@ -227,7 +227,7 @@ class App extends Component {
         // theme="dark"
       >
         <SubMenu key="sub1" title={<span><AppstoreOutlined/><span>Menu</span></span>}>
-          <Menu.Item key="0" onClick={() => this.props.history.push("/")}>Home</Menu.Item>
+          <Menu.Item key="0" onClick={() => this.props.history.push("/home")}>Home</Menu.Item>
           <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>Create Job</Menu.Item>
           <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>Job List</Menu.Item>
         </SubMenu>
@@ -264,7 +264,7 @@ class App extends Component {
           </Col>
           <Col span={20}>
             <Switch>
-              <Route exact path="/" component={HomePage}/>
+              <Route exact path="/home" component={HomePage}/>
               <Route exact path="/jobs/create" component={CreateJobPage}/>
               <Route exact path="/jobs" component={JobListPage}/>
             </Switch>

@@ -6,12 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from "./pages/Landing";
 
-
 ReactDOM.render(
   <BrowserRouter>
       <Switch>
           <Route exact path="/" component={Landing}/>
-          <Route exact path="/index" component={App}/>
+          <Route component={App}/>
       </Switch>
   </BrowserRouter>,
   document.getElementById('root')
