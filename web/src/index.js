@@ -8,10 +8,10 @@ import Landing from "./pages/Landing";
 
 ReactDOM.render(
   <BrowserRouter>
-      <Switch>
-          <Route exact path="/" component={Landing}/>
-          <Route component={App}/>
-      </Switch>
+    <Switch>
+      <Route exact path="/" component={Landing}/>
+      <Route component={App}/>
+    </Switch>
   </BrowserRouter>,
   document.getElementById('root')
 );
