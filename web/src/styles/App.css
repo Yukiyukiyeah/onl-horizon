@@ -39,3 +39,15 @@
   width: 100%;
   height: 70px;            /* Footer height */
 }
+
+.header {
+  position: relative;
+  z-index: 10;
+  max-width: 100%;
+  background: #fff;
+  border-top: solid 1px #707070;
+  border-bottom: solid 1px #707070;
+}
+.site-layout-background {
+  background: #fff;
+}

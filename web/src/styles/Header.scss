@@ -1,0 +1,21 @@
+.left-header {
+  display: flex;
+  flex-flow: nowrap;
+  height: 62px;
+  background-color: #ffffff;
+}
+#logo {
+  height: 62px;
+  line-height: 62px;
+  overflow: hidden;
+}
+#logo img {
+  position: relative;
+  top: -1.5px;
+  height: 62px;
+
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+}
