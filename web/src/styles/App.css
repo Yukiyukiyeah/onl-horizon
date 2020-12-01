@@ -39,3 +39,7 @@
   width: 100%;
   height: 70px;            /* Footer height */
 }
+
+.site-layout-background {
+  background: #fff;
+}
