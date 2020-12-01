@@ -15,7 +15,7 @@ func TransparentStatic(ctx *context.Context) {
 		return
 	}
 
-	path := "../ONL-Horizon/dist"
+	path := "web/build"
 	if urlPath == "/" {
 		path += "/index.html"
 	} else {
@@ -25,6 +25,6 @@ func TransparentStatic(ctx *context.Context) {
 	if util.FileExist(path) {
 		http.ServeFile(ctx.ResponseWriter, ctx.Request, path)
 	} else {
-		http.ServeFile(ctx.ResponseWriter, ctx.Request, "../ONL-Horizon/dist/index.html")
+		http.ServeFile(ctx.ResponseWriter, ctx.Request, "web/build/index.html")
 	}
 }
