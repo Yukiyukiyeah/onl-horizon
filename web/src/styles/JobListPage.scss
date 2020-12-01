@@ -1,0 +1,50 @@
+.jobList-container{
+  .title {
+    width: 253px;
+    height: 80px;
+    max-height: 100px;
+    font-size: 48px;
+    line-height: 36px;
+    color: #0078d4;
+    font-weight: bold;
+  }
+
+  .func-zone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 620px;
+    position: absolute;
+    top: 110px;
+    right: 100px;
+  }
+
+  .filter-text {
+    font-size: 14px;
+    margin-left: 20px;
+  }
+
+  .stop-btn {
+    width: 122px;
+  }
+
+  .restart-btn {
+    width: 122px;
+  }
+
+  .delete-btn {
+    width: 122px;
+  }
+
+  .btn {
+    box-shadow: 0px 0px 8px 0px rgba(0, 120, 212, 0.16);
+    border-radius: 5px;
+  }
+
+  .table {
+    width: 100%;
+    padding-right: 70px;
+    margin-left: -30px;
+  }
+
+}
