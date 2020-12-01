@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col} from "antd";
+import {Row} from "antd";
 import InfoCard from "../components/InfoCard";
 
 const HomePage = () => {
@@ -10,16 +10,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <Row justify="space-around">
-        <Col span={8}>
-          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true}/>
-        </Col>
-        <Col span={8}>
-          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
-        </Col>
-        <Col span={8}>
-          <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>
-        </Col>
+      <Row justify="space-around" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
+        <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true}/>
+        <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
+        <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>
       </Row>
     </div>
   )
