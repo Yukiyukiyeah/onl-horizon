@@ -10,7 +10,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Row justify="space-around" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
+      <Row style={{margin: 20}} justify="space-around" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
         <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true}/>
         <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
         <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>

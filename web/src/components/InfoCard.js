@@ -7,7 +7,7 @@ import blue from '../assets/blued-square.png'
 
 const InfoCard = (props) => {
   return (
-    <div style={{margin: 30}} className="info-card-container">
+    <div className="info-card-container">
       <div className="wrapper">
         <Row className="title">{props.title}</Row>
         {props.slot && <Row>{props.slot}</Row>}
