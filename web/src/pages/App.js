@@ -3,22 +3,25 @@ import '../styles/App.css';
 import * as Setting from "../utils/Setting";
 import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import * as AccountBackend from "../backend/AccountBackend";
+import {Route, Switch, withRouter} from 'react-router-dom';
 import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
+import AccountPage from "./AccountPage";
+
+import {MsalContext} from "@azure/msal-react";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 class App extends Component {
+  static contextType = MsalContext;
+
   constructor(props) {
     super(props);
     this.state = {
       classes: props,
       selectedMenuKey: 0,
-      account: undefined,
     };
 
     Setting.initServerUrl();
@@ -26,7 +29,6 @@ class App extends Component {
 
   componentWillMount() {
     this.updateMenuKey();
-    this.getAccount();
   }
 
   updateMenuKey() {
@@ -43,53 +45,31 @@ class App extends Component {
     }
   }
 
-  onLogined() {
-    this.getAccount();
-  }
-
-  onUpdateAccount(account) {
-    this.setState({
-      account: account
-    });
-  }
-
-  getAccount() {
-    AccountBackend.getAccount()
-      .then((res) => {
-        const account = Setting.parseJson(res.data);
-        if (window.location.pathname === '/' && account === null) {
-          Setting.goToLink("/");
-        }
-        this.setState({
-          account: account,
-        });
-
-        if (account !== undefined && account !== null) {
-          window.mouselogUserId = account.username;
-        }
-      });
+  login() {
+    this.context.instance.loginRedirect();
   }
 
   logout() {
-    this.setState({
-      expired: false,
-      submitted: false,
-    });
+    const logoutRequest = {
+      account: Setting.getAccount(this.context)
+    };
 
-    AccountBackend.logout()
-      .then((res) => {
-        if (res.status === 'ok') {
-          this.setState({
-            account: null
-          });
+    this.context.instance.logout(logoutRequest);
 
-          Setting.showMessage("success", `Successfully logged out, redirected to homepage`);
-
-          Setting.goToLink("/");
-        } else {
-          Setting.showMessage("error", `Logout failed: ${res.msg}`);
-        }
-      });
+    // AccountBackend.logout()
+    //   .then((res) => {
+    //     if (res.status === 'ok') {
+    //       this.setState({
+    //         account: null
+    //       });
+    //
+    //       Setting.showMessage("success", `Successfully logged out, redirected to homepage`);
+    //
+    //       Setting.goToLink("/");
+    //     } else {
+    //       Setting.showMessage("error", `Logout failed: ${res.msg}`);
+    //     }
+    //   });
   }
 
   handleRightDropdownClick(e) {
@@ -101,6 +81,8 @@ class App extends Component {
   }
 
   renderRightDropdown() {
+    const account = Setting.getAccount(this.context);
+
     const menu = (
       <Menu onClick={this.handleRightDropdownClick.bind(this)}>
         <Menu.Item key='0'>
@@ -117,12 +99,12 @@ class App extends Component {
     return (
       <Dropdown key="4" overlay={menu} >
         <a className="ant-dropdown-link" href="#" style={{float: 'right'}}>
-          <Avatar style={{ backgroundColor: Setting.getAvatarColor(this.state.account.name), verticalAlign: 'middle' }} size="large">
-            {Setting.getShortName(this.state.account.name)}
+          <Avatar style={{ backgroundColor: Setting.getAvatarColor(account.name), verticalAlign: 'middle' }} size="large">
+            {Setting.getFirstName(account.name)}
           </Avatar>
           &nbsp;
           &nbsp;
-          {Setting.isMobile() ? null : Setting.getShortName(this.state.account.name)} &nbsp; <DownOutlined />
+          {Setting.isMobile() ? null : account.name} &nbsp; <DownOutlined />
           &nbsp;
           &nbsp;
           &nbsp;
@@ -132,9 +114,11 @@ class App extends Component {
   }
 
   renderAccount() {
+    const account = Setting.getAccount(this.context);
+
     let res = [];
 
-    if (this.state.account !== null && this.state.account !== undefined) {
+    if (account !== null) {
       res.push(this.renderRightDropdown());
     } else {
       // res.push(
@@ -146,9 +130,9 @@ class App extends Component {
       // );
       res.push(
         <Menu.Item key="2" style={{float: 'right'}}>
-          <a href="/login">
+          <div onClick={() => this.login()}>
             Login
-          </a>
+          </div>
         </Menu.Item>
       );
       // res.push(
@@ -165,46 +149,7 @@ class App extends Component {
 
   renderMenu() {
     let res = [];
-
-    if (this.state.account === null || this.state.account === undefined) {
-      return [];
-    }
-
-    res.push(
-      <Menu.Item key="0">
-        <a href="/">
-          Home
-        </a>
-      </Menu.Item>
-    );
-    res.push(
-      <Menu.Item key="1">
-        <a href="/program-edit">
-          Programs
-        </a>
-      </Menu.Item>
-    );
-
     return res;
-  }
-
-  renderHomeIfLogined(component) {
-    if (this.state.account !== null && this.state.account !== undefined) {
-      return <Redirect to='/' />
-    } else {
-      return component;
-    }
-  }
-
-  renderLoginIfNotLogined(component) {
-    if (this.state.account === null) {
-      return <Redirect to='/login' />
-    } else if (this.state.account === undefined) {
-      return null;
-    }
-    else {
-      return component;
-    }
   }
 
   isStartPages() {
@@ -276,14 +221,10 @@ class App extends Component {
                 <Route exact path="/home" component={HomePage}/>
                 <Route exact path="/jobs/create" component={CreateJobPage}/>
                 <Route exact path="/jobs" component={JobListPage}/>
+                <Route exact path="/account" component={AccountPage}/>
               </Switch>
             </Content>
           </Layout>
-
-
-
-
-
         </Layout>
       </Layout>
     )

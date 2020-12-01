@@ -42,6 +42,25 @@
     lodash "^4.17.15"
     resize-observer-polyfill "^1.5.0"
 
+"@azure/msal-browser@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.npm.taobao.org/@azure/msal-browser/download/@azure/msal-browser-2.7.0.tgz#4033731f8d9465e2cb731edb8c7082580360f38d"
+  integrity sha1-QDNzH42UZeLLcx7bjHCCWANg840=
+  dependencies:
+    "@azure/msal-common" "^1.7.2"
+
+"@azure/msal-common@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.npm.taobao.org/@azure/msal-common/download/@azure/msal-common-1.7.2.tgz#b0061367efbfd459ebd11f6851ff36121db3278c"
+  integrity sha1-sAYTZ++/1Fnr0R9oUf82Eh2zJ4w=
+  dependencies:
+    debug "^4.1.1"
+
+"@azure/msal-react@^1.0.0-alpha.0":
+  version "1.0.0-alpha.0"
+  resolved "https://registry.npm.taobao.org/@azure/msal-react/download/@azure/msal-react-1.0.0-alpha.0.tgz#739cc21c18f98068502b9880847f0e9adc845187"
+  integrity sha1-c5zCHBj5gGhQK5iAhH8OmtyEUYc=
+
 "@babel/code-frame@7.10.4", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.5.5":
   version "7.10.4"
   resolved "https://registry.npm.taobao.org/@babel/code-frame/download/@babel/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

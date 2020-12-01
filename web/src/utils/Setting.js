@@ -37,14 +37,14 @@ export function isMobile() {
   return isMobileDevice;
 }
 
-export function getShortName(s) {
-  return s.split('/').slice(-1)[0];
+export function getFirstName(s) {
+  return s.split(' ')[0];
 }
 
 function getRandomInt(s) {
   let hash = 0;
   if (s.length !== 0) {
-    for (let i = 0; i < s.length; i ++) {
+    for (let i = 0; i < s.length; i++) {
       let char = s.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
@@ -61,4 +61,25 @@ export function getAvatarColor(s) {
     random = -random;
   }
   return colorList[random % 4];
+}
+
+export function getAccount(context) {
+  if (context.accounts.length > 0) {
+    return context.accounts[0];
+  } else {
+    return null;
+  }
+}
+
+export function getAccountToken(context) {
+  const account = getAccount(context);
+  if (account === null) {
+    return Promise.resolve(undefined);
+    // return null;
+  }
+
+  return context.instance.acquireTokenSilent({
+    // scopes: ["User.Read"],
+    account: account,
+  });
 }
