@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import '../styles/App.css';
 import * as Setting from "../utils/Setting";
 import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
-import {Avatar, BackTop, Col, Dropdown, Layout, Menu, Row} from 'antd';
+import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import * as AccountBackend from "../backend/AccountBackend";
 import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
 
-const { Header, Footer } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 class App extends Component {
@@ -221,6 +221,7 @@ class App extends Component {
         defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
         defaultOpenKeys={['sub1']}
         mode="inline"
+        style={{ height: '100%', borderRight: 0, paddingTop: '50px' }}
         // How to remove padding in Ant Design menu?
         // https://stackoverflow.com/questions/51050707/how-to-remove-padding-in-ant-design-menu/51064320
         inlineIndent={10}
@@ -237,7 +238,7 @@ class App extends Component {
 
   renderContent() {
     return (
-      <div>
+      <Layout>
         <Header style={{ padding: '0', marginBottom: '3px'}}>
           {
             Setting.isMobile() ? null : <a className="logo" href={"/"} />
@@ -256,21 +257,35 @@ class App extends Component {
             }
           </Menu>
         </Header>
-        <Row>
-          <Col span={4}>
+        <Layout>
+          <Sider width={200}>
             {
               this.renderLeftMenu()
             }
-          </Col>
-          <Col span={20}>
-            <Switch>
-              <Route exact path="/home" component={HomePage}/>
-              <Route exact path="/jobs/create" component={CreateJobPage}/>
-              <Route exact path="/jobs" component={JobListPage}/>
-            </Switch>
-          </Col>
-        </Row>
-      </div>
+          </Sider>
+          <Layout style={{ padding: '24px 24px 24px' }}>
+            <Content
+              className="site-layout-background"
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 300,
+              }}
+            >
+              <Switch>
+                <Route exact path="/home" component={HomePage}/>
+                <Route exact path="/jobs/create" component={CreateJobPage}/>
+                <Route exact path="/jobs" component={JobListPage}/>
+              </Switch>
+            </Content>
+          </Layout>
+
+
+
+
+
+        </Layout>
+      </Layout>
     )
   }
 
@@ -300,9 +315,6 @@ class App extends Component {
             this.renderContent()
           }
         </div>
-        {
-          this.renderFooter()
-        }
       </div>
     );
   }
