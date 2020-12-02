@@ -10,6 +10,7 @@ import JobListPage from "./JobListPage";
 import AccountPage from "./AccountPage";
 
 import {MsalContext} from "@azure/msal-react";
+import JobDetail from "./JobDetailPage";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -110,7 +111,7 @@ class App extends Component {
           &nbsp;
         </a>
       </Dropdown>
-    )
+    );
   }
 
   renderAccount() {
@@ -178,7 +179,7 @@ class App extends Component {
           <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>Job List</Menu.Item>
         </SubMenu>
       </Menu>
-    )
+    );
   }
 
   renderContent() {
@@ -212,22 +213,24 @@ class App extends Component {
             <Content
               className="site-layout-background"
               style={{
-                padding: 24,
+                padding: '64px 64px 64px 64px',
                 margin: 0,
                 minHeight: 300,
+                overflow: 'auto'
               }}
             >
               <Switch>
                 <Route exact path="/home" component={HomePage}/>
                 <Route exact path="/jobs/create" component={CreateJobPage}/>
                 <Route exact path="/jobs" component={JobListPage}/>
+                <Route path="/jobs/detail/:id" component={JobDetail}/>
                 <Route exact path="/account" component={AccountPage}/>
               </Switch>
             </Content>
           </Layout>
         </Layout>
       </Layout>
-    )
+    );
   }
 
   renderFooter() {
@@ -244,7 +247,7 @@ class App extends Component {
       }>
         Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" href="https://opennetlab.org">OpenNetLab</a>
       </Footer>
-    )
+    );
   }
 
   render() {

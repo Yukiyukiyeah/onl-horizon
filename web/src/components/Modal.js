@@ -5,10 +5,10 @@ import '../styles/Modal.scss';
 const Modal = (props) => {
   let button;
   if (props.btnType === 1) {
-    button =    <a href="javascript:" className="btn" onClick={props.handleConfirm}>{props.confirmText} </a>
+    button =    <a href="javascript:" className="btn" onClick={props.handleConfirm}>{props.confirmText} </a>;
   }
   else if (props.btnType === 2) {
-    button = <a href="javascript:" className="btn" onClick={props.handleCancel}>{props.cancelText}</a>
+    button = <a href="javascript:" className="btn" onClick={props.handleCancel}>{props.cancelText}</a>;
   }
   else {
     button = (
@@ -41,7 +41,7 @@ const Modal = (props) => {
               </div>
             </div>}
     </ReactCSSTransitionGroup>
-  )
-}
+  );
+};
 
 export default Modal;

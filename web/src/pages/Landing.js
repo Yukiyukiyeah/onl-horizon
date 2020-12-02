@@ -12,7 +12,7 @@ import '../styles/Landing.scss';
 const Landing = () => {
   const history = useHistory();
   const handleLogin = () => {
-    history.push("/home")
+    history.push("/home");
   };
 
   return (

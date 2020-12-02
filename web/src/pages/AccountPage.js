@@ -51,7 +51,7 @@ class AccountPage extends React.Component {
           <Descriptions.Item label="Access Token">{this.state.accessToken}</Descriptions.Item>
         </Descriptions>
       </div>
-    )
+    );
   }
 }
 

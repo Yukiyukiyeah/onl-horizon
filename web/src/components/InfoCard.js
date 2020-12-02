@@ -1,9 +1,9 @@
 import React from 'react';
 import {Col, Row} from 'antd';
 import '../styles/InfoCard.scss';
-import green from '../assets/green-square.png'
-import red from '../assets/red-square.png'
-import blue from '../assets/blued-square.png'
+import green from '../assets/green-square.png';
+import red from '../assets/red-square.png';
+import blue from '../assets/blued-square.png';
 
 const InfoCard = (props) => {
   return (
@@ -46,7 +46,7 @@ const InfoCard = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default InfoCard;

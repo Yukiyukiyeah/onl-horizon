@@ -17,8 +17,8 @@ axios.defaults.timeout = 100000;
 
 // set header of post request
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.headers.patch['Content-Type'] = 'application/json'
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.patch['Content-Type'] = 'application/json';
 
 /*
 axios.interceptors.request.use(
@@ -44,8 +44,8 @@ export function get(url, params = {}) {
         resolve(res.data);
       })
       .catch(err => {
-        reject(err.data)
-      })
+        reject(err.data);
+      });
   });
 }
 
@@ -62,8 +62,8 @@ export function post(url, params, data) {
         resolve(res.data);
       })
       .catch(err => {
-        reject(err.data)
-      })
+        reject(err.data);
+      });
   });
 }
 
@@ -83,8 +83,8 @@ export function deleteData(url, data, header) {
         resolve(res.data);
       })
       .catch(err => {
-        reject(err.data)
-      })
+        reject(err.data);
+      });
   });
 }
 
@@ -101,7 +101,7 @@ export function patch(url, params) {
         resolve(res.data);
       })
       .catch(err => {
-        reject(err.data)
-      })
+        reject(err.data);
+      });
   });
 }
