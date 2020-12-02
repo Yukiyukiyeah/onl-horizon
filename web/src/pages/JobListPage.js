@@ -183,7 +183,7 @@ const JobList = (props) => {
         </div>
       </Row>
 
-      <Row className="table-wrapper">
+      <div className="table-wrapper">
         <Table
           rowSelection={rowSelection}
           columns={columns}
@@ -195,7 +195,7 @@ const JobList = (props) => {
             };
           }}
         />
-      </Row>
+      </div>
     </div>
   );
 };
