@@ -251,7 +251,7 @@ class App extends Component {
     return (
       <div id="parent-area">
         <BackTop />
-        <div id="content-wrap">
+        <div>
           {
             this.renderContent()
           }
