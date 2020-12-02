@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-transition-group';
-import '../styles/Modal.scss'
+import '../styles/Modal.scss';
+
 const Modal = (props) => {
   let button;
   if (props.btnType === 1) {
@@ -17,6 +18,7 @@ const Modal = (props) => {
       </div>);
 
   }
+
   return (
     <ReactCSSTransitionGroup
       transitionName="slide"
