@@ -10,7 +10,7 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name),
-    scopedSlots: {customRender: 'name'}
+    render: text => <a>{text}</a>,
   },
   {
     title: 'Type',
@@ -77,7 +77,7 @@ const columnReflect = [
 const columnConvert = new Map(columnReflect);
 const keyToJobId = new Map();
 
-const JobList = () => {
+const JobList = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -147,12 +147,16 @@ const JobList = () => {
         setSelectedRowKeys([]);
       });
   };
-  useEffect(() => {
-    loadJobList();
-  }, []);
+
   const showModalView = () => {
 
   };
+  const handleJobNameClick = (id) => {
+    props.history.push({pathname:'/jobs/detail/'+id});
+  };
+  useEffect(() => {
+    loadJobList();
+  }, []);
   const funcZone = (
     <div className="func-zone" onClick={showModalView}>
       <Button type="default" id="0" className="stop-btn btn" disabled>
@@ -169,6 +173,7 @@ const JobList = () => {
       </Button>
     </div>);
 
+
   return (
     <div className="jobList-container">
       <Row justify="space-between">
@@ -177,10 +182,20 @@ const JobList = () => {
           {funcZone}
         </div>
       </Row>
-      <div className="table-wrapper">
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} loading={loading} />
-      </div>
 
+      <Row className="table-wrapper">
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          loading={loading}
+          onRow={record => {
+            return {
+              onClick: () => {handleJobNameClick(record.jobId);} // 点击行
+            };
+          }}
+        />
+      </Row>
     </div>
   );
 };
