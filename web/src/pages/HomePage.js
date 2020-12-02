@@ -16,7 +16,7 @@ const HomePage = () => {
         <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>
       </Row>
     </div>
-  )
-}
+  );
+};
 
 export default HomePage;

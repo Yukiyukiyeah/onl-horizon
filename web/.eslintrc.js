@@ -19,5 +19,10 @@ module.exports = {
   ],
   "rules": {
     "indent": ["error", 2],
+    "semi": 2,
+    "no-trailing-spaces": 1,
+    "no-irregular-whitespace": 0,
+    "comma-spacing": [2, {'before': false, 'after': true}],
+    "no-spaced-func": 2,
   }
 };

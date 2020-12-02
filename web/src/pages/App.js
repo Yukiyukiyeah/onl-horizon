@@ -212,9 +212,10 @@ class App extends Component {
             <Content
               className="site-layout-background"
               style={{
-                padding: 24,
+                padding: '50px 50px 0 50px',
                 margin: 0,
                 minHeight: 300,
+                overflow: 'auto'
               }}
             >
               <Switch>
