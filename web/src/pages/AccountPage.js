@@ -25,7 +25,7 @@ class AccountPage extends React.Component {
           accessToken: response.accessToken,
           tokenType: response.tokenType,
           scopes: response.scopes.toString(),
-          expiresOn: response.expiresOn.toTimeString(),
+          expiresOn: response.expiresOn.toString(),
         });
       });
   }

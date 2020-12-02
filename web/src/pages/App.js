@@ -213,7 +213,7 @@ class App extends Component {
             <Content
               className="site-layout-background"
               style={{
-                padding: '64px 64px 64px 64px',
+                padding: 64,
                 margin: 0,
                 minHeight: 300,
                 overflow: 'auto'
