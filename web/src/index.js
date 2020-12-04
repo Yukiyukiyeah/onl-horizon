@@ -5,6 +5,7 @@ import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from "./pages/Landing";
+import b2cPolicies from "./auth/policies";
 
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
@@ -13,8 +14,10 @@ import { PublicClientApplication } from "@azure/msal-browser";
 // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/46886ff0856ce02e0d2113525ccb05bb68f92a93/lib/msal-browser/docs/configuration.md
 const configuration = {
   auth: {
-    clientId: "d0984d5d-b8cf-42b9-9002-3a11685c34d6",
-    redirectUri: "http://localhost:2000/home", //defaults to application start page
+    clientId: "170cd5f3-4611-4882-a714-235c1390b138",
+    authority: b2cPolicies.authorities.signUpSignIn.authority,
+    knownAuthorities: [b2cPolicies.authorityDomain],
+    redirectUri: "http://localhost:2000", //defaults to application start page
     postLogoutRedirectUri: "http://localhost:2000",
   },
   cache: {

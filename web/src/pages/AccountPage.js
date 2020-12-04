@@ -22,10 +22,10 @@ class AccountPage extends React.Component {
     Setting.getAccountToken(this.context)
       .then((response) => {
         this.setState({
-          accessToken: response.accessToken,
-          tokenType: response.tokenType,
-          scopes: response.scopes.toString(),
-          expiresOn: response.expiresOn.toString(),
+          idToken: response.idToken,
+          idTokenClaims: JSON.stringify(response.idTokenClaims, null, 2),
+          scopes: JSON.stringify(response.scopes, null, 2),
+          uniqueId: response.uniqueId,
         });
       });
   }
@@ -38,17 +38,18 @@ class AccountPage extends React.Component {
 
     return (
       <div>
-        <Descriptions title="Account" bordered>
+        <Descriptions title="Account" bordered column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}>
           <Descriptions.Item label="Name">{account.name}</Descriptions.Item>
-          <Descriptions.Item label="Email">{account.username}</Descriptions.Item>
+          <Descriptions.Item label="Username">{account.username}</Descriptions.Item>
           <Descriptions.Item label="Home Account ID">{account.homeAccountId}</Descriptions.Item>
           <Descriptions.Item label="Local Account ID">{account.localAccountId}</Descriptions.Item>
           <Descriptions.Item label="Tenant ID">{account.tenantId}</Descriptions.Item>
           <Descriptions.Item label="Environment">{account.environment}</Descriptions.Item>
-          <Descriptions.Item label="Token Type">{this.state.tokenType}</Descriptions.Item>
+          <Descriptions.Item label="Token Type">ID Token</Descriptions.Item>
           <Descriptions.Item label="Scopes">{this.state.scopes}</Descriptions.Item>
-          <Descriptions.Item label="Expires On">{this.state.expiresOn}</Descriptions.Item>
-          <Descriptions.Item label="Access Token">{this.state.accessToken}</Descriptions.Item>
+          <Descriptions.Item label="Unique ID">{this.state.uniqueId}</Descriptions.Item>
+          <Descriptions.Item label="ID Token Claims" span={3}><pre>{this.state.idTokenClaims}</pre></Descriptions.Item>
+          <Descriptions.Item label="ID Token" span={3}>{this.state.idToken}</Descriptions.Item>
         </Descriptions>
       </div>
     );

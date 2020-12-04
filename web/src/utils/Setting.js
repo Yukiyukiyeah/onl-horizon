@@ -81,5 +81,6 @@ export function getAccountToken(context) {
   return context.instance.acquireTokenSilent({
     // scopes: ["User.Read"],
     account: account,
+    forceRefresh: false,
   });
 }
