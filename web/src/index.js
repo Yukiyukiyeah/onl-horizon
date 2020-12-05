@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from "./pages/Landing";
 
-import { MsalProvider } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@hsluoyz/msal-react";
+import { PublicClientApplication } from "@hsluoyz/msal-browser";
 import {msalConfig} from "./auth/authConfig";
 
 const pca = new PublicClientApplication(msalConfig);

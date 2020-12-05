@@ -42,24 +42,12 @@
     lodash "^4.17.15"
     resize-observer-polyfill "^1.5.0"
 
-"@azure/msal-browser@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.npm.taobao.org/@azure/msal-browser/download/@azure/msal-browser-2.7.0.tgz#4033731f8d9465e2cb731edb8c7082580360f38d"
-  integrity sha1-QDNzH42UZeLLcx7bjHCCWANg840=
-  dependencies:
-    "@azure/msal-common" "^1.7.2"
-
 "@azure/msal-common@^1.7.2":
   version "1.7.2"
   resolved "https://registry.npm.taobao.org/@azure/msal-common/download/@azure/msal-common-1.7.2.tgz#b0061367efbfd459ebd11f6851ff36121db3278c"
   integrity sha1-sAYTZ++/1Fnr0R9oUf82Eh2zJ4w=
   dependencies:
     debug "^4.1.1"
-
-"@azure/msal-react@^1.0.0-alpha.0":
-  version "1.0.0-alpha.0"
-  resolved "https://registry.npm.taobao.org/@azure/msal-react/download/@azure/msal-react-1.0.0-alpha.0.tgz#739cc21c18f98068502b9880847f0e9adc845187"
-  integrity sha1-c5zCHBj5gGhQK5iAhH8OmtyEUYc=
 
 "@babel/code-frame@7.10.4", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.5.5":
   version "7.10.4"
@@ -1259,6 +1247,18 @@
   integrity sha1-aNk1+j6uf91asNf5U/MgXYsr/Ck=
   dependencies:
     "@hapi/hoek" "^8.3.0"
+
+"@hsluoyz/msal-browser@^2.7.3":
+  version "2.7.3"
+  resolved "https://registry.npm.taobao.org/@hsluoyz/msal-browser/download/@hsluoyz/msal-browser-2.7.3.tgz?cache=0&sync_timestamp=1607143978835&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hsluoyz%2Fmsal-browser%2Fdownload%2F%40hsluoyz%2Fmsal-browser-2.7.3.tgz#e5bfc26333aacd9dbd159b7fbb32a30569c444f0"
+  integrity sha1-5b/CYzOqzZ29FZt/uzKjBWnERPA=
+  dependencies:
+    "@azure/msal-common" "^1.7.2"
+
+"@hsluoyz/msal-react@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.npm.taobao.org/@hsluoyz/msal-react/download/@hsluoyz/msal-react-1.0.0-alpha.1.tgz?cache=0&sync_timestamp=1607140595570&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hsluoyz%2Fmsal-react%2Fdownload%2F%40hsluoyz%2Fmsal-react-1.0.0-alpha.1.tgz#1dc20e1ea31b57a3e3fd166a8c5444e448a77728"
+  integrity sha1-HcIOHqMbV6Pj/RZqjFRE5Eindyg=
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"

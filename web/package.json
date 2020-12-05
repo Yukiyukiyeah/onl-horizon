@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
-    "@azure/msal-browser": "^2.7.0",
-    "@azure/msal-react": "^1.0.0-alpha.0",
+    "@hsluoyz/msal-browser": "^2.7.3",
+    "@hsluoyz/msal-react": "^1.0.0-alpha.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

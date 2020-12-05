@@ -10,7 +10,7 @@ import JobListPage from "./JobListPage";
 import AccountPage from "./AccountPage";
 import JobDetail from "./JobDetailPage";
 
-import {MsalContext} from "@azure/msal-react";
+import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";
 
 const { Header, Sider, Content, Footer } = Layout;
