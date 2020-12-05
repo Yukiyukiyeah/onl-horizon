@@ -32,18 +32,35 @@ axios.interceptors.request.use(
     }
 )*/
 
+function getAxiosConfig(params, data) {
+  const authHeader = getAuthorizationHeader();
+  let res = {};
+
+  if (authHeader !== "") {
+    res.headers = {"Authorization": authHeader};
+  }
+  if (params !== null) {
+    res.params = params;
+  }
+  if (data !== null) {
+    res.data = data;
+  }
+  if (data !== null) {
+    res.data = data;
+  }
+
+  return res;
+}
+
 /**
  * get method
  * @param {String} url [request url]
  * @param {Object} params [request parameters]
  */
+
 export function get(url, params = {}) {
   return new Promise((resolve, reject) => {
-    const authHeader = getAuthorizationHeader();
-    axios.get(url, authHeader === "" ?
-      {params: params} :
-      {params: params, headers: {"Authorization": authHeader}}
-    )
+    axios.get(url, getAxiosConfig(params))
       .then(res => {
         resolve(res.data);
       })
@@ -61,7 +78,7 @@ export function get(url, params = {}) {
 
 export function post(url, params, data) {
   return new Promise((resolve, reject) => {
-    axios.post(url, params, data)
+    axios.post(url, data, getAxiosConfig(params))
       .then(res => {
         resolve(res.data);
       })
@@ -77,12 +94,10 @@ export function post(url, params, data) {
  * @param {Object} params [request parameters]
  */
 
+// eslint-disable-next-line no-unused-vars
 export function deleteData(url, data, header) {
   return new Promise((resolve, reject) => {
-    axios.delete(url, {
-      data: data,
-      header: header
-    })
+    axios.delete(url, getAxiosConfig(null, data))
       .then(res => {
         resolve(res.data);
       })
@@ -100,7 +115,7 @@ export function deleteData(url, data, header) {
 
 export function patch(url, params) {
   return new Promise((resolve, reject) => {
-    axios.patch(url, params)
+    axios.patch(url, getAxiosConfig(params))
       .then(res => {
         resolve(res.data);
       })
