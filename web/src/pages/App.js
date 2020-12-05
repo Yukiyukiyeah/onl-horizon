@@ -8,9 +8,10 @@ import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
 import AccountPage from "./AccountPage";
+import JobDetail from "./JobDetailPage";
 
 import {MsalContext} from "@azure/msal-react";
-import JobDetail from "./JobDetailPage";
+import {loginRequest} from "../auth/authConfig";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -47,7 +48,7 @@ class App extends Component {
   }
 
   login() {
-    this.context.instance.loginRedirect();
+    this.context.instance.loginRedirect(loginRequest);
   }
 
   logout() {

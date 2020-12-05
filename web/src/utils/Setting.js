@@ -1,5 +1,6 @@
 import {message} from "antd";
 import {isMobile as isMobileDevice} from "react-device-detect";
+import {tokenRequest} from "../auth/authConfig";
 
 export let ServerUrl = '';
 
@@ -78,9 +79,7 @@ export function getAccountToken(context) {
     // return null;
   }
 
-  return context.instance.acquireTokenSilent({
-    // scopes: ["User.Read"],
-    account: account,
-    forceRefresh: false,
-  });
+  let request = tokenRequest;
+  request.account = account;
+  return context.instance.acquireTokenSilent(request);
 }
