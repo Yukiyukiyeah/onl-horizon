@@ -48,7 +48,15 @@ class App extends Component {
   }
 
   login() {
-    this.context.instance.loginRedirect(loginRequest);
+    this.context.instance.loginPopup(loginRequest)
+      .then(() => {
+        // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
+        window.location.reload();
+        // this.props.history.push(window.location.url);
+      })
+      .catch(error => {
+        Setting.showMessage("error", `Siging in failed: ${error}`);
+      });
   }
 
   logout() {
@@ -56,7 +64,10 @@ class App extends Component {
       account: Setting.getAccount(this.context)
     };
 
-    this.context.instance.logout(logoutRequest);
+    this.context.instance.logout(logoutRequest)
+      .then(() => {
+        // Setting.showMessage("success", `Signed out successfully, return to homepage page..`);
+      });
 
     // AccountBackend.logout()
     //   .then((res) => {

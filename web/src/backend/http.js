@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {getAuthorizationHeader} from "../utils/Setting";
+
 /* change the base url based on the environment
 if (process.env.NODE_END == 'development') {
     axios.defaults.baseURL = ''
@@ -37,9 +39,11 @@ axios.interceptors.request.use(
  */
 export function get(url, params = {}) {
   return new Promise((resolve, reject) => {
-    axios.get(url, {
-      params: params
-    })
+    const authHeader = getAuthorizationHeader();
+    axios.get(url, authHeader === "" ?
+      {params: params} :
+      {params: params, headers: {"Authorization": authHeader}}
+    )
       .then(res => {
         resolve(res.data);
       })

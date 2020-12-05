@@ -1,8 +1,11 @@
 import {message} from "antd";
 import {isMobile as isMobileDevice} from "react-device-detect";
-import {tokenRequest} from "../auth/authConfig";
+import {PublicClientApplication} from "@hsluoyz/msal-browser";
+import {msalConfig} from "../auth/authConfig";
 
 export let ServerUrl = '';
+
+export const pca = new PublicClientApplication(msalConfig);
 
 export function initServerUrl() {
   const hostname = window.location.hostname;
@@ -72,14 +75,16 @@ export function getAccount(context) {
   }
 }
 
-export function getAccountToken(context) {
-  const account = getAccount(context);
-  if (account === null) {
-    return Promise.resolve(undefined);
-    // return null;
+export function getAuthorizationHeader() {
+  const accounts = pca.getAllAccounts();
+  if (accounts.length === 0) {
+    return "";
   }
 
-  let request = tokenRequest;
-  request.account = account;
-  return context.instance.acquireTokenSilent(request);
+  const account = accounts[0];
+  if (account === null) {
+    return "";
+  } else {
+    return `Bearer ${account.rawToken}`;
+  }
 }

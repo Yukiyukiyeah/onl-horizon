@@ -7,10 +7,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from "./pages/Landing";
 
 import { MsalProvider } from "@hsluoyz/msal-react";
-import { PublicClientApplication } from "@hsluoyz/msal-browser";
-import {msalConfig} from "./auth/authConfig";
-
-const pca = new PublicClientApplication(msalConfig);
+import {pca} from "./utils/Setting";
 
 ReactDOM.render(
   <MsalProvider instance={pca}>
