@@ -1,24 +1,7 @@
 import React from "react";
 import {Row} from "antd";
 import InfoCard from "../components/InfoCard";
-import {
-  AzureMap,
-  AzureMapDataSourceProvider,
-  AzureMapFeature,
-  AzureMapLayerProvider,
-  AzureMapsProvider
-} from "react-azure-maps";
-import {AuthenticationType, data} from "azure-maps-control";
-
-const option = {
-  center: [118.78600, 32.06143],
-  zoom: 4,
-  language: 'en-US',
-  authOptions: {
-    authType: AuthenticationType.subscriptionKey,
-    subscriptionKey: "56h1VZlW1nIIXQNiNaLKyHpeO5sEwsFDq4b-JSTWXS0",
-  },
-};
+import BingMapsReact from "@hsluoyz/bingmaps-react";
 
 const points = [
   {lng: 116.404, lat: 39.915, label: "PKU & MSRA"},
@@ -30,20 +13,18 @@ const points = [
 ];
 
 const renderPoint = (point) => {
-  const rendId = Math.random();
-
-  return (
-    <AzureMapFeature
-      key={rendId}
-      id={rendId.toString()}
-      type="Point"
-      coordinate={new data.Position(point.lng, point.lat)}
-      properties={{
-        title: point.label,
-        // icon: 'pin-round-blue',
-      }}
-    />
-  );
+  return {
+    center: {
+      latitude: point.lat,
+      longitude: point.lng,
+    },
+    options: {
+      enableHoverStyle: true,
+      title: point.label,
+      // subTitle: "With Infobox"
+    },
+    metadata: { title: point.label, description: "description" }
+  };
 };
 
 const HomePage = () => {
@@ -52,6 +33,76 @@ const HomePage = () => {
   const serverAry = ['Available', 'Busy', 'Error'];
   const serverValAry = ['20', '4', '0'];
 
+  const renderMap = () => {
+    const pushPinsWithInfoboxes = points.map((point) => renderPoint(point));
+
+    const customMapStyle = {
+      "version": "1.0",
+      "settings": {
+        "landColor": "#e7e6e5",
+        "shadedReliefVisible": false
+      },
+      "elements": {
+        "vegetation": {
+          "fillColor": "#c5dea2"
+        },
+        "naturalPoint": {
+          "visible": false,
+          "labelVisible": false
+        },
+        "transportation": {
+          "labelOutlineColor": "#ffffff",
+          "fillColor": "#ffffff",
+          "strokeColor": "#d7d6d5"
+        },
+        "water": {
+          "fillColor": "#b1bdd6",
+          "labelColor": "#ffffff",
+          "labelOutlineColor": "#9aa9ca"
+        },
+        "structure": {
+          "fillColor": "#d7d6d5"
+        },
+        "indigenousPeoplesReserve": {
+          "visible": false
+        },
+        "military": {
+          "visible": false
+        }
+      }
+    };
+
+    return (
+      <div key="bingMap" className="map__card">
+        <BingMapsReact
+          bingMapsKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
+          height="500px"
+          mapOptions={{
+            navigationBarMode: "square",
+            supportedMapTypes: [
+              "aerial",
+              "canvasDark",
+              "canvasLight",
+              "birdseye",
+              "grayscale",
+              "road",
+              "streetside"
+            ],
+            customMapStyle: customMapStyle,
+          }}
+          viewOptions={{
+            center: { latitude: 32.0614, longitude: 110.78600 },
+            zoom: 5,
+            mapTypeId: "canvasLight",
+            // mapTypeId: "road",
+            heading: 0,
+          }}
+          pushPinsWithInfoboxes={pushPinsWithInfoboxes}
+        />
+      </div>
+    );
+  };
+
   return (
     <div style={{margin: 24 - 60}}>
       <Row style={{margin: "20px"}} justify="space-around" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
@@ -59,46 +110,9 @@ const HomePage = () => {
         <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
         <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>
       </Row>
-      <AzureMapsProvider>
-        <div style={{height: "500px"}}>
-          <AzureMap options={option}>
-            <AzureMapDataSourceProvider id="markersExample AzureMapDataSourceProvider">
-              {
-                points.map((point) => renderPoint(point))}
-              }
-              <AzureMapLayerProvider
-                id={'markersExample AzureMapLayerProvider'}
-                options={{
-                  textOptions: {
-                    textField: ['get', 'title'], //Specify the property name that contains the text you want to appear with the symbol.
-                    offset: [0, 1.2],
-                  },
-                }}
-                // events={{
-                //   click: clusterClicked,
-                //   dbclick: clusterClicked,
-                // }}
-                lifecycleEvents={{
-                  layeradded: () => {
-                    console.log('LAYER ADDED TO MAP');
-                  },
-                }}
-                type={"SymbolLayer"}
-              />
-              {/*<AzureMapFeature*/}
-              {/*  key={1}*/}
-              {/*  id={"1"}*/}
-              {/*  type="Point"*/}
-              {/*  coordinate={[118.78600, 32.06143]}*/}
-              {/*  properties={{*/}
-              {/*    title: 'Pin',*/}
-              {/*    icon: 'pin-round-blue',*/}
-              {/*  }}*/}
-              {/*/>*/}
-            </AzureMapDataSourceProvider>
-          </AzureMap>
-        </div>
-      </AzureMapsProvider>
+      {
+        renderMap()
+      }
     </div>
   );
 };
