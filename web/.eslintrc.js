@@ -24,5 +24,6 @@ module.exports = {
     "no-irregular-whitespace": 0,
     "comma-spacing": [2, {'before': false, 'after': true}],
     "no-spaced-func": 2,
+    "no-unused-vars": 0,
   }
 };
