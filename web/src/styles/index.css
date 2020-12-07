@@ -21,3 +21,11 @@ code {
   margin: 13px 10px 16px 20px;
   float: left;
 }
+
+.bingLogoLight {
+  display: none !important;
+}
+
+.CopyrightContainer {
+  display: none !important;
+}

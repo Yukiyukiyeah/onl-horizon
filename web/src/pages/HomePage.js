@@ -29,7 +29,6 @@ const HomePage = () => {
 
   const renderMap = () => {
     const infoboxesWithPushPins = points.map((point) => renderPoint(point));
-    // const pushPinsWithInfoboxes = points.map((point) => renderPoint(point));
 
     const customMapStyle = {
       "version": "1.0",
@@ -74,34 +73,23 @@ const HomePage = () => {
           center={[32.0614, 110.78600]}
           zoom={5}
           infoboxesWithPushPins={infoboxesWithPushPins}
-          mapOptions={{navigationBarMode: 3}}
+          mapOptions={{
+            navigationBarMode: 3,
+            customMapStyle: customMapStyle,
+          }}
+          supportedMapTypes={
+            [
+              "aerial",
+              "canvasDark",
+              "canvasLight",
+              "birdseye",
+              "grayscale",
+              "road",
+              "streetside"
+            ]
+          }
         >
         </ReactBingmaps>
-        {/*<BingMapsReact*/}
-        {/*  bingMapsKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"*/}
-        {/*  height="500px"*/}
-        {/*  mapOptions={{*/}
-        {/*    navigationBarMode: "square",*/}
-        {/*    supportedMapTypes: [*/}
-        {/*      "aerial",*/}
-        {/*      "canvasDark",*/}
-        {/*      "canvasLight",*/}
-        {/*      "birdseye",*/}
-        {/*      "grayscale",*/}
-        {/*      "road",*/}
-        {/*      "streetside"*/}
-        {/*    ],*/}
-        {/*    customMapStyle: customMapStyle,*/}
-        {/*  }}*/}
-        {/*  viewOptions={{*/}
-        {/*    center: { latitude: 32.0614, longitude: 110.78600 },*/}
-        {/*    zoom: 5,*/}
-        {/*    mapTypeId: "canvasLight",*/}
-        {/*    // mapTypeId: "road",*/}
-        {/*    heading: 0,*/}
-        {/*  }}*/}
-        {/*  pushPinsWithInfoboxes={pushPinsWithInfoboxes}*/}
-        {/*/>*/}
       </div>
     );
   };
