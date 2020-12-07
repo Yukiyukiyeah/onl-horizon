@@ -1,7 +1,7 @@
 import React from "react";
 import {Row} from "antd";
 import InfoCard from "../components/InfoCard";
-import BingMapsReact from "@hsluoyz/bingmaps-react";
+import {ReactBingmaps} from "react-bingmaps-vnext";
 
 const points = [
   {lng: 116.404, lat: 39.915, label: "PKU & MSRA"},
@@ -14,16 +14,10 @@ const points = [
 
 const renderPoint = (point) => {
   return {
-    center: {
-      latitude: point.lat,
-      longitude: point.lng,
-    },
-    options: {
-      enableHoverStyle: true,
-      title: point.label,
-      // subTitle: "With Infobox"
-    },
-    metadata: { title: point.label, description: "description" }
+    "location":[point.lat, point.lng],
+    "addHandler":"mouseover", //on mouseover the pushpin, infobox shown
+    "infoboxOption": { title: point.label, description: 'description' },
+    "pushPinOption":{ title: point.label },
   };
 };
 
@@ -34,7 +28,8 @@ const HomePage = () => {
   const serverValAry = ['20', '4', '0'];
 
   const renderMap = () => {
-    const pushPinsWithInfoboxes = points.map((point) => renderPoint(point));
+    const infoboxesWithPushPins = points.map((point) => renderPoint(point));
+    // const pushPinsWithInfoboxes = points.map((point) => renderPoint(point));
 
     const customMapStyle = {
       "version": "1.0",
@@ -73,32 +68,40 @@ const HomePage = () => {
     };
 
     return (
-      <div key="bingMap" className="map__card">
-        <BingMapsReact
-          bingMapsKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
-          height="500px"
-          mapOptions={{
-            navigationBarMode: "square",
-            supportedMapTypes: [
-              "aerial",
-              "canvasDark",
-              "canvasLight",
-              "birdseye",
-              "grayscale",
-              "road",
-              "streetside"
-            ],
-            customMapStyle: customMapStyle,
-          }}
-          viewOptions={{
-            center: { latitude: 32.0614, longitude: 110.78600 },
-            zoom: 5,
-            mapTypeId: "canvasLight",
-            // mapTypeId: "road",
-            heading: 0,
-          }}
-          pushPinsWithInfoboxes={pushPinsWithInfoboxes}
-        />
+      <div key="bingMap" className="map__card" style={{height: "500px"}}>
+        <ReactBingmaps
+          bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
+          center={[32.0614, 110.78600]}
+          zoom={5}
+          navigationBarMode={"square"}
+          infoboxesWithPushPins = {infoboxesWithPushPins}
+        >
+        </ReactBingmaps>
+        {/*<BingMapsReact*/}
+        {/*  bingMapsKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"*/}
+        {/*  height="500px"*/}
+        {/*  mapOptions={{*/}
+        {/*    navigationBarMode: "square",*/}
+        {/*    supportedMapTypes: [*/}
+        {/*      "aerial",*/}
+        {/*      "canvasDark",*/}
+        {/*      "canvasLight",*/}
+        {/*      "birdseye",*/}
+        {/*      "grayscale",*/}
+        {/*      "road",*/}
+        {/*      "streetside"*/}
+        {/*    ],*/}
+        {/*    customMapStyle: customMapStyle,*/}
+        {/*  }}*/}
+        {/*  viewOptions={{*/}
+        {/*    center: { latitude: 32.0614, longitude: 110.78600 },*/}
+        {/*    zoom: 5,*/}
+        {/*    mapTypeId: "canvasLight",*/}
+        {/*    // mapTypeId: "road",*/}
+        {/*    heading: 0,*/}
+        {/*  }}*/}
+        {/*  pushPinsWithInfoboxes={pushPinsWithInfoboxes}*/}
+        {/*/>*/}
       </div>
     );
   };

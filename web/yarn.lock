@@ -1248,18 +1248,6 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@hsluoyz/bingmaps-react@^0.4.10":
-  version "0.4.10"
-  resolved "https://registry.npm.taobao.org/@hsluoyz/bingmaps-react/download/@hsluoyz/bingmaps-react-0.4.10.tgz?cache=0&sync_timestamp=1607268792746&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hsluoyz%2Fbingmaps-react%2Fdownload%2F%40hsluoyz%2Fbingmaps-react-0.4.10.tgz#fb7d9260d123b66074f479b12734851023ca389f"
-  integrity sha1-+32SYNEjtmB09HmxJzSFECPKOJ8=
-  dependencies:
-    "@testing-library/jest-dom" "^5.11.6"
-    "@testing-library/react" "^11.2.2"
-    "@testing-library/user-event" "^12.5.0"
-    react "^17.0.1"
-    react-dom "^17.0.1"
-    react-scripts "4.0.1"
-
 "@hsluoyz/msal-browser@^2.7.3":
   version "2.7.3"
   resolved "https://registry.npm.taobao.org/@hsluoyz/msal-browser/download/@hsluoyz/msal-browser-2.7.3.tgz?cache=0&sync_timestamp=1607143978835&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hsluoyz%2Fmsal-browser%2Fdownload%2F%40hsluoyz%2Fmsal-browser-2.7.3.tgz#e5bfc26333aacd9dbd159b7fbb32a30569c444f0"
@@ -1666,7 +1654,7 @@
     lz-string "^1.4.4"
     pretty-format "^26.6.2"
 
-"@testing-library/jest-dom@^5.11.4", "@testing-library/jest-dom@^5.11.6":
+"@testing-library/jest-dom@^5.11.4":
   version "5.11.6"
   resolved "https://registry.npm.taobao.org/@testing-library/jest-dom/download/@testing-library/jest-dom-5.11.6.tgz#782940e82e5cd17bc0a36f15156ba16f3570ac81"
   integrity sha1-eClA6C5c0XvAo28VFWuhbzVwrIE=
@@ -1680,7 +1668,7 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react@^11.1.0", "@testing-library/react@^11.2.2":
+"@testing-library/react@^11.1.0":
   version "11.2.2"
   resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-11.2.2.tgz#099c6c195140ff069211143cb31c0f8337bdb7b7"
   integrity sha1-CZxsGVFA/waSERQ8sxwPgze9t7c=
@@ -1688,7 +1676,7 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^7.28.1"
 
-"@testing-library/user-event@^12.1.10", "@testing-library/user-event@^12.5.0":
+"@testing-library/user-event@^12.1.10":
   version "12.5.0"
   resolved "https://registry.npm.taobao.org/@testing-library/user-event/download/@testing-library/user-event-12.5.0.tgz#7c6f69cee4dbd11037ac9c3f62c5d81b9a4ccf30"
   integrity sha1-fG9pzuTb0RA3rJw/YsXYG5pMzzA=
@@ -9824,6 +9812,14 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-bingmaps-vnext@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-bingmaps-vnext/-/react-bingmaps-vnext-1.0.4.tgz#a809f907d8cc9803646359bead56a020b9dc63e5"
+  integrity sha512-Ja8jHUxZYzCJ8m2uua6I9N1DERFHB5Ko0FcT+NgEiZhYywwnAvKN4P0JDoSzwDpglQHJyiLacYASrl20Wocrug==
+  dependencies:
+    classnames "^2.2.6"
+    react-dom "^16.8.6"
+
 react-dev-utils@^11.0.1:
   version "11.0.1"
   resolved "https://registry.npm.taobao.org/react-dev-utils/download/react-dev-utils-11.0.1.tgz?cache=0&sync_timestamp=1606110419281&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dev-utils%2Fdownload%2Freact-dev-utils-11.0.1.tgz#30106c2055acfd6b047d2dc478a85c356e66fe45"
@@ -9860,6 +9856,16 @@ react-device-detect@^1.14.0:
   integrity sha1-rov4z/hQVcAw+XqkkaDCsGxHJkQ=
   dependencies:
     ua-parser-js "^0.7.22"
+
+react-dom@^16.8.6:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
 
 react-dom@^17.0.1:
   version "17.0.1"
@@ -10543,6 +10549,14 @@ saxes@^5.0.0:
   integrity sha1-7rq5U/o7dgjb6U5drbFciI+maW0=
   dependencies:
     xmlchars "^2.2.0"
+
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.1:
   version "0.20.1"
