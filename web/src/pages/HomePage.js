@@ -14,10 +14,10 @@ const points = [
 
 const renderPoint = (point) => {
   return {
-    "location":[point.lat, point.lng],
-    "addHandler":"mouseover", //on mouseover the pushpin, infobox shown
-    "infoboxOption": { title: point.label, description: 'description' },
-    "pushPinOption":{ title: point.label },
+    "location": [point.lat, point.lng],
+    "addHandler": "mouseover", //on mouseover the pushpin, infobox shown
+    "infoboxOption": {title: point.label, description: 'description'},
+    "pushPinOption": {title: point.label},
   };
 };
 
@@ -73,8 +73,8 @@ const HomePage = () => {
           bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
           center={[32.0614, 110.78600]}
           zoom={5}
-          navigationBarMode={"square"}
-          infoboxesWithPushPins = {infoboxesWithPushPins}
+          infoboxesWithPushPins={infoboxesWithPushPins}
+          mapOptions={{navigationBarMode: 3}}
         >
         </ReactBingmaps>
         {/*<BingMapsReact*/}
