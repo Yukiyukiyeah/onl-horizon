@@ -55,7 +55,7 @@ class App extends Component {
         // this.props.history.push(window.location.url);
       })
       .catch(error => {
-        Setting.showMessage("error", `Siging in failed: ${error}`);
+        // Setting.showMessage("error", `Siging in failed: ${error}`);
       });
   }
 

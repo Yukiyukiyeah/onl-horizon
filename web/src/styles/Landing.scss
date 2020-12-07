@@ -8,9 +8,10 @@
 
   .bg-title {
     position: absolute;
-    top: 183px;
+    top: 133px;
     left: 174px;
-    font-size: 27px;
+    font-size: 70px;
+    font-weight: 700;
     color: #ffffff;
     z-index: 100;
   }
@@ -26,11 +27,10 @@
   }
 
   .login {
-    position: absolute;
-    top: 600px;
-    left: 50%;
-    margin-left: -125px;
-    width: 250px;
+    margin-top: 50px;
+    float: right;
+    //margin-left: -100px;
+    width: 200px;
     //height: 103px;
     z-index: 100;
     cursor: pointer;
