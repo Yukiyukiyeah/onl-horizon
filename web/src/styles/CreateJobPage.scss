@@ -1,6 +1,15 @@
 .create-job-container {
   position: relative;
-  padding-bottom: 200px;
+  padding-bottom: 0px;
+  .title {
+    width: 253px;
+    height: 80px;
+    max-height: 100px;
+    font-size: 48px;
+    line-height: 36px;
+    color: #0078d4;
+    font-weight: bold;
+  }
   .steps-container {
     width: 100%;
     min-width: 800px;
@@ -17,16 +26,6 @@
   .first-tab-container {
     position: relative;
     padding-bottom: 100px;
-    .title {
-      width: 253px;
-      height: 80px;
-      max-height: 100px;
-      font-size: 48px;
-      line-height: 36px;
-      color: #0078d4;
-      font-weight: bold;
-    }
-
     .name-input {
       width: 100%;
       min-width: 200px;
@@ -35,9 +34,7 @@
       background-color: #ffffff;
       border-radius: 3px;
       border: solid 1px #707070;
-
     }
-
     .sub-title {
       font-size: 14px;
       font-weight: bold;
@@ -45,12 +42,9 @@
       letter-spacing: 0px;
       color: #707070;
     }
-
     .type {
       margin-top: 50px;
-
     }
-
     .type-select {
       min-width: 200px;
       max-width: 1200px;
@@ -61,12 +55,10 @@
       background-color: #ffffff;
       border: solid 1px #707070;
     }
-
     .btn-row {
       position: absolute;
       bottom: 0px;
     }
-
     .btn {
       width: 108px;
       height: 32px;
@@ -75,7 +67,6 @@
       position: absolute;
       bottom: 0px;
     }
-
     .btn-text {
       width: 56px;
       height: 19px;
@@ -89,7 +80,6 @@
     .title-zone {
       width: 253px;
       height: 80px;
-
     }
     .title {
       width: 253px;
@@ -99,7 +89,6 @@
       color: #0078d4;
       font-weight: bold;
     }
-
     .sub-title {
       font-size: 14px;
       line-height: 19px;
@@ -144,6 +133,47 @@
       .row-container {
         margin-top: 50px;
       }
+    }
+  }
+  .third-tab-container {
+    .title-zone {
+      width: 253px;
+      height: 80px;
+    }
+    .sub-title {
+      font-size: 14px;
+      line-height: 0px;
+      letter-spacing: 0px;
+      color: #707070;
+      opacity: 0.5;
+    }
+    .content-zone {
+      margin-top: 50px;
+    }
+  }
+  .last-tab-container {
+    .container {
+      margin-top: 150px;
+    }
+    .taskName {
+      font-size: 18px;
+      color: #707070;
+      opacity: 0.5;
+      margin-top: 50px;
+    }
+    .status {
+      font-size: 20px;
+      font-weight: bold;
+      color: #707070;
+      margin-top: 10px;
+    }
+    .link-text {
+      font-size: 18px;
+      line-height: 24px;
+      letter-spacing: 0px;
+      color: #707070;
+      margin-top: 200px;
+
     }
   }
 
