@@ -8,7 +8,6 @@ const baseUrl = 'https://api.opennetlab.org/api';
 
 // create job
 export const sendCreateJobReq = (params = {}) => {
-  // const targetObj = Object.assign(params, createJobDefaultParams);
   for (const key of Object.keys(params)) {
     createJobDefaultParams[key] = params[key];
   }

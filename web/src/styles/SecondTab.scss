@@ -1,0 +1,73 @@
+.second-tab-container {
+  padding-bottom: 150px;
+  .title-zone {
+    width: 253px;
+    height: 80px;
+  }
+  .title {
+    width: 253px;
+    height: 48px;
+    font-size: 48px;
+    line-height: 36px;
+    color: #0078d4;
+    font-weight: bold;
+  }
+  .sub-title {
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 0.5;
+  }
+  .title-row {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 0px;
+    letter-spacing: 0px;
+    color: #707070;
+  }
+  .content-zone {
+    margin-top: 50px;
+  }
+  .input {
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: solid 1px #707070;
+  }
+  .default-width {
+    width: 200px;
+  }
+  .description-textarea {
+    width: 812px;
+    max-width: 50vw;
+    background-color: #ffffff;
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+  .config-row {
+    margin-top: 30px;
+  }
+  .alpha {
+    .bwe-select {
+      max-width: 260px;
+    }
+  }
+  .probing {
+    .row-container {
+      margin-top: 50px;
+    }
+  }
+  .steps-container {
+    width: 100%;
+    min-width: 800px;
+    max-width: 1500px;
+    position: absolute;
+    bottom: 0px;
+    button {
+      width: 100px;
+    }
+    .steps {
+      width: 600px;
+    }
+  }
+}

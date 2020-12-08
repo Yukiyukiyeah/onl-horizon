@@ -75,19 +75,17 @@ export function get(url, params = {}) {
  * @param {String} url [request url]
  * @param {Object} params [request parameters]
  */
-
-export function post(url, params, data) {
+export function post(url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, data, getAxiosConfig(params))
+    axios.post(url, getAxiosConfig(params))
       .then(res => {
         resolve(res.data);
       })
-      .catch(err => {
+      .catch(err =>{
         reject(err.data);
       });
   });
 }
-
 /**
  * deleteData method
  * @param {String} url [request url]
