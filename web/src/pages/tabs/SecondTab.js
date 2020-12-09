@@ -1,22 +1,103 @@
 import { Button, Col, Input, Row, Select, Steps } from "antd";
 import React, {useMemo, useState} from "react";
 import '../../styles/SecondTab.scss';
+import ValidError from "../../components/ValidError";
 const { Step } = Steps;
 const { Option } = Select;
 const { TextArea } = Input;
 
 const SecondTab = (props) => {
   const { handleNext, handlePrev, title, type } = props;
+  const [checkValid, setCheckValid] = useState(false);
   const [description, setDescription] = useState('');
-  // alphaRTC
+  // alphaRTC job config
   const [parties, setParties] = useState('2');
   const [experimentTime, setExperimentTime] = useState();
   const [expirationTime, setExpirationTime] = useState();
   // eslint-disable-next-line no-unused-vars
   const [model, setModel] = useState();
   const [bwe, setBwe] = useState();
-
-  // probing
+  const experimentTimeValid = useMemo(() => {
+    return !(!experimentTime || isNaN(experimentTime) || experimentTime > 600 || experimentTime < 30);
+  }, [experimentTime]);
+  const expirationTimeValid = useMemo(() => {
+    return !(!experimentTime || isNaN(experimentTime) || experimentTime > 6000 || experimentTime < 300);
+  }, [expirationTime]);
+  const bweValid = useMemo(() => {
+    return !(!bwe || isNaN(bwe) || bwe > 1000 || experimentTime < 10);
+  }, [bwe]);
+  const alphaNextValid = useMemo(() => {
+    return experimentTimeValid && experimentTimeValid && bweValid;
+  }, [expirationTimeValid, experimentTimeValid, bweValid]);
+  const alphaConfig = (
+    <div className="alpha">
+      <Row className="description">
+        <Col>
+          <p className="title-row">Description (optional)</p>
+          <TextArea
+            defaultValue={ description }
+            showCount
+            autoSize = {{ minRows: 2, maxRows: 6 }}
+            onChange={({ target: { value } }) => setDescription(value)}
+            className="description-textarea" maxLength={100}/>
+        </Col>
+      </Row>
+      <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+        <Col>
+          <p className="title-row">Participants</p>
+          <Select
+            disabled
+            className="default-width input"
+            onChange={(value) => setParties(value) }
+            defaultValue={parties}
+          >
+            <Option value="1">
+              1
+            </Option>
+          </Select>
+        </Col>
+        <Col>
+          <p className="title-row">Experiment Time (s)</p>
+          <Input
+            className="default-width input"
+            defaultValue={experimentTime}
+            onChange={ ({ target: { value } }) => setExperimentTime(value) }
+            placeholder="30-600">
+          </Input>
+          {checkValid && !experimentTimeValid  && <ValidError errorText={"Incorrect experiment time"}/>}
+        </Col>
+        <Col>
+          <p className="title-row">Expiration (s)</p>
+          <Input
+            defaultValue={ expirationTime }
+            className=" default-width input"
+            onChange={({ target: { value } }) => setExpirationTime(value)}
+            placeholder="300-6000">
+          </Input>
+          {checkValid && !expirationTimeValid && <ValidError errorText={"Incorrect expiration"}/>}
+        </Col>
+      </Row>
+      <Row className="third-row-config config-row">
+        <Col>
+          <p className="title-row">Model Upload (optional)</p>
+          <Input disabled className="file-path"/>
+        </Col>
+      </Row>
+      <Row className="fourth-row-config config-row">
+        <Col>
+          <p className="title-row">bwe-feedback-duration (s)</p>
+          <Input
+            defaultValue={bwe}
+            className="bwe-select input"
+            onChange={({ target: { value } }) => setBwe(value)}
+            placeholder="10-1000">
+          </Input>
+          {checkValid && !bweValid && <ValidError errorText={"Incorrect bwe"}/>}
+        </Col>
+      </Row>
+    </div>
+  );
+  // probing job Config
   const [interval, setInterval] = useState();
   const [buffer, setBuffer] = useState();
   const [probingTimeout, setProbingTimeout] = useState();
@@ -25,25 +106,36 @@ const SecondTab = (props) => {
   const [tcpWindowSize, setTcpWindowSize] = useState();
   const [mss, setMss] = useState();
   const [tcpControl, setTcpControl] = useState();
-
   // probing -> UDP
   const [bandwidth, setBandwidth] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [application, setApplication] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [jsonConfig, setJsonConfig] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [advancedTimeout, setAdvancedTimeout] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [hostChoice, setHostChoice] = useState(1);
-
-  const alphaRTCFullConfigDic = ['description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
-  const alphaRTCFullConfig = [description, parties, expirationTime, experimentTime, model, bwe];
-  const probingFullConfigDic = ['description', 'interval', 'bufferLen', 'probingTimeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
-  const probingFullConfig =    [description, interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
-  const advancedFullConfigDic = ['description', 'jsonConfig', 'application', 'timeout'];
-  const advancedFullConfig = [description, application, jsonConfig, advancedTimeout];
-
+  const intervalTimeValid = useMemo(() => {
+    return !(!interval || isNaN(interval) || interval > 10 || experimentTime < 1);
+  }, [interval]);
+  const bufferValid = useMemo(() => {
+    return !(!buffer || isNaN(buffer) || experimentTime > 1000 || experimentTime < 1);
+  }, [buffer]);
+  const probingTimeoutValid = useMemo(() => {
+    return !(!probingTimeout || isNaN(probingTimeout) || experimentTime > 60 || experimentTime < 1);
+  }, [probingTimeout]);
+  const tcpWindowSizeValid = useMemo(() => {
+    return !(!tcpWindowSize || isNaN(experimentTime) || experimentTime > 2048 || experimentTime < 1);
+  }, [tcpWindowSize]);
+  const mssValid = useMemo(() => {
+    return !(!mss || isNaN(mss) || mss > 65536 || mss < 1);
+  }, [mss]);
+  const bandwidthValid = useMemo(() => {
+    return !(!bandwidth || isNaN(bandwidth) || bandwidth > 100000 || experimentTime < 1);
+  }, [bandwidth]);
+  const probingNextValid = useMemo(() => {
+    const commonParamsValid = intervalTimeValid && bufferValid && probingTimeoutValid && !!mode;
+    if (commonParamsValid && mode === 'TCP') {
+      return tcpWindowSizeValid && mssValid && !!tcpControl;
+    }
+    if (commonParamsValid && mode === 'UDP') {
+      return bandwidthValid;
+    }
+    return false;
+  }, [mode, tcpControl, intervalTimeValid, bufferValid, probingTimeoutValid, tcpWindowSizeValid, mssValid, bandwidthValid ]);
   const tcpConfig = (
     <Row className="fourth-row-config config-row" style={{marginTop:'20PX'}} gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
       <Col>
@@ -54,6 +146,7 @@ const SecondTab = (props) => {
           onChange={ ({ target: { value } }) => setTcpWindowSize(value) }
           placeholder="1-2048"
         />
+        {checkValid && !tcpWindowSize  && <ValidError errorText={"Incorrect TCP window size"}/>}
       </Col>
       <Col>
         <p className="title-row">MSS</p>
@@ -63,6 +156,7 @@ const SecondTab = (props) => {
           onChange={ ({ target: { value } }) => setMss(value) }
           placeholder="1-65336">
         </Input>
+        {checkValid && !mssValid  && <ValidError errorText={"Incorrect mss"}/>}
       </Col>
       <Col>
         <p className="title-row">TCP Control</p>
@@ -81,10 +175,10 @@ const SecondTab = (props) => {
             Reno
           </Option>
         </Select>
+        {checkValid && !tcpControl  && <ValidError errorText={"Choose control method"}/>}
       </Col>
     </Row>
   );
-
   const udpConfig = (
     <Row className="fourth-row-config config-row">
       <Col>
@@ -95,17 +189,9 @@ const SecondTab = (props) => {
           onChange={ ({ target: { value } }) => setBandwidth(value) }
           placeholder="1-100000"
         />
+        {checkValid && !bandwidthValid  && <ValidError errorText={"Incorrect bandwidth"}/>}
       </Col>
     </Row>);
-
-  const curConfig =  useMemo(() => {
-    if (mode === 'TCP') {
-      return tcpConfig;
-    }
-    else  if (mode === 'UDP'){
-      return udpConfig;
-    }
-  }, [mode]);
   const probingConfig = (
     <div className="probing">
       <Row className="description">
@@ -128,6 +214,7 @@ const SecondTab = (props) => {
             onChange={ ({ target: { value } }) => setInterval(value) }
             placeholder="1-10"
           />
+          {checkValid && !intervalTimeValid  && <ValidError errorText={"Incorrect interval"}/>}
         </Col>
         <Col>
           <p className="title-row">Length of Buffer (KBytes)</p>
@@ -137,6 +224,7 @@ const SecondTab = (props) => {
             onChange={ ({ target: { value } }) => setBuffer(value) }
             placeholder="1-1000">
           </Input>
+          {checkValid && !bufferValid  && <ValidError errorText={"Incorrect buffer"}/>}
         </Col>
         <Col>
           <p className="title-row">Timeout (s)</p>
@@ -146,6 +234,7 @@ const SecondTab = (props) => {
             onChange={({ target: { value } }) => setProbingTimeout(value)}
             placeholder="1-60">
           </Input>
+          {checkValid && !probingTimeoutValid  && <ValidError errorText={"Incorrect timeout"}/>}
         </Col>
       </Row>
       <Row className="third-row-config config-row">
@@ -162,12 +251,20 @@ const SecondTab = (props) => {
               UDP
             </Option>
           </Select>
+          {checkValid && !mode  && <ValidError errorText={"Choose mode"}/>}
         </Col>
       </Row>
-      {curConfig}
-
+      {mode === 'TCP' && tcpConfig}
+      {mode === 'UDP' && udpConfig}
     </div>
   );
+  // advanced job config
+  const advancedValid = true;
+  // eslint-disable-next-line no-unused-vars
+  const [application, setApplication] = useState();
+  // eslint-disable-next-line no-unused-vars
+  const [jsonConfig, setJsonConfig] = useState();
+  const [advancedTimeout, setAdvancedTimeout] = useState();
   const advancedConfig = (
     <div className="probing">
       <Row className="description">
@@ -204,98 +301,53 @@ const SecondTab = (props) => {
           </Input>
         </Col>
       </Row>
+    </div>
+  );
 
-    </div>
-  );
-  const alphaConfig = (
-    <div className="alpha">
-      <Row className="description">
-        <Col>
-          <p className="title-row">Description (optional)</p>
-          <TextArea
-            defaultValue={ description }
-            showCount
-            autoSize = {{ minRows: 2, maxRows: 6 }}
-            onChange={({ target: { value } }) => setDescription(value)}
-            className="description-textarea" maxLength={100}/>
-        </Col>
-      </Row>
-      <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
-        <Col >
-          <p className="title-row">Participants</p>
-          <Select
-            disabled
-            className="default-width input"
-            onChange={(value) => setParties(value) }
-            defaultValue={parties}
-          >
-            <Option value="1">
-              1
-            </Option>
-          </Select>
-        </Col>
-        <Col>
-          <p className="title-row">Experiment Time (s)</p>
-          <Input
-            className="default-width input"
-            defaultValue={experimentTime}
-            onChange={ ({ target: { value } }) => setExperimentTime(value) }
-            placeholder="30-600">
-          </Input>
-        </Col>
-        <Col>
-          <p className="title-row">Expiration (s)</p>
-          <Input
-            defaultValue={ expirationTime }
-            className=" default-width input"
-            onChange={({ target: { value } }) => setExpirationTime(value)}
-            placeholder="300-6000">
-          </Input>
-        </Col>
-      </Row>
-      <Row className="third-row-config config-row">
-        <Col>
-          <p className="title-row">Model Upload (optional)</p>
-          <Input className="file-path"/>
-        </Col>
-      </Row>
-      <Row className="fourth-row-config config-row">
-        <Col>
-          <p className="title-row">bwe-feedback-duration (s)</p>
-          <Input
-            defaultValue={bwe}
-            className="bwe-select input"
-            onChange={({ target: { value } }) => setBwe(value)}
-            placeholder="10-1000">
-          </Input>
-        </Col>
-      </Row>
-    </div>
-  );
+  const alphaRTCFullConfigDic = ['description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
+  const alphaRTCFullConfig = [description, parties, expirationTime, experimentTime, model, bwe];
+  const probingFullConfigDic = ['description', 'interval', 'bufferLen', 'probingTimeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
+  const probingFullConfig =    [description, interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
+  const advancedFullConfigDic = ['description', 'jsonConfig', 'application', 'timeout'];
+  const advancedFullConfig = [description, application, jsonConfig, advancedTimeout];
   const onClickNext = () => {
     let config = {};
     if (type === 'AlphaRTC') {
+      if (!alphaNextValid) {
+        setCheckValid(true);
+        return;
+      }
       for (let i in alphaRTCFullConfigDic) {
         const key = alphaRTCFullConfigDic[i];
         const val = alphaRTCFullConfig[i];
         config[key] = val;
       }
+      handleNext(config);
     }
     else if (type === 'Probing') {
+      if (!probingNextValid) {
+        setCheckValid(true);
+        return;
+      }
       for (let i of probingFullConfig) {
         const key = probingFullConfigDic[i];
         const val = probingFullConfig[i];
         config[key] = val;
       }
+      handleNext(config);
     }
     else if (type === 'Advanced') {
+      if (!advancedValid)  {
+        setCheckValid(true);
+        return;
+      }
       for (let i of advancedFullConfig) {
         const key = advancedFullConfigDic[i];
         const val = advancedFullConfig[i];
         config[key] = val;
       }
+      handleNext(config);
     }
-    handleNext(config);
   };
   const steps = (
     <Steps className="steps" progressDot  current={1}>
@@ -319,6 +371,7 @@ const SecondTab = (props) => {
       </Col>
     </Row>
   );
+
   return (
     <Row className="second-tab-container" justify="center">
       <Col span={20}>
