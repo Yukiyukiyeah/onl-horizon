@@ -22,6 +22,7 @@ axios.defaults.timeout = 100000;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
 
+
 /*
 axios.interceptors.request.use(
     config => {
@@ -52,6 +53,13 @@ function getAxiosConfig(params, data) {
   return res;
 }
 
+const getHeaderToken = () => {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': getAuthorizationHeader()
+  };
+};
+
 /**
  * get method
  * @param {String} url [request url]
@@ -77,7 +85,9 @@ export function get(url, params = {}) {
  */
 export function post(url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, getAxiosConfig(params))
+    axios.post(url, params, {
+      headers: getHeaderToken()
+    })
       .then(res => {
         resolve(res.data);
       })

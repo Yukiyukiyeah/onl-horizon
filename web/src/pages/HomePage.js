@@ -1,5 +1,5 @@
 import React from "react";
-import {Row} from "antd";
+import {Row, Col} from "antd";
 import InfoCard from "../components/InfoCard";
 import {ReactBingmaps} from "react-bingmaps-vnext";
 
@@ -22,7 +22,7 @@ const renderPoint = (point) => {
 };
 
 const HomePage = () => {
-  const jobAry = ['Success', 'Fail', 'Running'];
+  const jobAry = ['Succeeded', 'Failed', 'Running'];
   const jobValAry = ['3', '1', '20/30'];
   const serverAry = ['Available', 'Busy', 'Error'];
   const serverValAry = ['20', '4', '0'];
@@ -96,14 +96,22 @@ const HomePage = () => {
 
   return (
     <div style={{margin: 24 - 60}}>
-      <Row style={{margin: "20px"}} justify="space-around" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
-        <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true}/>
-        <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
-        <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'}/>
+      <Row style={{margin: "20px"}} justify="space-around">
+        <Col flex="400px">
+          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true} width={500} height={765} showChart={true}/>
+        </Col>
+        <Col flex="auto" style={{marginLeft: "5vw"}}>
+          <Row> {renderMap()}
+          </Row>
+          <Row  style={{marginTop: "32px"}} >
+            <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
+            <div style={{marginLeft: "32px"}}>
+              <InfoCard keyAry={serverAry}   valueAry={serverValAry} title={'Servers'}/>
+            </div>
+          </Row>
+        </Col>
       </Row>
-      {
-        renderMap()
-      }
+
     </div>
   );
 };
