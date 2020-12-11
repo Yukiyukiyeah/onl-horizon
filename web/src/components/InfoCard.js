@@ -49,7 +49,7 @@ const InfoCard = (props) => {
           {title}
           {showChart && (<Link to="/jobs"><span className="link" style={{fontSize:14}}>{`Explore >>`} </span></Link>)}
         </Row>
-        {showChart && <Row style={{marginTop: 128, paddingBottom:64}}>
+        {showChart && <Row style={{marginTop: 84, paddingBottom:64}}>
           <Chart height={200} data={data} scale={cols} autoFit >
             <Coordinate type="theta" radius={0.75} />
             <Tooltip showTitle={false} />
