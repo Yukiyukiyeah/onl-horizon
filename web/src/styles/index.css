@@ -14,11 +14,11 @@ code {
 
 .logo {
   background: url("../assets/logo.png");
-  background-size: 168px, 40px;
-  width: 168px;
-  height: 32px;
+  background-size: 180px, 40px;
+  width: 180px;
+  height: 38px;
   /*background: rgba(0, 0, 0, 0.2);*/
-  margin: 13px 10px 16px 20px;
+  margin: 10px 10px 16px 20px;
   float: left;
 }
 
