@@ -22,12 +22,12 @@ const columns = [
   {
     title: 'Running time',
     dataIndex: 'duration',
-    sorter: (a, b) => a.duration.localeCompare(b.duration),
+    sorter: (a, b) =>  a.duration - b.duration
   },
   {
     title: 'Retires',
     dataIndex: 'retires',
-    sorter: (a, b) => a - b,
+    sorter: (a, b) => a.retires - b.retires
   },
   {
     title: 'Status',
@@ -42,7 +42,8 @@ const columns = [
   {
     title: 'Create Time',
     dataIndex: 'date',
-    sorter: (a, b) => a.date.localeCompare(b.date)
+    sorter: (a, b) => a.date.localeCompare(b.date),
+    defaultSortOrder: 'descend'
   }
 ];
 const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
@@ -140,7 +141,7 @@ const JobList = () => {
           const timezone = moment.tz.guess();
           const startDate = momenttz(utc).tz(timezone);
           const endDate = moment();
-          curJobInfo[tar] = endDate.diff(startDate, 'minutes') + ' minutes';
+          curJobInfo[tar] = endDate.diff(startDate, 'minutes');
         } else if (tar === 'date') {
           const utc = job['createTime'].slice(0, 19) + 'Z';
           const timezone = moment.tz.guess();

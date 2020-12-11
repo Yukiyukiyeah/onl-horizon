@@ -130,11 +130,9 @@ const JobDetail = (props) => {
   const handleModalCancel = () => {
     setShowModal(false);
   };
+  let history = useHistory();
   const handleBackBtn = () => {
-    let history = useHistory();
-    const handleJobNameClick = (id) => {
-      history.push({pathname:'/jobs/detail/'+id});
-    };
+    history.push({pathname:'/jobs'});
   };
   useEffect(() => {
     const id = props.match.params.id;
@@ -154,8 +152,8 @@ const JobDetail = (props) => {
         existTable={+btnId === 3 }
         data={downloadData}
       />
+      <Button className="back-btn" size="small" onClick={handleBackBtn}>{'< BACK'}</Button>
       <Row justify="space-between">
-        <Button onClick={handleBackBtn}></Button>
         <p className="title">Job Detail</p>
         <div className="func-wrapper">
           {funcZone}
