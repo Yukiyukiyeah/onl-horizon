@@ -6,14 +6,14 @@ const { Option } = Select;
 
 const FirstTab = (props) => {
   const [title, setTitle] = useState('');
-  const [type, setType] = useState('');
+  const [appType, setType] = useState('');
   const [checkValid, setCheckValid] = useState(false);
   const { handleNext } = props;
 
   const onClickNext = () => {
     const param = {
       'title': title,
-      'type': type
+      'appType': appType
     };
     if (nextValid) {
       handleNext(param);
@@ -26,8 +26,8 @@ const FirstTab = (props) => {
     return !(!title || title.length > 100);
   }, [title]);
   const nextValid = useMemo(() => {
-    return titleValid && !!type;
-  }, [titleValid, type]);
+    return titleValid && !!appType;
+  }, [titleValid, appType]);
 
   return (
     <div className="first-tab-container">
@@ -41,19 +41,19 @@ const FirstTab = (props) => {
           </div>
           <div className="type">
             <p className="sub-title">Type</p>
-            <Select className="type-select"  defaultValue={type}  size="large"  onChange={(value) => setType(value)}>
-              <Option value="AlphaRTC">
-              AlphaRTC
+            <Select className="type-select"  defaultValue={appType}  size="large"  onChange={(value) => setType(value)}>
+              <Option value="WebRTC">
+                WebRTC
               </Option>
-              <Option value="Probing">
-              Probing
+              <Option value="Iperf">
+                Iperf
               </Option>
               <Option value="Advanced">
               Advanced
               </Option>
             </Select>
           </div>
-          {checkValid && !type && <ValidError errorText={"Please choose job type"}/>}
+          {checkValid && !appType && <ValidError errorText={"Please choose job type"}/>}
         </Col>
         <Row className="btn-row" justify="center">
           <Col span={20}>
