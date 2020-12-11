@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
+    "@craco/craco": "^6.0.0",
     "@hsluoyz/msal-browser": "^2.7.3",
     "@hsluoyz/msal-react": "^1.0.0-alpha.1",
     "@testing-library/jest-dom": "^5.11.4",
@@ -11,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.8.5",
     "axios": "^0.21.0",
+    "craco-less": "^1.17.1",
     "echarts": "^4.9.0",
     "echarts-for-react": "^2.0.16",
     "moment": "^2.29.1",
@@ -26,10 +28,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "set PORT=2000 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "set PORT=2000 && craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../styles/App.css';
+import '../styles/App.less';
 import * as Setting from "../utils/Setting";
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
