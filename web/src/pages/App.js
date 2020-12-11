@@ -185,11 +185,21 @@ class App extends Component {
         inlineIndent={10}
         // theme="dark"
       >
-        <SubMenu key="sub1" title={<span><AppstoreOutlined/><span>Menu</span></span>}>
-          <Menu.Item key="0" onClick={() => this.props.history.push("/home")}>Home</Menu.Item>
-          <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>Create Job</Menu.Item>
-          <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>Job List</Menu.Item>
-        </SubMenu>
+        <Menu.Item key="0" onClick={() => this.props.history.push("/home")}>
+          <div style={{paddingLeft: "10px"}}>
+            Home
+          </div>
+        </Menu.Item>
+        <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>
+          <div style={{paddingLeft: "10px"}}>
+            Create Job
+          </div>
+        </Menu.Item>
+        <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>
+          <div style={{paddingLeft: "10px"}}>
+            Job List
+          </div>
+        </Menu.Item>
       </Menu>
     );
   }
