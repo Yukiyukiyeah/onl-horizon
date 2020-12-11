@@ -75,19 +75,18 @@ const InfoCard = (props) => {
         </Row>  }
         <div className="row-container">
           <Row className="row r1">
-            <Col className="left"> {
-              showIcon && <img src={dotGreen} width={16} height={16}
-              />
-            }
-            <span className="key">{keyAry[0]}</span>
+            <Col className="left">
+              {
+                showIcon && <img src={dotGreen} width={16} height={16}/>
+              }
+              <span className="key">{keyAry[0]}</span>
             </Col>
             <span className="value">{valueAry[0]}</span>
           </Row>
           <Row className="row r2">
             <Col className="left">
               {
-                showIcon && <img src={dotRed} width={16} height={16}
-                />
+                showIcon && <img src={dotRed} width={16} height={16}/>
               }
               <span className="key">{keyAry[1]}</span>
             </Col>
@@ -96,12 +95,10 @@ const InfoCard = (props) => {
           <Row className="row r3">
             <Col className="left">
               {
-                showIcon && <img src={dotBlue} width={16} height={16}
-                />
+                showIcon && <img src={dotBlue} width={16} height={16}/>
               }
               <span className="key">{keyAry[2]}</span>
             </Col>
-
             <Col className="value">{valueAry[2]}</Col>
           </Row>
         </div>

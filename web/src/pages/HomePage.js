@@ -169,7 +169,7 @@ const HomePage = () => {
         <Col flex="400px">
           <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true} width={400} height={760} showChart={true}/>
         </Col>
-        <Col flex="auto" style={{marginLeft: "5vw"}}>
+        <Col flex="auto" style={{marginLeft: "48px"}}>
           <Row> {renderMap()}
           </Row>
           <Row  style={{marginTop: "32px"}} >
