@@ -20,6 +20,7 @@ const columns = [
   }
 ];
 const columnReflect = [
+  ['ID', 'id'],
   ['Name', 'title'],
   ['Time', 'time'],
   ['Type', 'appType'],
