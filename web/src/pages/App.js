@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../styles/App.css';
 import * as Setting from "../utils/Setting";
-import {AppstoreOutlined, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import HomePage from "./HomePage";
@@ -286,4 +286,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default (App);

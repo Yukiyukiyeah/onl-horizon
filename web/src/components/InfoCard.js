@@ -6,15 +6,7 @@ import '../styles/InfoCard.scss';
 import dotGreen from '../assets/dot-green.png';
 import dotRed from '../assets/dot-red.png';
 import dotBlue from '../assets/dot-blue.png';
-import {
-  Chart,
-  Interval,
-  Tooltip,
-  Axis,
-  Coordinate,
-  Interaction,
-  getTheme
-} from 'bizcharts';
+import PieChart from "./PieChart";
 
 const InfoCard = (props) => {
   const {title, showIcon, valueAry, keyAry, showChart = false, height, width} = props;
@@ -36,6 +28,39 @@ const InfoCard = (props) => {
     history.push('/jobs/create');
   };
 
+  // const renderChart = () => {
+  //   return (
+  //     <Chart height={200} data={data} scale={cols} autoFit >
+  //       <Coordinate type="theta" radius={0.75} />
+  //       <Tooltip showTitle={false} />
+  //       <Axis visible={false} />
+  //       <Interval
+  //         position="percent"
+  //         adjust="stack"
+  //         color="item"
+  //         style={{
+  //           lineWidth: 1,
+  //           stroke: '#fff',
+  //         }}
+  //         label={['count', {
+  //           content: (data) => {
+  //             return `${data.item}: ${data.percent * 100}%`;
+  //           },
+  //         }]}
+  //         state={{
+  //           selected: {
+  //             style: (t) => {
+  //               const res = getTheme().geometries.interval.rect.selected.style(t);
+  //               return { ...res, fill: 'red' };
+  //             }
+  //           }
+  //         }}
+  //       />
+  //       <Interaction type='element-single-selected'/>
+  //     </Chart>
+  //   );
+  // };
+
   return (
     <div className="info-card-container">
       <div className="wrapper" style={{height:height, width:width}} >
@@ -43,35 +68,11 @@ const InfoCard = (props) => {
           {title}
           {showChart && (<Link to="/jobs"><span className="link" style={{fontSize:14}}>{`Explore >>`} </span></Link>)}
         </Row>
-        {showChart && <Row style={{marginTop: 84, paddingBottom:64}}>
-          <Chart height={200} data={data} scale={cols} autoFit >
-            <Coordinate type="theta" radius={0.75} />
-            <Tooltip showTitle={false} />
-            <Axis visible={false} />
-            <Interval
-              position="percent"
-              adjust="stack"
-              color="item"
-              style={{
-                lineWidth: 1,
-                stroke: '#fff',
-              }}
-              label={['count', {
-                content: (data) => {
-                  return `${data.item}: ${data.percent * 100}%`;
-                },
-              }]}
-              state={{
-                selected: {
-                  style: (t) => {
-                    const res = getTheme().geometries.interval.rect.selected.style(t);
-                    return { ...res, fill: 'red' };
-                  }
-                }
-              }}
-            />
-            <Interaction type='element-single-selected'/>
-          </Chart>
+        {showChart && <Row style={{marginTop: 0, paddingBottom:48}}>
+          <PieChart />
+          {/*{*/}
+          {/*  renderChart()*/}
+          {/*}*/}
         </Row>  }
         <div className="row-container">
           <Row className="row r1">
