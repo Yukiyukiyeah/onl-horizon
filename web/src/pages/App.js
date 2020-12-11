@@ -216,7 +216,7 @@ class App extends Component {
           </Menu>
         </Header>
         <Layout>
-          <Sider width={200}>
+          <Sider breakpoint="lg" width={200}>
             {
               this.renderLeftMenu()
             }

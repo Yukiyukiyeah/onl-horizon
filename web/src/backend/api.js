@@ -17,7 +17,7 @@ export const sendCreateJobReq = (params = {}) => {
 // get job list
 const getJobListDefaultParams = {userId: '00000000-0000-0000-0000-000000000001'};
 export const getJobByUserId = (params = getJobListDefaultParams) => {
-  return get(baseUrl + '/jobs', params);
+  return get(baseUrl + '/display/jobList', params);
 };
 
 // get one job info
@@ -27,8 +27,8 @@ export const getJobInfo = (jobId) => {
 };
 // get job info list
 export const allJobInfo = (userId = 'E0000003-0000-0000-0000-000000000003') => {
-  const url = baseUrl + '/jobs';
-  const param = {'userId': userId, 'info': true};
+  const url = baseUrl + '/display/jobList';
+  const param = {'userId': userId};
   return get(url, param);
 };
 
@@ -54,11 +54,11 @@ export const stopJob = (jobId, params = defaultParam) => {
 };
 
 // download dataset
-export const downloadDataset = (userId, filename) => {
-  const myFile = filename;
-  const downloadUrl = baseUrl + '/results/download/' + 'e' + userId;
-  const fileObj = {'filename': myFile};
-  return get(downloadUrl, fileObj);
+//GET http://opennetlab.org/api/results/download/e0000001-0000-0000-0000-000000000001?filename=webrtc_send_20201119082250.log,
+export const downloadDataset = (jobId, filename) => {
+  const downloadUrl = baseUrl + '/results/download/' + jobId;
+  const param = {'filename': filename};
+  return get(downloadUrl, param);
 };
 
 
@@ -101,5 +101,5 @@ const fixedParamForRestartJob = {
   }, "UserName": "test", "TimeoutSec": "500"
 };
 
-export const runApp = () => { //
+export const runProbingApp = () => { //
 };

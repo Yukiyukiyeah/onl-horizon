@@ -15,7 +15,7 @@ const SecondTab = (props) => {
   const [experimentTime, setExperimentTime] = useState();
   const [expirationTime, setExpirationTime] = useState();
   // eslint-disable-next-line no-unused-vars
-  const [model, setModel] = useState();
+  const [model, setModel] = useState('default');
   const [bwe, setBwe] = useState();
   const experimentTimeValid = useMemo(() => {
     return !(!experimentTime || isNaN(experimentTime) || experimentTime > 600 || experimentTime < 30);
@@ -118,7 +118,7 @@ const SecondTab = (props) => {
     return !(!probingTimeout || isNaN(probingTimeout) || experimentTime > 60 || experimentTime < 1);
   }, [probingTimeout]);
   const tcpWindowSizeValid = useMemo(() => {
-    return !(!tcpWindowSize || isNaN(experimentTime) || experimentTime > 2048 || experimentTime < 1);
+    return !(!tcpWindowSize || isNaN(tcpWindowSize) || tcpWindowSize > 2048 || tcpWindowSize < 1);
   }, [tcpWindowSize]);
   const mssValid = useMemo(() => {
     return !(!mss || isNaN(mss) || mss > 65536 || mss < 1);
@@ -127,12 +127,12 @@ const SecondTab = (props) => {
     return !(!bandwidth || isNaN(bandwidth) || bandwidth > 100000 || experimentTime < 1);
   }, [bandwidth]);
   const probingNextValid = useMemo(() => {
-    const commonParamsValid = intervalTimeValid && bufferValid && probingTimeoutValid && !!mode;
-    if (commonParamsValid && mode === 'TCP') {
-      return tcpWindowSizeValid && mssValid && !!tcpControl;
+    const commonParamsValid = intervalTimeValid  && probingTimeoutValid && bufferValid && !!mode;
+    if (mode === 'TCP') {
+      return commonParamsValid && tcpWindowSizeValid && mssValid && !!tcpControl;
     }
-    if (commonParamsValid && mode === 'UDP') {
-      return bandwidthValid;
+    else if ( mode === 'UDP') {
+      return commonParamsValid && bandwidthValid;
     }
     return false;
   }, [mode, tcpControl, intervalTimeValid, bufferValid, probingTimeoutValid, tcpWindowSizeValid, mssValid, bandwidthValid ]);
@@ -306,7 +306,7 @@ const SecondTab = (props) => {
 
   const alphaRTCFullConfigDic = ['description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
   const alphaRTCFullConfig = [description, parties, expirationTime, experimentTime, model, bwe];
-  const probingFullConfigDic = ['description', 'interval', 'bufferLen', 'probingTimeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
+  const probingFullConfigDic = ['description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
   const probingFullConfig =    [description, interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
   const advancedFullConfigDic = ['description', 'jsonConfig', 'application', 'timeout'];
   const advancedFullConfig = [description, application, jsonConfig, advancedTimeout];
@@ -329,7 +329,7 @@ const SecondTab = (props) => {
         setCheckValid(true);
         return;
       }
-      for (let i of probingFullConfig) {
+      for (let i in probingFullConfig) {
         const key = probingFullConfigDic[i];
         const val = probingFullConfig[i];
         config[key] = val;
@@ -341,7 +341,7 @@ const SecondTab = (props) => {
         setCheckValid(true);
         return;
       }
-      for (let i of advancedFullConfig) {
+      for (let i in advancedFullConfig) {
         const key = advancedFullConfigDic[i];
         const val = advancedFullConfig[i];
         config[key] = val;

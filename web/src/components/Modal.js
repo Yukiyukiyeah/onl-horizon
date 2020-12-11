@@ -1,46 +1,85 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import '../styles/Modal.scss';
+import {Button, Space, Switch, Table} from "antd";
 
 const Modal = (props) => {
-  let button;
-  if (props.btnType === 1) {
-    button =    <a href="javascript:" className="btn" onClick={props.handleConfirm}>{props.confirmText} </a>;
-  }
-  else if (props.btnType === 2) {
-    button = <a href="javascript:" className="btn" onClick={props.handleCancel}>{props.cancelText}</a>;
-  }
-  else {
-    button = (
-      <div className="btn-group">
-        <a href="javascript:" className="btn confirm-btn" onClick={props.handleConfirm}>{props.confirmText}</a>
-        <a href="javascript:" className="btn" onClick={props.handleCancel}>{props.cancelText} </a>
-      </div>);
+  const [checkStrictly, setCheckStrictly] = React.useState(false);
+  const {handleConfirm, confirmText, handleCancel, cancelText, data, description, title, visible, height="250px", existTable} = props;
+  const tableStyle = {
+    display: 'block',
+    height: 400,
+    overflow: 'auto'
+  };
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [willDownloadFiles, setWillDownloadFiles] = useState([]);
+  const keyToFile = new Map();
+  const handleRowData = () => {
+    const retData = [];
+    for (let i in data) {
+      const curJob = {};
+      curJob.key = parseInt(i) + 1;
+      curJob.name = data[i].title;
+      const filesPath = [];
+      for (let file of data[i].files) {
+        const fileObj = {};
+        fileObj.key = parseInt(curJob.key + '' + (filesPath.length + 1));
+        fileObj.name = file;
+        fileObj.isFile = true;
+        filesPath.push(fileObj);
+        keyToFile.set(fileObj.key, file);
+      }
+      curJob.children = filesPath;
+      retData.push(curJob);
+    }
+    return retData;
+  };
+  const convertedData = handleRowData(data);
+  const onSelectChange = (selectedRowKeys) => {
+    setWillDownloadFiles([]);
+    if (existTable) {
+      for (const key of selectedRowKeys) {
+        if (keyToFile.has(+key)) {
+          willDownloadFiles.push(keyToFile.get(+key));
+        }
+      }
+    }
+    console.log(willDownloadFiles);
+    setSelectedRowKeys(selectedRowKeys);};
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
 
-  }
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    }
+  ];
 
-  return (
-    <ReactCSSTransitionGroup
-      transitionName="slide"
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={300}>
-      {props.showModal &&
-            <div className="modal" >
-              <div className="mask">
-              </div>
-              <div className="modal-dialog">
-                <div className="modal-header">
-                  <span>{props.title}</span>
-                </div>
-                <div className="modal-body">
-                  <span>{props.description}</span>
-                </div>
-                <div className="modal-footer">
-                  {button}
-                </div>
-              </div>
-            </div>}
-    </ReactCSSTransitionGroup>
+
+  return visible && (
+    <div className="modal-wrapper">
+      <div className="modal" style={{maxHeight:height}}>
+        <div className="modal-title"><span>{title}</span></div>
+        <div className="modal-content"><span>{description}</span></div>
+        {existTable &&
+        <div className="modal-content" style={ tableStyle}>
+          <Table
+            columns={columns}
+            rowSelection={{ ...rowSelection, checkStrictly}}
+            dataSource={convertedData}
+            showHeader={false}
+          /></div>}
+        <div className="modal-operator">
+          <Button type="primary"  className="modal-operator-confirm" onClick={handleConfirm(willDownloadFiles)}>{confirmText}</Button>
+          <Button  className="modal-operator-close" onClick={handleCancel}>{cancelText}</Button>
+        </div>
+      </div>
+      <div className="mask"></div>
+    </div>
   );
 };
 
