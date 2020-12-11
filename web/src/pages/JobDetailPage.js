@@ -4,6 +4,8 @@ import moment from "moment";
 import * as momenttz from 'moment-timezone';
 import { getJobInfo } from '../backend/api';
 import '../styles/JobDetailPage.scss';
+import Modal from "../components/Modal";
+import {useHistory} from "react-router-dom";
 const columns = [
   {
     title: 'prop',
@@ -21,52 +23,68 @@ const columnReflect = [
   ['Name', 'title'],
   ['Time', 'time'],
   ['Type', 'appType'],
-  ['User', 'user'],
+  ['User', 'userName'],
   ['Retires', 'expirationTime'],
   ['Status', 'status'],
-  ['Job Config', 'jobConfig'],
-  ['SSH/RDP info', 'ssh'],
-  ['Stdout/Stderr', 'std'],
-  ['Exit code/Type', 'exit']
 ];
 const columnConvert = new Map(columnReflect);
-const statusNumToString = [
-  [0, 'Init'],
-  [1, 'Created'],
-  [2, 'Running'],
-  [3, 'Succeeded'],
-  [4, 'Failed'],
-];
-const statusConvert = new Map(statusNumToString);
-const typeNumToString = [
-  [0, 'AlphaRTC'],
-  [1, 'Probing'],
-  [2, 'Advanced'],
-];
-const typeConvert = new Map(typeNumToString);
+
 const JobDetail = (props) => {
   const [data, setData] = useState([]);
   const [jobDescription, setJobDesc] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [btnId, setBtnId] = useState(0);
+  const [downloadData, setDownloadData] = useState([]);
+  const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
+  const slots = [
+    'These jobs will stop. Are you sure?',
+    'These jobs will start. Are you sure?',
+    'These jobs will be deleted. Are you sure?',
+    'Choose download files'];
+  const showModalView = (e) => {
+    const curBtn = e.target;
+    const id = +curBtn.id;
+    setBtnId(id);
+    setShowModal(true);
+  };
   const funcZone = (
-    <div className="func-zone" >
-      <Button type="default" id="0" className="logs-btn btn" disabled>
-        <span className="btn-text">JOB LOGS</span>
+    <div className="func-zone" onClick={showModalView} >
+      <Button type="default" id={0} className="logs-btn btn" disabled>
+        <span className="btn-text" id={0}>JOB LOGS</span>
       </Button>
-      <Button type="default" id="1" className="clone-btn btn" disabled>
-        <span className="btn-text">CLONE</span>
+      <Button type="default" id={1} className="clone-btn btn" disabled>
+        <span className="btn-text" id={1}>CLONE</span>
       </Button>
-      <Button type="default" id="2" className="stop-btn btn" disabled>
-        <span className="btn-text">STOP</span>
+      <Button type="default" id={2} className="stop-btn btn" disabled>
+        <span className="btn-text" id={2}>STOP</span>
       </Button>
-      <Button type="default" id="3" className="download-btn btn" disabled>
-        <span className="btn-text">DOWNLOAD DATASET</span>
+      <Button type="default" id={3} className="download-btn btn" >
+        <span className="btn-text" id={3}>DOWNLOAD DATASET</span>
       </Button>
     </div>);
-  const  initData = (id) => {
 
+  const  initData = (id) => {
     getJobInfo(id)
       .then((info) => handleJobInfo(info));
+  };
+  const download = (data) => {
+    console.log(data);
+    if (!data || data.length === 0) {
+      return;
+    }
+    for (const obj of data) {
+      const url = 'https://api.opennetlab.org/api' + '/results/download/' + obj.id + '?filename=' + obj.file;
+      var temporaryDownloadLink = document.createElement("a");
+      temporaryDownloadLink.style.display = 'none';
+      document.body.appendChild(temporaryDownloadLink);
+      temporaryDownloadLink.setAttribute('href', url);
+      temporaryDownloadLink.setAttribute('download', obj.file);
+      temporaryDownloadLink.click();
+      document.body.removeChild(temporaryDownloadLink);
+    }
+
+
   };
   const handleJobInfo = (initJobInfo)  =>{
     const tempData = [];
@@ -84,14 +102,7 @@ const JobDetail = (props) => {
         value = initJobInfo[src];
       }
 
-      if (tar === 'Status') {
-        curKey['value'] = statusConvert.get(value);
-
-      } else if (tar === 'Type') {
-        curKey['value'] = typeConvert.get(value);
-      } else if (tar === 'User') {
-        curKey['value'] = 'Alex';
-      } else if (tar === 'Time') {
+      if (tar === 'Time') {
         const utc = initJobInfo['createTime'].slice(0, 19) + 'Z';
         const timezone = moment.tz.guess();
         curKey['value'] = momenttz(utc).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
@@ -101,16 +112,50 @@ const JobDetail = (props) => {
       tempData.push(curKey);
     }
     setData(tempData);
+    setDownloadData([{'title': initJobInfo.title, 'files': initJobInfo.dataFiles, 'jobId': initJobInfo.id}]);
     setLoading(false);
   };
-
+  const handleModalConfirm = (data) => {
+    switch (btnId) {
+    case 0:
+      break;
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      download(data);
+    }
+  };
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
+  const handleBackBtn = () => {
+    let history = useHistory();
+    const handleJobNameClick = (id) => {
+      history.push({pathname:'/jobs/detail/'+id});
+    };
+  };
   useEffect(() => {
     const id = props.match.params.id;
     initData(id);
   }, []);
   return (
     <div className="job-detail-container">
+      <Modal
+        visible={showModal}
+        handleConfirm={handleModalConfirm}
+        handleCancel={handleModalCancel}
+        confirmText={btnToModal[btnId]}
+        cancelText={"Cancel"}
+        description={slots[btnId]}
+        title={btnToModal[btnId]}
+        height={+btnId === 3 ? "600px" : "250px"}
+        existTable={+btnId === 3 }
+        data={downloadData}
+      />
       <Row justify="space-between">
+        <Button onClick={handleBackBtn}></Button>
         <p className="title">Job Detail</p>
         <div className="func-wrapper">
           {funcZone}

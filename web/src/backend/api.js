@@ -22,7 +22,7 @@ export const getJobByUserId = (params = getJobListDefaultParams) => {
 
 // get one job info
 export const getJobInfo = (jobId) => {
-  const infoUrl = baseUrl + '/jobs/' + jobId;
+  const infoUrl = baseUrl + '/display/jobDetail/' + jobId;
   return get(infoUrl);
 };
 // get job info list

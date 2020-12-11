@@ -14,20 +14,24 @@ const Modal = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [willDownloadFiles, setWillDownloadFiles] = useState([]);
   const keyToFile = new Map();
+  const keyToId = new Map();
   const handleRowData = () => {
     const retData = [];
     for (let i in data) {
       const curJob = {};
       curJob.key = parseInt(i) + 1;
       curJob.name = data[i].title;
+      curJob.id = data[i].jobId;
       const filesPath = [];
       for (let file of data[i].files) {
         const fileObj = {};
         fileObj.key = parseInt(curJob.key + '' + (filesPath.length + 1));
         fileObj.name = file;
         fileObj.isFile = true;
+        fileObj.id = curJob.id;
         filesPath.push(fileObj);
         keyToFile.set(fileObj.key, file);
+        keyToId.set(fileObj.key,  fileObj.id);
       }
       curJob.children = filesPath;
       retData.push(curJob);
@@ -36,15 +40,16 @@ const Modal = (props) => {
   };
   const convertedData = handleRowData(data);
   const onSelectChange = (selectedRowKeys) => {
-    setWillDownloadFiles([]);
     if (existTable) {
+      setWillDownloadFiles([]);
+      const temp = [];
       for (const key of selectedRowKeys) {
         if (keyToFile.has(+key)) {
-          willDownloadFiles.push(keyToFile.get(+key));
+          temp.push({id:keyToId.get(+key), file:keyToFile.get(+key)});
         }
       }
+      setWillDownloadFiles(temp);
     }
-    console.log(willDownloadFiles);
     setSelectedRowKeys(selectedRowKeys);};
   const rowSelection = {
     selectedRowKeys,
@@ -58,7 +63,9 @@ const Modal = (props) => {
       key: 'name',
     }
   ];
-
+  const onHandleConfirmClick = () => {
+    handleConfirm(willDownloadFiles);
+  };
 
   return visible && (
     <div className="modal-wrapper">
@@ -74,7 +81,7 @@ const Modal = (props) => {
             showHeader={false}
           /></div>}
         <div className="modal-operator">
-          <Button type="primary"  className="modal-operator-confirm" onClick={handleConfirm(willDownloadFiles)}>{confirmText}</Button>
+          <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>{confirmText}</Button>
           <Button  className="modal-operator-close" onClick={handleCancel}>{cancelText}</Button>
         </div>
       </div>
