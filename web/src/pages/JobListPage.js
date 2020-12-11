@@ -104,7 +104,7 @@ const JobList = () => {
     for (const jobKey of selectedRowKeys) {
       const curJob = data[jobKey];
       if (curJob.status === 'Succeeded') {
-        const fileObj = {'title':curJob.name, 'files': curJob.files};
+        const fileObj = {'title':curJob.name, 'files': curJob.files, 'jobId': curJob.jobId};
         tempData.push(fileObj);
       }
     }
@@ -166,24 +166,29 @@ const JobList = () => {
         setSelectedRowKeys([]);
       });
   };
-
+  let history = useHistory();
   const handleJobNameClick = (id) => {
     history.push({pathname:'/jobs/detail/'+id});
   };
-  let history = useHistory();
+
   useEffect(() => {
     loadJobList();
   }, []);
-
-  const download = (files) => {
-    console.log(files);
-    if (!files || files.length === 0) {
+  const download = (data) => {
+    if (!data || data.length === 0) {
       return;
     }
-
-    for (const file of files) {
-      downloadDataset( null, file);
+    for (const obj of data) {
+      const url = 'https://api.opennetlab.org/api' + '/results/download/' + obj.id + '?filename=' + obj.file;
+      var temporaryDownloadLink = document.createElement("a");
+      temporaryDownloadLink.style.display = 'none';
+      document.body.appendChild(temporaryDownloadLink);
+      temporaryDownloadLink.setAttribute('href', url);
+      temporaryDownloadLink.setAttribute('download', obj.file);
+      temporaryDownloadLink.click();
+      document.body.removeChild(temporaryDownloadLink);
     }
+
 
   };
   const deleteSelectedJob = () => {
@@ -197,8 +202,7 @@ const JobList = () => {
   };
 
   const handleModalConfirm = (data) => {
-    const taskId = btnId;
-    switch (taskId) {
+    switch (btnId) {
     case '0':
       stopSelectedJob();
       break;
@@ -211,7 +215,6 @@ const JobList = () => {
     case '3':
       download(data);
     }
-
   };
   const handleModalCancel = () => {
     setShowModal(false);
