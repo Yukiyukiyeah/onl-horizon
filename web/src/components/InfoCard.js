@@ -3,12 +3,9 @@ import {Col, Row, Button} from 'antd';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import '../styles/InfoCard.scss';
-import green from '../assets/green-square.png';
-import red from '../assets/red-square.png';
-import blue from '../assets/blued-square.png';
-import chartGreen from '../assets/chart-green.png';
-import chartBlue from '../assets/chart-blue.png';
-import chartRed from '../assets/chart-red.png';
+import dotGreen from '../assets/dot-green.png';
+import dotRed from '../assets/dot-red.png';
+import dotBlue from '../assets/dot-blue.png';
 import {
   Chart,
   Interval,
@@ -26,9 +23,6 @@ const InfoCard = (props) => {
     {item: 'failed', count: 33, percent: 0.3},
     {item: 'running', count: 22, percent: 0.22}
   ];
-  const redIcon = showChart ? chartRed : red;
-  const blueIcon = showChart ? chartBlue : blue;
-  const greenIcon = showChart ? chartGreen : green;
   const cols = {
     percent: {
       formatter: val => {
@@ -82,7 +76,7 @@ const InfoCard = (props) => {
         <div className="row-container">
           <Row className="row r1">
             <Col className="left"> {
-              showIcon && <img src={greenIcon} width={16} height={16}
+              showIcon && <img src={dotGreen} width={16} height={16}
               />
             }
             <span className="key">{keyAry[0]}</span>
@@ -92,7 +86,7 @@ const InfoCard = (props) => {
           <Row className="row r2">
             <Col className="left">
               {
-                showIcon && <img src={redIcon} width={16} height={16}
+                showIcon && <img src={dotRed} width={16} height={16}
                 />
               }
               <span className="key">{keyAry[1]}</span>
@@ -102,7 +96,7 @@ const InfoCard = (props) => {
           <Row className="row r3">
             <Col className="left">
               {
-                showIcon && <img src={blueIcon} width={16} height={16}
+                showIcon && <img src={dotBlue} width={16} height={16}
                 />
               }
               <span className="key">{keyAry[2]}</span>
