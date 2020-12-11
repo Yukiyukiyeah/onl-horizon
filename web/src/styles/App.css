@@ -45,8 +45,8 @@
 }
 
 .map__card {
-  padding: 10px;
-  border-radius: 5px;
+  padding: -2px;
+  border-radius: 32px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   height: 100%;
   width: 100%;

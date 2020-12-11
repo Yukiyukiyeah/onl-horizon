@@ -67,10 +67,10 @@ const HomePage = () => {
     };
 
     return (
-      <div key="bingMap" className="map__card" style={{height: "500px"}}>
+      <div key="bingMap" className="map__card" style={{height: "500px", overflow: "hidden"}}>
         <ReactBingmaps
           bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
-          center={[32.0614, 110.78600]}
+          center={[32.0614, 115.78600]}
           zoom={5}
           infoboxesWithPushPins={infoboxesWithPushPins}
           mapOptions={{
@@ -98,7 +98,7 @@ const HomePage = () => {
     <div style={{margin: 24 - 60}}>
       <Row style={{margin: "20px"}} justify="space-around">
         <Col flex="400px">
-          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true} width={500} height={765} showChart={true}/>
+          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true} width={400} height={760} showChart={true}/>
         </Col>
         <Col flex="auto" style={{marginLeft: "5vw"}}>
           <Row> {renderMap()}
