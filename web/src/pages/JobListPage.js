@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from "react";
-import { Button, Row, Table} from "antd";
-import { allJobInfo } from '../backend/api';
+import React, {useEffect, useState, useRef} from "react";
+import { useHistory } from "react-router-dom";
+import { Button, Row, Table, Switch, Space } from "antd";
+import { allJobInfo, downloadDataset, stopJob, restartJob, deleteJob } from '../backend/api';
 import '../styles/JobListPage.scss';
 import * as momenttz from 'moment-timezone';
 import * as moment from 'moment';
+import Modal from '../components/Modal';
 
 const columns = [
   {
@@ -43,13 +45,7 @@ const columns = [
     sorter: (a, b) => a.date.localeCompare(b.date)
   }
 ];
-// const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
-// const modalDescription = [
-//   'These jobs will stop. Are you sure?',
-//   'These jobs will start. Are you sure?',
-//   'These jobs will be deleted. Are you sure?',
-//   'The dataset will download to your device'];
-
+const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
 const statusNumToString = [
   [0, 'Init'],
   [1, 'Created'],
@@ -59,12 +55,6 @@ const statusNumToString = [
 ];
 const statusConvert = new Map(statusNumToString);
 
-const typeNumToString = [
-  [0, 'AlphaRTC'],
-  [1, 'Probing'],
-  [2, 'Advanced'],
-];
-const typeConvert = new Map(typeNumToString);
 const columnReflect = [
   ['jobId', 'id'],
   ['name', 'title'],
@@ -72,18 +62,53 @@ const columnReflect = [
   ['duration', 'duration'],
   ['retires', 'expirationTime'],
   ['status', 'status'],
-  ['user', 'userId'],
-  ['date', 'createTime']];
+  ['user', 'userName'],
+  ['date', 'createTime'],
+  ['files', 'dataFiles']];
 const columnConvert = new Map(columnReflect);
 const keyToJobId = new Map();
 
-const JobList = (props) => {
+let downloadData = null;
+const JobList = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [btnId, setBtnId] = useState(0);
+  const [downloadDisabled, setDownloadDisabled] = useState(true);
+  const [stopDisabled, setStopDisabled] = useState(true);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
+    if (!selectedRowKeys || !selectedRowKeys.length) {
+      setBtnDisabled(true);
+    }
+    else {
+      setBtnDisabled(false);
+    }
+    setDownloadDisabled(false);
+    for (const jobKey of selectedRowKeys) {
+      if (data[jobKey].status !== 'Succeeded') {
+        setDownloadDisabled(true);
+        break;
+      }
+    }
+    setStopDisabled(false);
+    for (const jobKey of selectedRowKeys) {
+      if (data[jobKey].status === 'Succeeded') {
+        setStopDisabled(true);
+        break;
+      }
+    }
+    const tempData = [];
+    for (const jobKey of selectedRowKeys) {
+      const curJob = data[jobKey];
+      if (curJob.status === 'Succeeded') {
+        const fileObj = {'title':curJob.name, 'files': curJob.files};
+        tempData.push(fileObj);
+      }
+    }
+    downloadData = tempData;
   };
   const rowSelection = {
     selectedRowKeys,
@@ -110,13 +135,7 @@ const JobList = (props) => {
           value = job[src];
         }
 
-        if (tar === 'status') {
-          curJobInfo[tar] = statusConvert.get(value);
-        } else if (tar === 'type') {
-          curJobInfo[tar] = typeConvert.get(job[src]);
-        } else if (tar === 'user') {
-          curJobInfo[tar] = 'Alex';
-        } else if (tar === 'duration') {
+        if (tar === 'duration') {
           const utc = job['createTime'].slice(0, 19) + 'Z';
           const timezone = moment.tz.guess();
           const startDate = momenttz(utc).tz(timezone);
@@ -141,48 +160,112 @@ const JobList = (props) => {
   const loadJobList = () => {
     allJobInfo()
       .then((res) => {
-        handleJobInfo(res);
+        handleJobInfo(res.data);
       })
       .then(() => {
         setSelectedRowKeys([]);
       });
   };
 
-  const showModalView = () => {
-
-  };
   const handleJobNameClick = (id) => {
-    props.history.push({pathname:'/jobs/detail/'+id});
+    history.push({pathname:'/jobs/detail/'+id});
   };
+  let history = useHistory();
   useEffect(() => {
     loadJobList();
   }, []);
+
+  const download = (files) => {
+    console.log(files);
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    for (const file of files) {
+      downloadDataset( null, file);
+    }
+
+  };
+  const deleteSelectedJob = () => {
+
+  };
+  const restartSelectedJob = () => {
+
+  };
+  const stopSelectedJob = () => {
+
+  };
+
+  const handleModalConfirm = (data) => {
+    const taskId = btnId;
+    switch (taskId) {
+    case '0':
+      stopSelectedJob();
+      break;
+    case '1':
+      restartSelectedJob();
+      break;
+    case '2':
+      deleteSelectedJob();
+      break;
+    case '3':
+      download(data);
+    }
+
+  };
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
+
+  const showModalView = (e) => {
+    const curBtn = e.target;
+    const id = curBtn.id;
+    setBtnId(id);
+    setShowModal(true);
+  };
+
   const funcZone = (
     <div className="func-zone" onClick={showModalView}>
-      <Button type="default" id="0" className="stop-btn btn" disabled>
-        <span className="btn-text">STOP</span>
+      <Button type="default" id="0" className="stop-btn btn" disabled={btnDisabled || stopDisabled}>
+        <span className="btn-text" id="0">STOP</span>
       </Button>
-      <Button type="default" id="1" className="restart-btn btn" disabled>
+      <Button type="default" id="1" className="restart-btn btn" disabled={btnDisabled}>
         <span className="btn-text">RESTART</span>
       </Button>
-      <Button type="default" id="2" className="delete-btn btn" disabled>
-        <span className="btn-text">DELETE</span>
+      <Button type="default" id="2" className="delete-btn btn" disabled={btnDisabled}>
+        <span className="btn-text" id="2">DELETE</span>
       </Button>
-      <Button type="default" id="3" className="download-btn btn" disabled>
-        <span className="btn-text">DOWNLOAD DATASET</span>
+      <Button type="default" id="3" className="download-btn btn" disabled={(btnDisabled || downloadDisabled)}>
+        <span className="btn-text" id="3">DOWNLOAD DATASET</span>
       </Button>
     </div>);
 
+  const slots = [
+    'These jobs will stop. Are you sure?',
+    'These jobs will start. Are you sure?',
+    'These jobs will be deleted. Are you sure?',
+    'Choose download files'];
 
   return (
     <div className="jobList-container">
+      <Modal
+        visible={showModal}
+        handleConfirm={handleModalConfirm}
+        handleCancel={handleModalCancel}
+        confirmText={btnToModal[btnId]}
+        cancelText={"Cancel"}
+        description={slots[btnId]}
+        title={btnToModal[btnId]}
+        height={+btnId === 3 ? "600px" : "250px"}
+        existTable={+btnId === 3 }
+        data={downloadData}
+      />
       <Row justify="space-between">
         <p className="title">Job List</p>
         <div className="func-wrapper">
           {funcZone}
         </div>
       </Row>
-
       <div className="table-wrapper">
         <Table
           rowSelection={rowSelection}
@@ -191,7 +274,7 @@ const JobList = (props) => {
           loading={loading}
           onRow={record => {
             return {
-              onClick: () => {handleJobNameClick(record.jobId);} // 点击行
+              onClick: () => {handleJobNameClick(record.jobId);}
             };
           }}
         />
