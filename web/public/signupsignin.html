@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>Sign up or sign in</title>
+    <title>OpenNetLab Sign In</title>
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,11 @@
     <link href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
           type="text/css"/>
     <style id="common">
+        .options {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
         @font-face {
             font-family: 'SegoeUI';
             src: url(https://opennetlaborg.b2clogin.com/static/tenant/templates/fonts/segoeui.WOFF);
@@ -75,6 +80,14 @@
         }
 
         #MicrosoftAccountExchange:hover {
+            background-image: url(https://opennetlaborg.b2clogin.com/static/tenant/templates/idp_logos/white/microsoft.svg);
+        }
+
+        #MicrosoftAzureAD {
+            background-image: url(https://opennetlaborg.b2clogin.com/static/tenant/templates/idp_logos/colored/microsoft.svg);
+        }
+
+        #MicrosoftAzureAD:hover {
             background-image: url(https://opennetlaborg.b2clogin.com/static/tenant/templates/idp_logos/white/microsoft.svg);
         }
 
@@ -1131,9 +1144,12 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <img class="companyLogo" data-tenant-branding-logo="true"
-                         src="https://opennetlaborg.b2clogin.com/static/tenant/templates/images/logo.svg"
+                    <img
+                         src="https://opennetlab.org/public/logo.png"
                          alt="Company Logo">
+<!--                    <img class="companyLogo" data-tenant-branding-logo="true"-->
+<!--                         src="https://opennetlaborg.b2clogin.com/static/tenant/templates/images/logo.svg"-->
+<!--                         alt="Company Logo">-->
                     <div id="api">
                     </div>
                 </div>
