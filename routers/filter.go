@@ -16,6 +16,11 @@ func TransparentStatic(ctx *context.Context) {
 	}
 
 	path := "web/build"
+
+	if strings.HasPrefix(urlPath, "/public/") {
+		path = "web"
+	}
+
 	if urlPath == "/" {
 		path += "/index.html"
 	} else {
