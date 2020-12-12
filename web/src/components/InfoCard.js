@@ -7,6 +7,7 @@ import dotGreen from '../assets/dot-green.png';
 import dotRed from '../assets/dot-red.png';
 import dotBlue from '../assets/dot-blue.png';
 import PieChart from "./PieChart";
+import * as Setting from "../utils/Setting";
 
 const InfoCard = (props) => {
   const {title, showIcon, valueAry, keyAry, showChart = false, height, width} = props;
@@ -23,10 +24,8 @@ const InfoCard = (props) => {
       },
     },
   };
+
   let history = useHistory();
-  const toCreatePage = () => {
-    history.push('/jobs/create');
-  };
 
   // const renderChart = () => {
   //   return (
@@ -105,7 +104,7 @@ const InfoCard = (props) => {
         </div>
         {showChart &&
             <Row justify="center" style={{marginTop:"128px"}}>
-              <Button type="primary" size={"large"} onClick={toCreatePage}>CREATE JOB</Button>
+              <Button type="primary" size={"large"} onClick={() => Setting.goToLinkSoft(history, "/jobs/create")}>CREATE JOB</Button>
             </Row>
         }
       </div>

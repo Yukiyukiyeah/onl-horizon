@@ -33,18 +33,22 @@ class App extends Component {
     this.updateMenuKey();
   }
 
-  updateMenuKey() {
+  getMenuKey() {
     // eslint-disable-next-line no-restricted-globals
     const uri = location.pathname;
     if (uri === '/home') {
-      this.setState({ selectedMenuKey: 0 });
+      return "0";
     } else if (uri.includes('jobs/create')) {
-      this.setState({ selectedMenuKey: 1 });
+      return "1";
     } else if (uri.includes('jobs')) {
-      this.setState({ selectedMenuKey: 2 });
+      return "2";
     } else {
-      this.setState({ selectedMenuKey: -1 });
+      return "-1";
     }
+  }
+
+  updateMenuKey() {
+    this.setState({ selectedMenuKey: this.getMenuKey() });
   }
 
   login() {
@@ -176,7 +180,8 @@ class App extends Component {
       <Menu
         // onClick={this.handleClick.bind(this)}
         // style={{ width: 256 }}
-        defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
+        selectedKeys={[this.getMenuKey()]}
+        // defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
         defaultOpenKeys={['sub1']}
         mode="inline"
         style={{ height: '100%', borderRight: 0, paddingTop: '50px' }}

@@ -26,6 +26,10 @@ export function goToLink(link) {
   window.location.href = link;
 }
 
+export function goToLinkSoft(history, link) {
+  history.push(link);
+}
+
 export function showMessage(type, text) {
   if (type === "") {
     return;
