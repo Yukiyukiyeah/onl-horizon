@@ -1,7 +1,9 @@
 import React from "react";
 import {Row, Col} from "antd";
+import '../styles/HomePage.scss';
 import InfoCard from "../components/InfoCard";
 import {ReactBingmaps} from "react-bingmaps-vnext";
+import pushpin from '../assets/map-pushpin.svg';
 
 const points = [
   {
@@ -32,7 +34,6 @@ const points = [
     "vmCount": 2,
     "title": "Nanjing University",
     "description": "Nanjing University is a major public university, the oldest institution of higher learning in Nanjing, Jiangsu, and a member of the elite C9 League of Chinese universities."
-
   },
   {
     "name": "Peking University",
@@ -77,7 +78,7 @@ const points = [
     "pmCount": 2,
     "vmCount": 4,
     "title": "SUSTech",
-    "description": "Southern University of Science and Technology (SUSTech) is a public research university in Nanshan District, Shenzhen, Guangdong, China. SUSTech was established in 2011 by the provincial government of Guangdong with the aim of developing a new type of tertiary education and becoming a world-class research university. It is located in the rapidly-growing tech capital city of Shenzhen. With massive investment by the provincial government the university attracted world-class researchers and was very quickly recognised as an international centre for science and technology research."
+    "description": "Southern University of Science and Technology (SUSTech) is a public research university in Nanshan District, Shenzhen, Guangdong, China."
   }
 ];
 
@@ -85,8 +86,38 @@ const renderPoint = (point) => {
   return {
     "location": [point.lat, point.lng],
     "addHandler": "mouseover", //on mouseover the pushpin, infobox shown
-    "infoboxOption": {title: point.title, description: point.description},
-    "pushPinOption": {title: point.name},
+    "infoboxOption": {
+      // title: point.title,
+      // description: point.description,
+      // showPointer: false,
+      // showCloseButton: false,
+      htmlContent: (
+        <div className="customInfobox">
+          <div className="title">
+            {
+              point.title
+            }
+          </div>
+          {
+            point.description
+          }
+          <br/>
+          <br/>
+          {
+            `Physical Machine Count: ${point.pmCount}`
+          }
+          <br/>
+          {
+            `Virtual Machine Count: ${point.vmCount}`
+          }
+        </div>
+      ),
+    },
+    // "pushPinOption": {title: point.name, color: "rgb(0,120,212)"},
+    "pushPinOption": {
+      title: point.name,
+      icon: pushpin
+    },
   };
 };
 
@@ -139,7 +170,7 @@ const HomePage = () => {
       <div key="bingMap" className="map__card" style={{height: "500px", overflow: "hidden"}}>
         <ReactBingmaps
           bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
-          center={[32.0614, 115.78600]}
+          center={[40.0614, 115.78600]}
           zoom={5}
           infoboxesWithPushPins={infoboxesWithPushPins}
           mapOptions={{
