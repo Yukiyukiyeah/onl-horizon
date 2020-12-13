@@ -76,3 +76,15 @@ export const getUserId = () => {
       // alert(err);
     });
 };
+
+export const getMyJobStates = (userId = Setting.getUserId()) => {
+  return get(`${baseUrl}/display/jobStatistics?userId=${userId}`);
+};
+
+export const getGlobalJobStates = () => {
+  return get(`${baseUrl}/display/jobStatistics`);
+};
+
+export const getGlobalMachineStates = () => {
+  return get(`${baseUrl}/display/machineStatistics`);
+};

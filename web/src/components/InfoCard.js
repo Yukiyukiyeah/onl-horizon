@@ -11,54 +11,8 @@ import * as Setting from "../utils/Setting";
 
 const InfoCard = (props) => {
   const {title, showIcon, valueAry, keyAry, showChart = false, height, width} = props;
-  const data = [
-    {item: 'succeeded', count: 45, percent: 0.45},
-    {item: 'failed', count: 33, percent: 0.3},
-    {item: 'running', count: 22, percent: 0.22}
-  ];
-  const cols = {
-    percent: {
-      formatter: val => {
-        val = val * 100 + '%';
-        return val;
-      },
-    },
-  };
 
   let history = useHistory();
-
-  // const renderChart = () => {
-  //   return (
-  //     <Chart height={200} data={data} scale={cols} autoFit >
-  //       <Coordinate type="theta" radius={0.75} />
-  //       <Tooltip showTitle={false} />
-  //       <Axis visible={false} />
-  //       <Interval
-  //         position="percent"
-  //         adjust="stack"
-  //         color="item"
-  //         style={{
-  //           lineWidth: 1,
-  //           stroke: '#fff',
-  //         }}
-  //         label={['count', {
-  //           content: (data) => {
-  //             return `${data.item}: ${data.percent * 100}%`;
-  //           },
-  //         }]}
-  //         state={{
-  //           selected: {
-  //             style: (t) => {
-  //               const res = getTheme().geometries.interval.rect.selected.style(t);
-  //               return { ...res, fill: 'red' };
-  //             }
-  //           }
-  //         }}
-  //       />
-  //       <Interaction type='element-single-selected'/>
-  //     </Chart>
-  //   );
-  // };
 
   return (
     <div className="info-card-container">
@@ -68,10 +22,7 @@ const InfoCard = (props) => {
           {showChart && (<Link to="/jobs"><span className="link" style={{fontSize:14}}>{`Explore >>`} </span></Link>)}
         </Row>
         {showChart && <Row style={{marginTop: 0, paddingBottom:48}}>
-          <PieChart />
-          {/*{*/}
-          {/*  renderChart()*/}
-          {/*}*/}
+          <PieChart data={{succeeded: valueAry[0], failed: valueAry[1], running: valueAry[2]}} />
         </Row>  }
         <div className="row-container">
           <Row className="row r1">

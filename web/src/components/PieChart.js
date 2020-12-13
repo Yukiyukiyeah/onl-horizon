@@ -35,9 +35,9 @@ class PieChart extends Component {
           center: ['50%', '50%'],
           roseType: 'radius',
           data: [
-            {value: 45, name: 'Succeeded'},
-            {value: 30, name: 'Failed'},
-            {value: 22, name: 'Running'},
+            {value: this.props.data.succeeded, name: 'Succeeded'},
+            {value: this.props.data.failed, name: 'Failed'},
+            {value: this.props.data.running, name: 'Running'},
           ],
           emphasis: {
             itemStyle: {

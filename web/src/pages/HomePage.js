@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Row, Col} from "antd";
 import '../styles/HomePage.scss';
 import InfoCard from "../components/InfoCard";
 import {ReactBingmaps} from "react-bingmaps-vnext";
 import pushpin from '../assets/map-pushpin.svg';
+import {getGlobalJobStates, getGlobalMachineStates, getJobInfo, getMyJobStates} from "../backend/api";
 
 const points = [
   {
@@ -122,10 +123,29 @@ const renderPoint = (point) => {
 };
 
 const HomePage = () => {
+  const [myJobStates, setMyJobStates] = useState({failed: 0, succeeded: 0, running: 0});
+  const [globalJobStates, setGlobalJobStates] = useState({failed: 0, succeeded: 0, running: 0});
+  const [globalMachineStates, setGlobalMachineStates] = useState({available: 0, busy: 0, error: 0});
+
   const jobAry = ['Succeeded', 'Failed', 'Running'];
-  const jobValAry = ['3', '1', '20/30'];
   const serverAry = ['Available', 'Error', 'Busy'];
-  const serverValAry = ['20', '0', '4'];
+
+  useEffect(() => {
+    getMyJobStates()
+      .then((info) => {
+        setMyJobStates(info);
+      });
+
+    getGlobalJobStates()
+      .then((info) => {
+        setGlobalJobStates(info);
+      });
+
+    getGlobalMachineStates()
+      .then((info) => {
+        setGlobalMachineStates(info);
+      });
+  }, []);
 
   const renderMap = () => {
     const infoboxesWithPushPins = points.map((point) => renderPoint(point));
@@ -198,15 +218,15 @@ const HomePage = () => {
     <div style={{margin: 24 - 60}}>
       <Row style={{margin: "20px"}} justify="space-around">
         <Col flex="400px">
-          <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'My Jobs'} showIcon={true} width={400} height={760} showChart={true}/>
+          <InfoCard keyAry={jobAry} valueAry={[myJobStates.succeeded, myJobStates.failed, myJobStates.running]} title={'My Jobs'} showIcon={true} width={400} height={760} showChart={true}/>
         </Col>
         <Col flex="auto" style={{marginLeft: "48px"}}>
           <Row> {renderMap()}
           </Row>
           <Row style={{marginTop: "32px"}}>
-            <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
+            <InfoCard keyAry={jobAry} valueAry={[globalJobStates.succeeded, globalJobStates.failed, globalJobStates.running]} title={'Global Jobs'} showIcon={true}/>
             <div style={{marginLeft: "32px"}}>
-              <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'} showIcon={true}/>
+              <InfoCard keyAry={serverAry} valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]} title={'Servers'} showIcon={true}/>
             </div>
           </Row>
         </Col>
