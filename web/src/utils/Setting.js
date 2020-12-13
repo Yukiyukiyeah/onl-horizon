@@ -92,3 +92,21 @@ export function getAuthorizationHeader() {
     return `Bearer ${account.rawToken}`;
   }
 }
+
+// export function getAccountToken(context) {
+//   const account = getAccount(context);
+//   if (account === null) {
+//     return Promise.resolve(null);
+//     // return null;
+//   }
+//
+//   return context.instance.acquireTokenSilent({
+//     // scopes: ["User.Read"],
+//     scopes: ["openid", "email", "profile"],
+//     account: account,
+//   });
+// }
+
+export function renderJson(object) {
+  return JSON.stringify(object, null, 2);
+}

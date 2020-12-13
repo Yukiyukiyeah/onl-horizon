@@ -14,10 +14,6 @@ class AccountPage extends React.Component {
     };
   }
 
-  renderJson(object) {
-    return JSON.stringify(object, null, 2);
-  }
-
   render() {
     const account = Setting.getAccount(this.context);
     if (account === null) {
@@ -27,16 +23,17 @@ class AccountPage extends React.Component {
     return (
       <div>
         <Descriptions title="Account" bordered column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}>
-          <Descriptions.Item label="Name">{account.name}</Descriptions.Item>
-          <Descriptions.Item label="Username">{account.username}</Descriptions.Item>
-          <Descriptions.Item label="Home Account ID">{account.homeAccountId}</Descriptions.Item>
-          <Descriptions.Item label="Local Account ID">{account.localAccountId}</Descriptions.Item>
-          <Descriptions.Item label="Tenant ID">{account.tenantId}</Descriptions.Item>
-          <Descriptions.Item label="Environment">{account.environment}</Descriptions.Item>
-          <Descriptions.Item label="Token Type">ID Token</Descriptions.Item>
-          <Descriptions.Item label="Scopes" span={2}>[]</Descriptions.Item>
-          <Descriptions.Item label="ID Token Claims" span={3}><pre>{this.renderJson(account.idTokenClaims)}</pre></Descriptions.Item>
-          <Descriptions.Item label="ID Token" span={3}>{account.rawToken}</Descriptions.Item>
+          <Descriptions.Item label="Name" span={3}>{account.name}</Descriptions.Item>
+          <Descriptions.Item label="Username" span={3}>{account.username}</Descriptions.Item>
+          <Descriptions.Item label="Home Account ID" span={3}>{account.homeAccountId}</Descriptions.Item>
+          <Descriptions.Item label="Local Account ID" span={3}>{account.localAccountId}</Descriptions.Item>
+          {/*<Descriptions.Item label="Tenant ID" span={3}>{account.tenantId}</Descriptions.Item>*/}
+          <Descriptions.Item label="Environment" span={3}>{account.environment}</Descriptions.Item>
+          {/*<Descriptions.Item label="Token Type" span={3}>ID Token</Descriptions.Item>*/}
+          {/*<Descriptions.Item label="Scopes" span={3}>[]</Descriptions.Item>*/}
+          <Descriptions.Item label="ID Token Claims" span={3}><pre>{Setting.renderJson(account.idTokenClaims)}</pre></Descriptions.Item>
+          <Descriptions.Item label="ID Token" span={3}><div style={{width: "60vw"}}>{account.rawToken}</div></Descriptions.Item>
+          <Descriptions.Item label="IDP Access Token" span={3}><div style={{width: "60vw"}}>{account.idTokenClaims.idp_access_token}</div></Descriptions.Item>
         </Descriptions>
       </div>
     );
