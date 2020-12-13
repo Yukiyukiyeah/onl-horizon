@@ -124,8 +124,8 @@ const renderPoint = (point) => {
 const HomePage = () => {
   const jobAry = ['Succeeded', 'Failed', 'Running'];
   const jobValAry = ['3', '1', '20/30'];
-  const serverAry = ['Available', 'Busy', 'Error'];
-  const serverValAry = ['20', '4', '0'];
+  const serverAry = ['Available', 'Error', 'Busy'];
+  const serverValAry = ['20', '0', '4'];
 
   const renderMap = () => {
     const infoboxesWithPushPins = points.map((point) => renderPoint(point));
@@ -203,10 +203,10 @@ const HomePage = () => {
         <Col flex="auto" style={{marginLeft: "48px"}}>
           <Row> {renderMap()}
           </Row>
-          <Row  style={{marginTop: "32px"}} >
+          <Row style={{marginTop: "32px"}}>
             <InfoCard keyAry={jobAry} valueAry={jobValAry} title={'Global Jobs'} showIcon={true}/>
             <div style={{marginLeft: "32px"}}>
-              <InfoCard keyAry={serverAry}   valueAry={serverValAry} title={'Servers'}/>
+              <InfoCard keyAry={serverAry} valueAry={serverValAry} title={'Servers'} showIcon={true}/>
             </div>
           </Row>
         </Col>
