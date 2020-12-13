@@ -278,7 +278,11 @@ const JobList = () => {
           loading={loading}
           onRow={record => {
             return {
-              onClick: () => {handleJobNameClick(record.jobId);}
+              onClick: (e) => {
+                if (e && e.target && e.target.tagName === 'A'){
+                  handleJobNameClick(record.jobId);
+                }
+              }
             };
           }}
         />

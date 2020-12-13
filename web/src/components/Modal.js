@@ -61,10 +61,24 @@ const Modal = (props) => {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      render: (filename, record) => {
+        return record.isFile ? (<a>{filename}</a>) : filename;
+      }
     }
   ];
   const onHandleConfirmClick = () => {
     handleConfirm(willDownloadFiles);
+  };
+  const handleFileClick = (fileObj) => {
+    const url = 'https://api.opennetlab.org/api' + '/results/download/' + fileObj.id + '?filename=' + fileObj.name;
+    var temporaryDownloadLink = document.createElement("a");
+    temporaryDownloadLink.style.display = 'none';
+    document.body.appendChild(temporaryDownloadLink);
+    temporaryDownloadLink.setAttribute('href', url);
+    temporaryDownloadLink.setAttribute('download', fileObj.file);
+    temporaryDownloadLink.click();
+    document.body.removeChild(temporaryDownloadLink);
+
   };
 
   return visible && (
@@ -79,7 +93,18 @@ const Modal = (props) => {
             rowSelection={{ ...rowSelection, checkStrictly}}
             dataSource={convertedData}
             showHeader={false}
-          /></div>}
+            onRow={record => {
+              if (record.isFile) {
+                return {
+                  onClick: () => {
+                    handleFileClick(record);
+                  }
+                };
+              }
+            }
+            }
+          />
+        </div>}
         <div className="modal-operator">
           <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>{confirmText}</Button>
           <Button  className="modal-operator-close" onClick={handleCancel}>{cancelText}</Button>
