@@ -4,6 +4,7 @@ import * as Setting from "../utils/Setting";
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
+import * as http from '../backend/http';
 import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
@@ -55,7 +56,10 @@ class App extends Component {
     this.context.instance.loginPopup(loginRequest)
       .then(() => {
         // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
-        window.location.reload();
+        http.getAvatar()
+          .then(() => {
+            window.location.reload();
+          });
         // this.props.history.push(window.location.url);
       })
       .catch(error => {
@@ -70,6 +74,7 @@ class App extends Component {
 
     this.context.instance.logout(logoutRequest)
       .then(() => {
+        localStorage.removeItem("avatar");
         // Setting.showMessage("success", `Signed out successfully, return to homepage page..`);
       });
 
@@ -97,6 +102,23 @@ class App extends Component {
     }
   }
 
+  renderAvatar() {
+    const account = Setting.getAccount(this.context);
+    const imageSrc = Setting.getAvatarSrc();
+
+    if (imageSrc === "") {
+      return (
+        <Avatar size="large" style={{ backgroundColor: Setting.getAvatarColor(account.name), verticalAlign: 'middle' }}>
+          {Setting.getFirstName(account.name)}
+        </Avatar>
+      );
+    } else {
+      return (
+        <Avatar size="large" src={imageSrc} />
+      );
+    }
+  }
+
   renderRightDropdown() {
     const account = Setting.getAccount(this.context);
 
@@ -116,9 +138,9 @@ class App extends Component {
     return (
       <Dropdown key="4" overlay={menu} >
         <a className="ant-dropdown-link" href="#" style={{float: 'right'}}>
-          <Avatar style={{ backgroundColor: Setting.getAvatarColor(account.name), verticalAlign: 'middle' }} size="large">
-            {Setting.getFirstName(account.name)}
-          </Avatar>
+          {
+            this.renderAvatar()
+          }
           &nbsp;
           &nbsp;
           {Setting.isMobile() ? null : account.name} &nbsp; <DownOutlined />

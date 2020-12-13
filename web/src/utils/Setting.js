@@ -93,6 +93,20 @@ export function getAuthorizationHeader() {
   }
 }
 
+export function getIdpAuthorizationHeader() {
+  const accounts = pca.getAllAccounts();
+  if (accounts.length === 0) {
+    return "";
+  }
+
+  const account = accounts[0];
+  if (account === null) {
+    return "";
+  } else {
+    return `Bearer ${account.idTokenClaims.idp_access_token}`;
+  }
+}
+
 // export function getAccountToken(context) {
 //   const account = getAccount(context);
 //   if (account === null) {
@@ -109,4 +123,13 @@ export function getAuthorizationHeader() {
 
 export function renderJson(object) {
   return JSON.stringify(object, null, 2);
+}
+
+export function getAvatarSrc() {
+  const avatarData = localStorage.getItem("avatar");
+  if (avatarData === null) {
+    return "";
+  } else {
+    return `data:image/jpeg;base64,${avatarData}`;
+  }
 }

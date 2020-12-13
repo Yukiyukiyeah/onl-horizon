@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getAuthorizationHeader} from "../utils/Setting";
+import * as Setting from "../utils/Setting";
 
 /* change the base url based on the environment
 if (process.env.NODE_END == 'development') {
@@ -34,7 +34,7 @@ axios.interceptors.request.use(
 )*/
 
 function getAxiosConfig(params, data) {
-  const authHeader = getAuthorizationHeader();
+  const authHeader = Setting.getAuthorizationHeader();
   let res = {};
 
   if (authHeader !== "") {
@@ -46,9 +46,25 @@ function getAxiosConfig(params, data) {
   if (data !== null) {
     res.data = data;
   }
+
+  return res;
+}
+
+function getAxiosConfigIdp(params, data) {
+  const authHeader = Setting.getIdpAuthorizationHeader();
+  let res = {};
+
+  if (authHeader !== "") {
+    res.headers = {"Authorization": authHeader};
+  }
+  if (params !== null) {
+    res.params = params;
+  }
   if (data !== null) {
     res.data = data;
   }
+
+  res.responseType = "arraybuffer";
 
   return res;
 }
@@ -56,7 +72,7 @@ function getAxiosConfig(params, data) {
 const getHeaderToken = () => {
   return {
     'Content-Type': 'application/json',
-    'Authorization': getAuthorizationHeader()
+    'Authorization': Setting.getAuthorizationHeader()
   };
 };
 
@@ -91,11 +107,12 @@ export function post(url, params) {
       .then(res => {
         resolve(res.data);
       })
-      .catch(err =>{
+      .catch(err => {
         reject(err.data);
       });
   });
 }
+
 /**
  * deleteData method
  * @param {String} url [request url]
@@ -128,6 +145,24 @@ export function patch(url, params) {
         resolve(res.data);
       })
       .catch(err => {
+        reject(err.data);
+      });
+  });
+}
+
+export function getAvatar() {
+  const url = "https://graph.microsoft.com/beta/me/photo/$value";
+  return new Promise((resolve, reject) => {
+    axios.get(url, getAxiosConfigIdp(null))
+      .then(res => {
+        const buffer = Buffer.from(res.data, 'binary').toString('base64');
+        localStorage.setItem("avatar", buffer);
+        resolve(buffer);
+      })
+      .catch(err => {
+        console.log(err);
+        localStorage.removeItem("avatar");
+        // alert(err);
         reject(err.data);
       });
   });
