@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import '../styles/App.less';
 import * as Setting from "../utils/Setting";
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
-import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
+import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
+import {getUserId} from "../backend/api";
 import HomePage from "./HomePage";
 import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
@@ -25,6 +26,7 @@ class App extends Component {
     this.state = {
       classes: props,
       selectedMenuKey: 0,
+      isForbidden: false,
     };
 
     Setting.initServerUrl();
@@ -53,12 +55,26 @@ class App extends Component {
   }
 
   login() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("role");
     this.context.instance.loginPopup(loginRequest)
       .then(() => {
         // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
-        http.getAvatar()
+        getUserId()
           .then(() => {
-            window.location.reload();
+            http.getAvatar()
+              .then(() => {
+                window.location.reload();
+
+              })
+              .catch(error => {
+                window.location.reload();
+              });
+          })
+          .catch(err => {
+            this.setState({
+              isForbidden: true,
+            });
           });
         // this.props.history.push(window.location.url);
       })
@@ -72,9 +88,9 @@ class App extends Component {
       account: Setting.getAccount(this.context)
     };
 
+    localStorage.removeItem("avatar");
     this.context.instance.logout(logoutRequest)
       .then(() => {
-        localStorage.removeItem("avatar");
         // Setting.showMessage("success", `Signed out successfully, return to homepage page..`);
       });
 
@@ -300,6 +316,32 @@ class App extends Component {
     );
   }
 
+  renderModal() {
+    if (Setting.getAccount(this.context) === null) {
+      return null;
+    }
+
+    const isForbidden = this.state.isForbidden === true || localStorage.getItem("userId") === "forbidden";
+    if (isForbidden) {
+      return (
+        <Modal
+          title="You are not authorized to access this website"
+          visible={true}
+          closable={false}
+          footer={[
+            <Button key="logout" type="primary" onClick={this.logout.bind(this)}>
+              Logout
+            </Button>,
+          ]}
+        >
+          If you have questions, please contact: <a href={"mailto:admin@opennetlab.org"}>admin@opennetlab.org</a>
+        </Modal>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div id="parent-area">
@@ -307,6 +349,9 @@ class App extends Component {
         <div>
           {
             this.renderContent()
+          }
+          {
+            this.renderModal()
           }
         </div>
       </div>

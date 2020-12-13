@@ -3,7 +3,7 @@ import {Avatar, Descriptions} from "antd";
 import * as Setting from "../utils/Setting";
 
 import {MsalContext} from "@hsluoyz/msal-react";
-import {getAvatar} from "../backend/http";
+import {getUserId} from "../backend/api";
 
 class AccountPage extends React.Component {
   static contextType = MsalContext;
@@ -44,6 +44,8 @@ class AccountPage extends React.Component {
           <Descriptions.Item label="Name" span={3}>{account.name}</Descriptions.Item>
           <Descriptions.Item label="Username" span={3}>{account.username}</Descriptions.Item>
           <Descriptions.Item label="Avatar" span={3}>{ this.renderAvatar() }</Descriptions.Item>
+          <Descriptions.Item label="ID" span={3}>{ localStorage.getItem("userId") }</Descriptions.Item>
+          <Descriptions.Item label="Role" span={3}>{ localStorage.getItem("role") }</Descriptions.Item>
           <Descriptions.Item label="Home Account ID" span={3}>{account.homeAccountId}</Descriptions.Item>
           <Descriptions.Item label="Local Account ID" span={3}>{account.localAccountId}</Descriptions.Item>
           {/*<Descriptions.Item label="Tenant ID" span={3}>{account.tenantId}</Descriptions.Item>*/}

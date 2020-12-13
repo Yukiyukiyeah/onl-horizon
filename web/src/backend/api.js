@@ -103,3 +103,21 @@ const fixedParamForRestartJob = {
 
 export const runProbingApp = () => { //
 };
+
+// get user ID
+export const getUserId = () => {
+  const infoUrl = baseUrl + '/auth';
+  return get(infoUrl)
+    // .then(res => res.json())
+    .then((res) => {
+      const userId = res.id;
+      localStorage.setItem("userId", userId);
+      const role = res.role;
+      localStorage.setItem("role", role);
+    })
+    .catch(err => {
+      localStorage.setItem("userId", "forbidden");
+      localStorage.setItem("role", "forbidden");
+      // alert(err);
+    });
+};
