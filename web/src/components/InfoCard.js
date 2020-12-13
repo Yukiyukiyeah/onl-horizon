@@ -3,9 +3,9 @@ import {Col, Row, Button} from 'antd';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import '../styles/InfoCard.scss';
-import dotGreen from '../assets/dot-green.png';
-import dotRed from '../assets/dot-red.png';
-import dotBlue from '../assets/dot-blue.png';
+import dotGreen from '../assets/dot-green.svg';
+import dotRed from '../assets/dot-red.svg';
+import dotBlue from '../assets/dot-blue.svg';
 import PieChart from "./PieChart";
 import * as Setting from "../utils/Setting";
 
