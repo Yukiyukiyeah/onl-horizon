@@ -70,38 +70,9 @@ export const getUserName = (userId = '00000000-0000-0000-0000-000000000001') => 
 };
 
 // run job
-
-const fixedParamForRestartJob = {
-  "AppParams": {
-    "NetParams": {"ListenTCPPort": 8888}, "RunTime": "100", "TestTimes": "1", "Interval": "50",
-    "video_source": {
-      "video_disabled": {
-        "enabled": false
-      },
-      "webcam": {
-        "enabled": false
-      },
-      "video_file": {
-        "enabled": true,
-        "height": 1080,
-        "width": 1920,
-        "fps": 24,
-        "file_path": "C:\\Users\\Administrator\\Downloads\\webrtc\\data\\webrtc_test_video.yuv"
-      }
-    },
-    "audio_source": {
-      "microphone": {
-        "enabled": false
-      },
-      "audio_file": {
-        "enabled": true,
-        "file_path": "C:\\Users\\Administrator\\Downloads\\webrtc\\data\\webrtc_test_audio.wav"
-      }
-    }
-  }, "UserName": "test", "TimeoutSec": "500"
-};
-
-export const runProbingApp = () => { //
+export const runApp = (jobId, appName, params) => { //
+  const url = `${baseUrl}/display/runJob/${jobId}?appName=${appName}`;
+  return post(url, params);
 };
 
 // get user ID
