@@ -133,3 +133,8 @@ export function getAvatarSrc() {
     return `data:image/jpeg;base64,${avatarData}`;
   }
 }
+
+export function getUserId() {
+  // return "E0000003-0000-0000-0000-000000000003";
+  return localStorage.getItem("userId");
+}
