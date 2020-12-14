@@ -36,12 +36,12 @@ const FirstTab = (props) => {
           <p className="title">Job Type</p>
           <div className="name">
             <p className="sub-title">Name</p>
-            <Input className="name-input" defaultValue={title} onChange={({ target: { value } }) => setTitle(value)}  maxLength={30}/>
+            <Input className="name-input" placeholder={"the name of the job"} defaultValue={title} onChange={({ target: { value } }) => setTitle(value)} maxLength={30}/>
             {checkValid && !titleValid && <ValidError errorText={"Type job name"}/>}
           </div>
           <div className="type">
             <p className="sub-title">Type</p>
-            <Select className="type-select"  defaultValue={appType}  size="large"  onChange={(value) => setType(value)}>
+            <Select className="type-select" defaultValue={appType} size="large" onChange={(value) => setType(value)}>
               <Option value="AlphaRTC">
                 AlphaRTC
               </Option>

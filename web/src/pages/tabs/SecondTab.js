@@ -35,6 +35,7 @@ const SecondTab = (props) => {
         <Col>
           <p className="title-row">Description (optional)</p>
           <TextArea
+            placeholder={"the description of the job"}
             defaultValue={ description }
             showCount
             autoSize = {{ minRows: 2, maxRows: 6 }}
