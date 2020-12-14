@@ -46,7 +46,7 @@ const columns = [
     defaultSortOrder: 'descend'
   }
 ];
-const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
+const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
 const statusNumToString = [
   [0, 'Init'],
   [1, 'Created'],
@@ -248,7 +248,7 @@ const JobList = () => {
     'These jobs will stop. Are you sure?',
     'These jobs will start. Are you sure?',
     'These jobs will be deleted. Are you sure?',
-    'Choose download files'];
+    'Please choose files to download:'];
 
   return (
     <div className="jobList-container">

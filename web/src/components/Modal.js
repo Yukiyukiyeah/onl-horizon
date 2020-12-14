@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import '../styles/Modal.scss';
 import {Button, Space, Switch, Table} from "antd";
@@ -11,10 +11,22 @@ const Modal = (props) => {
     height: 400,
     overflow: 'auto'
   };
+
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [willDownloadFiles, setWillDownloadFiles] = useState([]);
   const keyToFile = new Map();
   const keyToId = new Map();
+
+  useEffect(() => {
+    const allRowKeys = [];
+    for (let i in data) {
+      for (let file of data[i].files) {
+        allRowKeys.push(allRowKeys.length + 1);
+      }
+    }
+    setSelectedRowKeys(allRowKeys);
+  }, [data]);
+
   const handleRowData = () => {
     const retData = [];
     for (let i in data) {
@@ -38,7 +50,9 @@ const Modal = (props) => {
     }
     return retData;
   };
+
   const convertedData = handleRowData(data);
+
   const onSelectChange = (selectedRowKeys) => {
     if (existTable) {
       setWillDownloadFiles([]);
@@ -93,6 +107,7 @@ const Modal = (props) => {
             rowSelection={{ ...rowSelection, checkStrictly}}
             dataSource={convertedData}
             showHeader={false}
+            expandable={{defaultExpandAllRows: true}}
             onRow={record => {
               if (record.isFile) {
                 return {
@@ -106,7 +121,7 @@ const Modal = (props) => {
           />
         </div>}
         <div className="modal-operator">
-          <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>{confirmText}</Button>
+          <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>Download</Button>
           <Button  className="modal-operator-close" onClick={handleCancel}>{cancelText}</Button>
         </div>
       </div>

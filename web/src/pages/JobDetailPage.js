@@ -32,17 +32,18 @@ const columnConvert = new Map(columnReflect);
 
 const JobDetail = (props) => {
   const [data, setData] = useState([]);
+  const [job, setJob] = useState({});
   const [jobDescription, setJobDesc] = useState('');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [btnId, setBtnId] = useState(0);
   const [downloadData, setDownloadData] = useState([]);
-  const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
+  const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
   const slots = [
     'These jobs will stop. Are you sure?',
     'These jobs will start. Are you sure?',
     'These jobs will be deleted. Are you sure?',
-    'Choose download files'];
+    'Please choose files to download:'];
   const showModalView = (e) => {
     const curBtn = e.target;
     const id = +curBtn.id;
@@ -60,7 +61,7 @@ const JobDetail = (props) => {
       <Button type="default" id={2} className="stop-btn btn" disabled>
         <span className="btn-text" id={2}>STOP</span>
       </Button>
-      <Button type="default" id={3} className="download-btn btn" >
+      <Button type="default" id={3} className="download-btn btn" disabled={job.status !== "Succeeded"} >
         <span className="btn-text" id={3}>DOWNLOAD DATASET</span>
       </Button>
     </div>);
@@ -89,6 +90,7 @@ const JobDetail = (props) => {
   };
   const handleJobInfo = (initJobInfo)  =>{
     const tempData = [];
+    setJob(initJobInfo);
     setJobDesc(initJobInfo.description);
     for (const entry of columnConvert.entries()) {
       const curKey = {};
@@ -163,7 +165,8 @@ const JobDetail = (props) => {
       <Row className="subtitle">{jobDescription}</Row>
       <Row className="table-wrapper" style={{marginTop:'64px'}}>
         <Col span={12}>
-          <Table columns={columns}
+          <Table
+            columns={columns}
             dataSource={data}
             loading={loading}
             size={"middle"}
