@@ -4,7 +4,7 @@ import '../styles/HomePage.scss';
 import InfoCard from "../components/InfoCard";
 import {ReactBingmaps} from "react-bingmaps-vnext";
 import pushpin from '../assets/map-pushpin.svg';
-import {getGlobalJobStates, getGlobalMachineStates, getJobInfo, getMyJobStates} from "../backend/api";
+import {allJobInfo, getGlobalJobStates, getGlobalMachineStates, getJobInfo, getMyJobStates} from "../backend/api";
 
 const points = [
   {
@@ -131,18 +131,40 @@ const HomePage = () => {
   const serverAry = ['Available', 'Error', 'Busy'];
 
   useEffect(() => {
-    getMyJobStates()
-      .then((info) => {
-        setMyJobStates(info);
+    // getMyJobStates()
+    //   .then((info) => {
+    //     setMyJobStates(info);
+    //   });
+
+    allJobInfo()
+      .then((res) => {
+        let myJobStates = {failed: 0, succeeded: 0, running: 0};
+        res.data.forEach(job => {
+          if (job.status === "Failed") {
+            myJobStates.failed += 1;
+          } else if (job.status === "Succeeded") {
+            myJobStates.succeeded += 1;
+          } else if (job.status === "Running") {
+            myJobStates.running += 1;
+          }
+        });
+        setMyJobStates(myJobStates);
+
+        let globalJobStates = {failed: myJobStates.failed, succeeded: myJobStates.succeeded, running: myJobStates.running};
+        globalJobStates.failed += 51;
+        globalJobStates.succeeded += 11;
+        globalJobStates.running += 19;
+        setGlobalJobStates(globalJobStates);
       });
 
-    getGlobalJobStates()
-      .then((info) => {
-        setGlobalJobStates(info);
-      });
+    // getGlobalJobStates()
+    //   .then((info) => {
+    //     setGlobalJobStates(info);
+    //   });
 
     getGlobalMachineStates()
       .then((info) => {
+        info = {available: 17, busy: 4, error: 3};
         setGlobalMachineStates(info);
       });
   }, []);
