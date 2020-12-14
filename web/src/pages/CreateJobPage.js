@@ -80,7 +80,7 @@ const CrateJob = () => {
       }
       runParams = runIperfParams;
     }
-    return runApp(jobId, appType, runParams);
+    return runApp(jobId, Setting.appTypeMap[appType], runParams);
   };
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
@@ -89,6 +89,7 @@ const CrateJob = () => {
       setTitle(param.title);
     }
     if (curStep === 2) {
+      params.appType = Setting.appTypeMap[params.appType];
       sendCreateJobReq(params)
         .then(r => {
           setCurStatusStep(1);
