@@ -224,7 +224,7 @@ const HomePage = () => {
             title={<div style={{fontWeight: "bold"}}>My Jobs</div>}
             showIcon={true}
             width={350}
-            height={760}
+            height={744}
             showChart={true}/>
         </Col>
         <Col flex="auto" style={{marginLeft: "24px"}}>
