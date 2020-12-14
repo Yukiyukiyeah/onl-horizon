@@ -218,15 +218,15 @@ const HomePage = () => {
     <div style={{margin: 24 - 60}}>
       <Row style={{margin: "20px"}} justify="space-around">
         <Col flex="400px">
-          <InfoCard keyAry={jobAry} valueAry={[myJobStates.succeeded, myJobStates.failed, myJobStates.running]} title={'My Jobs'} showIcon={true} width={400} height={760} showChart={true}/>
+          <InfoCard keyAry={jobAry} valueAry={[myJobStates.succeeded, myJobStates.failed, myJobStates.running]} title={<div style={{fontWeight: "bold"}}>My Jobs</div>} showIcon={true} width={400} height={760} showChart={true}/>
         </Col>
         <Col flex="auto" style={{marginLeft: "48px"}}>
           <Row> {renderMap()}
           </Row>
           <Row style={{marginTop: "32px"}}>
-            <InfoCard keyAry={jobAry} valueAry={[globalJobStates.succeeded, globalJobStates.failed, globalJobStates.running]} title={'Global Jobs'} showIcon={true}/>
+            <InfoCard keyAry={jobAry} valueAry={[globalJobStates.succeeded, globalJobStates.failed, globalJobStates.running]} title={<div style={{fontWeight: "bold"}}>Global Jobs</div>} showIcon={true}/>
             <div style={{marginLeft: "32px"}}>
-              <InfoCard keyAry={serverAry} valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]} title={'Servers'} showIcon={true}/>
+              <InfoCard keyAry={serverAry} valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]} title={<div style={{fontWeight: "bold"}}>Servers</div>} showIcon={true}/>
             </div>
           </Row>
         </Col>

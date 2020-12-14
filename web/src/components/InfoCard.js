@@ -19,7 +19,7 @@ const InfoCard = (props) => {
       <div className="wrapper" style={{height:height, width:width}} >
         <Row className="title" justify="space-between">
           {title}
-          {showChart && (<Link to="/jobs"><span className="link" style={{fontSize:14}}>{`Explore >>`} </span></Link>)}
+          {showChart && (<Link to="/jobs"><span className="link" style={{fontSize: 14, fontWeight: "bold"}}>{`Explore >>`} </span></Link>)}
         </Row>
         {showChart && <Row style={{marginTop: 0, paddingBottom:48}}>
           <PieChart data={{succeeded: valueAry[0], failed: valueAry[1], running: valueAry[2]}} />

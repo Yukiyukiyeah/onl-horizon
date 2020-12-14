@@ -159,7 +159,7 @@ class App extends Component {
           }
           &nbsp;
           &nbsp;
-          {Setting.isMobile() ? null : account.name} &nbsp; <DownOutlined />
+          <span style={{fontWeight: "bold"}}>{Setting.isMobile() ? null : account.name}</span> &nbsp; <DownOutlined />
           &nbsp;
           &nbsp;
           &nbsp;
@@ -229,17 +229,17 @@ class App extends Component {
         // theme="dark"
       >
         <Menu.Item key="0" onClick={() => this.props.history.push("/home")}>
-          <div style={{paddingLeft: "10px"}}>
+          <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
             Home
           </div>
         </Menu.Item>
         <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>
-          <div style={{paddingLeft: "10px"}}>
+          <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
             Create Job
           </div>
         </Menu.Item>
         <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>
-          <div style={{paddingLeft: "10px"}}>
+          <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
             Job List
           </div>
         </Menu.Item>
