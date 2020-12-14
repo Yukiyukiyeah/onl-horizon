@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import '../styles/App.less';
 import * as Setting from "../utils/Setting";
-import {CloseCircleTwoTone, DownOutlined, InfoCircleTwoTone, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {
+  CloseCircleTwoTone, DatabaseOutlined,
+  DownOutlined, FileAddOutlined,
+  HomeOutlined,
+  InfoCircleTwoTone,
+  LogoutOutlined,
+  SettingOutlined
+} from '@ant-design/icons';
 import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
@@ -230,16 +237,19 @@ class App extends Component {
       >
         <Menu.Item key="0" onClick={() => this.props.history.push("/home")}>
           <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
+            <HomeOutlined />
             Home
           </div>
         </Menu.Item>
         <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>
           <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
+            <FileAddOutlined />
             Create Job
           </div>
         </Menu.Item>
         <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>
           <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
+            <DatabaseOutlined />
             Job List
           </div>
         </Menu.Item>
