@@ -55,6 +55,7 @@ class App extends Component {
   }
 
   login() {
+    localStorage.removeItem("avatar");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
     this.context.instance.loginPopup(loginRequest)
@@ -88,7 +89,6 @@ class App extends Component {
       account: Setting.getAccount(this.context)
     };
 
-    localStorage.removeItem("avatar");
     this.context.instance.logout(logoutRequest)
       .then(() => {
         // Setting.showMessage("success", `Signed out successfully, return to homepage page..`);
