@@ -318,7 +318,20 @@ class App extends Component {
 
   renderModal() {
     if (Setting.getAccount(this.context) === null) {
-      return null;
+      return (
+        <Modal
+          title="Please login first to view this website"
+          visible={true}
+          closable={false}
+          footer={[
+            <Button key="login" type="primary" onClick={this.login.bind(this)}>
+              Login
+            </Button>,
+          ]}
+        >
+          If you have questions, please contact: <a href={"mailto:admin@opennetlab.org"}>admin@opennetlab.org</a>
+        </Modal>
+      );
     }
 
     const isForbidden = this.state.isForbidden === true || localStorage.getItem("userId") === "forbidden";
