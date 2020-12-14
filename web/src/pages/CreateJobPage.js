@@ -65,7 +65,7 @@ const CrateJob = () => {
         },
         UserName: "test"
       };
-      if (params.mode === 'TCP') {
+      if (params.mode === 'tcp') {
         runIperfParams.AppParams.tcpWindowSize =  params && params.tcpWindowSize;
         runIperfParams.AppParams.mss =  params && params.mss;
         runIperfParams.AppParams.tcpControl =  params && params.tcpControl;

@@ -128,10 +128,10 @@ const SecondTab = (props) => {
   }, [bandwidth]);
   const probingNextValid = useMemo(() => {
     const commonParamsValid = intervalTimeValid  && probingTimeoutValid && bufferValid && !!mode;
-    if (mode === 'TCP') {
+    if (mode === 'tcp') {
       return commonParamsValid && tcpWindowSizeValid && mssValid && !!tcpControl;
     }
-    else if ( mode === 'UDP') {
+    else if ( mode === 'udp') {
       return commonParamsValid && bandwidthValid;
     }
     return false;
@@ -244,18 +244,18 @@ const SecondTab = (props) => {
             className="input default-width"
             defaultValue={ mode }  size="large"
             onChange={(value) => { setMode(value);}}>
-            <Option value='TCP'>
+            <Option value='tcp'>
               TCP
             </Option>
-            <Option value='UDP'>
+            <Option value='udp'>
               UDP
             </Option>
           </Select>
           {checkValid && !mode  && <ValidError errorText={"Choose mode"}/>}
         </Col>
       </Row>
-      {mode === 'TCP' && tcpConfig}
-      {mode === 'UDP' && udpConfig}
+      {mode === 'tcp' && tcpConfig}
+      {mode === 'udp' && udpConfig}
     </div>
   );
   // advanced job config
