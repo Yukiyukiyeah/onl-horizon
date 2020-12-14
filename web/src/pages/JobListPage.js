@@ -24,12 +24,12 @@ const columns = [
     }
   },
   {
-    title: 'Running time / mins',
+    title: 'Running time (min)',
     dataIndex: 'duration',
     sorter: (a, b) =>  a.duration - b.duration
   },
   {
-    title: 'Expiration Time',
+    title: 'Expiration Time (min)',
     dataIndex: 'expirationTime',
     sorter: (a, b) => a.expirationTime - b.expirationTime
   },
