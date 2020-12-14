@@ -228,7 +228,7 @@ const SecondTab = (props) => {
           {checkValid && !bufferValid  && <ValidError errorText={"Incorrect buffer"}/>}
         </Col>
         <Col>
-          <p className="title-row">Timeout (s)</p>
+          <p className="title-row">Duration (s)</p>
           <Input
             defaultValue={probingTimeout}
             className=" default-width input"
@@ -293,7 +293,7 @@ const SecondTab = (props) => {
       </Row>
       <Row className="fourth-row-config config-row">
         <Col>
-          <p className="title-row">Timeout (s)</p>
+          <p className="title-row">Duration (s)</p>
           <Input
             defaultValue={advancedTimeout}
             className=" default-width input"
@@ -351,11 +351,11 @@ const SecondTab = (props) => {
     }
   };
   const steps = (
-    <Steps className="steps" progressDot  current={1}>
-      <Step title="Job Type" />
-      <Step title="Job Detail" />
+    <Steps className="steps" progressDot current={1}>
+      <Step title="Create Job" />
+      <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Submitted"/>
+      <Step title="Completed" />
     </Steps>
   );
   const stepsRow = (
@@ -377,7 +377,7 @@ const SecondTab = (props) => {
     <Row className="second-tab-container" justify="center">
       <Col span={20}>
         <Row className="title-zone">
-          <span className="title">Job Detail</span>
+          <span className="title">{type} Job Info</span>
           <div className="sub-title">
             <span> {title} </span>
             <span >   |   </span>

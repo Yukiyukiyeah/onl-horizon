@@ -33,7 +33,7 @@ const FirstTab = (props) => {
     <div className="first-tab-container">
       <Row className="content-zone" justify="center">
         <Col span={20}>
-          <p className="title">Job Type</p>
+          <p className="title">Create Job</p>
           <div className="name">
             <p className="sub-title">Name</p>
             <Input className="name-input" placeholder={"the name of the job"} defaultValue={title} onChange={({ target: { value } }) => setTitle(value)} maxLength={30}/>
@@ -58,7 +58,7 @@ const FirstTab = (props) => {
         <Row className="btn-row" justify="center">
           <Col span={20}>
             <Button type="primary" className="" onClick={() => onClickNext()}>
-              <span className="btn-text">CREATE</span>
+              <span className="btn-text">NEXT</span>
             </Button>
           </Col>
         </Row>

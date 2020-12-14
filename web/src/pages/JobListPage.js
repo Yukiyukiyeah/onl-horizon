@@ -24,7 +24,7 @@ const columns = [
     }
   },
   {
-    title: 'Running time (min)',
+    title: 'Running Time (min)',
     dataIndex: 'duration',
     sorter: (a, b) =>  a.duration - b.duration
   },
@@ -39,16 +39,16 @@ const columns = [
     sorter: (a, b) => a.status.localeCompare(b.status),
   },
   {
-    title: 'User',
-    dataIndex: 'user',
-    sorter: (a, b) => a.user.localeCompare(b.user),
-  },
-  {
     title: 'Created At',
     dataIndex: 'date',
     sorter: (a, b) => a.date.localeCompare(b.date),
     defaultSortOrder: 'descend'
-  }
+  },
+  {
+    title: 'User',
+    dataIndex: 'user',
+    sorter: (a, b) => a.user.localeCompare(b.user),
+  },
 ];
 const btnToModalBtn = ['Stop', 'Start', 'Delete', 'Download'];
 const btnToModalTitle = ['Stop Job', 'Start Job', 'Delete Job', 'Download Dataset'];

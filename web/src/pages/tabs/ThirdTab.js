@@ -27,11 +27,11 @@ const ThirdTab = (props) => {
     handleNext(config);
   };
   const steps = (
-    <Steps className="steps" progressDot  current={2}>
-      <Step title="Job Type" />
-      <Step title="Job Detail" />
+    <Steps className="steps" progressDot current={2}>
+      <Step title="Create Job" />
+      <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Submitted"/>
+      <Step title="Completed" />
     </Steps>
   );
   const stepsRow = (
