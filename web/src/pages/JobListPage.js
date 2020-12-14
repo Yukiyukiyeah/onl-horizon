@@ -29,9 +29,9 @@ const columns = [
     sorter: (a, b) =>  a.duration - b.duration
   },
   {
-    title: 'Retires',
-    dataIndex: 'retires',
-    sorter: (a, b) => a.retires - b.retires
+    title: 'Expiration Time',
+    dataIndex: 'expirationTime',
+    sorter: (a, b) => a.expirationTime - b.expirationTime
   },
   {
     title: 'Status',
@@ -44,7 +44,7 @@ const columns = [
     sorter: (a, b) => a.user.localeCompare(b.user),
   },
   {
-    title: 'Create Time',
+    title: 'Created At',
     dataIndex: 'date',
     sorter: (a, b) => a.date.localeCompare(b.date),
     defaultSortOrder: 'descend'
@@ -65,7 +65,7 @@ const columnReflect = [
   ['name', 'title'],
   ['type', 'appType'],
   ['duration', 'duration'],
-  ['retires', 'expirationTime'],
+  ['expirationTime', 'expirationTime'],
   ['status', 'status'],
   ['user', 'userName'],
   ['date', 'createTime'],

@@ -28,7 +28,7 @@ const columnReflect = [
   ['Time', 'time'],
   ['Type', 'appType'],
   ['User', 'userName'],
-  ['Retires', 'expirationTime'],
+  ['Expiration Time', 'expirationTime'],
   ['Status', 'status'],
 ];
 const columnConvert = new Map(columnReflect);

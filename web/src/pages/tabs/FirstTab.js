@@ -57,7 +57,7 @@ const FirstTab = (props) => {
         </Col>
         <Row className="btn-row" justify="center">
           <Col span={20}>
-            <Button type="primary" className="btn" onClick={() => onClickNext()}>
+            <Button type="primary" className="" onClick={() => onClickNext()}>
               <span className="btn-text">CREATE</span>
             </Button>
           </Col>
