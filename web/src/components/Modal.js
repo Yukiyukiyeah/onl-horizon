@@ -21,9 +21,11 @@ const Modal = (props) => {
     const allRowKeys = [];
     for (let i in data) {
       for (let file of data[i].files) {
-        allRowKeys.push(allRowKeys.length + 1);
+        allRowKeys.push(allRowKeys.length);
       }
     }
+
+    updateWillDownloadFiles(allRowKeys);
     setSelectedRowKeys(allRowKeys);
   }, [data]);
 
@@ -31,13 +33,13 @@ const Modal = (props) => {
     const retData = [];
     for (let i in data) {
       const curJob = {};
-      curJob.key = parseInt(i) + 1;
+      curJob.key = parseInt(i);
       curJob.name = data[i].title;
       curJob.id = data[i].jobId;
       const filesPath = [];
       for (let file of data[i].files) {
         const fileObj = {};
-        fileObj.key = parseInt(curJob.key + '' + (filesPath.length + 1));
+        fileObj.key = parseInt(curJob.key + '' + filesPath.length);
         fileObj.name = file;
         fileObj.isFile = true;
         fileObj.id = curJob.id;
@@ -53,18 +55,25 @@ const Modal = (props) => {
 
   const convertedData = handleRowData(data);
 
-  const onSelectChange = (selectedRowKeys) => {
-    if (existTable) {
-      setWillDownloadFiles([]);
-      const temp = [];
-      for (const key of selectedRowKeys) {
-        if (keyToFile.has(+key)) {
-          temp.push({id:keyToId.get(+key), file:keyToFile.get(+key)});
-        }
+  const updateWillDownloadFiles = (selectedRowKeys) => {
+    setWillDownloadFiles([]);
+    const temp = [];
+    for (const key of selectedRowKeys) {
+      if (keyToFile.has(+key)) {
+        temp.push({
+          id: keyToId.get(+key),
+          file: keyToFile.get(+key)
+        });
       }
-      setWillDownloadFiles(temp);
     }
-    setSelectedRowKeys(selectedRowKeys);};
+    setWillDownloadFiles(temp);
+  };
+
+  const onSelectChange = (selectedRowKeys) => {
+    updateWillDownloadFiles(selectedRowKeys);
+    setSelectedRowKeys(selectedRowKeys);
+  };
+
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
