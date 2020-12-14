@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../styles/App.less';
 import * as Setting from "../utils/Setting";
-import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {CloseCircleTwoTone, DownOutlined, InfoCircleTwoTone, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
@@ -320,7 +320,12 @@ class App extends Component {
     if (Setting.getAccount(this.context) === null) {
       return (
         <Modal
-          title="Please login first to view this website"
+          title={
+            <div>
+              <InfoCircleTwoTone style={{marginRight: "10px"}} twoToneColor={"rgb(43,121,215)"} />
+              Please login first to view this website
+            </div>
+          }
           visible={true}
           closable={false}
           footer={[
@@ -329,7 +334,7 @@ class App extends Component {
             </Button>,
           ]}
         >
-          If you have questions, please contact: <a href={"mailto:admin@opennetlab.org"}>admin@opennetlab.org</a>
+          Got a problem for login? Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     }
@@ -338,7 +343,12 @@ class App extends Component {
     if (isForbidden) {
       return (
         <Modal
-          title="You are not authorized to access this website"
+          title={
+            <div>
+              <CloseCircleTwoTone style={{marginRight: "10px"}} twoToneColor={"rgb(225,107,88)"} />
+              You are not authorized to access this website
+            </div>
+          }
           visible={true}
           closable={false}
           footer={[
@@ -347,7 +357,7 @@ class App extends Component {
             </Button>,
           ]}
         >
-          If you have questions, please contact: <a href={"mailto:admin@opennetlab.org"}>admin@opennetlab.org</a>
+          For any questions, please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     } else {
