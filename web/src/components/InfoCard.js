@@ -11,12 +11,12 @@ import * as Setting from "../utils/Setting";
 import {PlayCircleOutlined} from "@ant-design/icons";
 
 const InfoCard = (props) => {
-  const {title, showIcon, valueAry, keyAry, showChart = false, height, width} = props;
+  const {title, showIcon, valueAry, keyAry, showChart = false, height, width, screenWidth} = props;
 
   let history = useHistory();
 
   return (
-    <div className="info-card-container">
+    <div className="info-card-container" style={{width:screenWidth, minWidth:180}}>
       <div className="wrapper" style={{height:height, width:width}} >
         <Row className="title" justify="space-between">
           {title}

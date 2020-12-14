@@ -24,7 +24,7 @@ const columns = [
     }
   },
   {
-    title: 'Running time (min)',
+    title: 'Running time / mins',
     dataIndex: 'duration',
     sorter: (a, b) =>  a.duration - b.duration
   },
@@ -50,7 +50,8 @@ const columns = [
     defaultSortOrder: 'descend'
   }
 ];
-const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
+const btnToModalBtn = ['Stop', 'Start', 'Delete', 'Download'];
+const btnToModalTitle = ['Stop Job', 'Start Job', 'Delete Job', 'Download Dataset'];
 const statusNumToString = [
   [0, 'Init'],
   [1, 'Created'],
@@ -260,10 +261,10 @@ const JobList = () => {
         visible={showModal}
         handleConfirm={handleModalConfirm}
         handleCancel={handleModalCancel}
-        confirmText={btnToModal[btnId]}
+        confirmText={btnToModalBtn[btnId]}
         cancelText={"Cancel"}
         description={slots[btnId]}
-        title={btnToModal[btnId]}
+        title={btnToModalTitle[btnId]}
         height={+btnId === 3 ? "600px" : "250px"}
         existTable={+btnId === 3 }
         data={downloadData}
