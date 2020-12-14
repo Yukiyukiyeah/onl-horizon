@@ -80,26 +80,32 @@ const CrateJob = () => {
       }
       runParams = runIperfParams;
     }
-    return runApp(jobId, Setting.appTypeMap[appType], runParams);
+    return runApp(jobId, params.appType, runParams);
   };
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
     if (curStep === 0) {
-      setType(param.appType);
+      // iperf -> probing , webrtc -> alphartc
+      setType(Setting.appTypeMapR[param.appType]);
       setTitle(param.title);
     }
     if (curStep === 2) {
-      params.appType = Setting.appTypeMap[params.appType];
       sendCreateJobReq(params)
         .then(r => {
           setCurStatusStep(1);
           return runCreatedJob(r.id);
+        }, e => {
+          setCurStatusStep(1);
+          setError(true);
+          return new Promise(()=>{});
         })
         .then(r => {
           setCurStatusStep(2);
-        })
-        .catch( (e) => {setError(true);}
-        );
+        }, e => {
+          setCurStatusStep(2);
+          setError(true);
+        });
+
     }
     setStep(curStep + 1);
   };
