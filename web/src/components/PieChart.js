@@ -29,7 +29,7 @@ class PieChart extends Component {
       },
       series: [
         {
-          name: 'Machine Count',
+          name: 'Number of Jobs',
           type: 'pie',
           radius: [20, 70],
           center: ['50%', '50%'],

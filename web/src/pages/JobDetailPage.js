@@ -6,6 +6,8 @@ import { getJobInfo } from '../backend/api';
 import '../styles/JobDetailPage.scss';
 import Modal from "../components/Modal";
 import {useHistory} from "react-router-dom";
+import {LeftOutlined} from "@ant-design/icons";
+
 const columns = [
   {
     title: 'prop',
@@ -155,7 +157,9 @@ const JobDetail = (props) => {
         existTable={+btnId === 3 }
         data={downloadData}
       />
-      <Button className="back-btn" size="small" onClick={handleBackBtn}>{'< BACK'}</Button>
+      <Button className="back-btn" size="small" onClick={handleBackBtn}>
+        <LeftOutlined /><span style={{fontWeight: "bold"}}> BACK</span>
+      </Button>
       <Row justify="space-between">
         <p className="title">Job Detail</p>
         <div className="func-wrapper">

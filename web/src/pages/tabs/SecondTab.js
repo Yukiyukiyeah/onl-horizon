@@ -360,13 +360,13 @@ const SecondTab = (props) => {
   const stepsRow = (
     <Row className="steps-container" justify="space-between">
       <Col >
-        <Button type="primary" className="prev-btn"  onClick={handlePrev} >PREV</Button>
+        <Button type="primary" className="prev-btn btn-text" onClick={handlePrev} >PREV</Button>
       </Col>
       <Col >
         {steps}
       </Col>
       <Col >
-        <Button type="primary" className="next-btn"  onClick={onClickNext} >NEXT
+        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
         </Button>
       </Col>
     </Row>

@@ -190,8 +190,8 @@ const HomePage = () => {
       <div key="bingMap" className="map__card" style={{height: "500px", overflow: "hidden"}}>
         <ReactBingmaps
           bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
-          center={[40.0614, 115.78600]}
-          zoom={5}
+          center={[35.0614, 115.78600]}
+          zoom={3}
           infoboxesWithPushPins={infoboxesWithPushPins}
           mapOptions={{
             navigationBarMode: 3,
