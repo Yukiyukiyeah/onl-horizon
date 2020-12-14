@@ -13,7 +13,7 @@ const CrateJob = () => {
   const [appType, setType] = useState('');
   const [params, setParams] = useState({});
   const [isError, setError] = useState(false);
-  const [curStatusStep, setCurStatusStep] = useState(0);
+  const [curStatusStep, setCurStatusStep] = useState(1);
 
   const runCreatedJob = (jobId) => {
     let runParams = null;
@@ -72,8 +72,10 @@ const CrateJob = () => {
         runIperfParams.AppParams.tcpWindowSize =  params && params.tcpWindowSize;
         runIperfParams.AppParams.mss =  params && params.mss;
         runIperfParams.AppParams.tcpControl =  params && params.tcpControl;
+        runIperfParams.AppParams.NetParams.ListenTCPPort = 8888;
       }
       else {
+        runIperfParams.AppParams.NetParams.ListenUDPPort = 8888;
         runIperfParams.AppParams.bandwidth =  params && params.bandwidth;
       }
       runParams = runIperfParams;
@@ -88,41 +90,28 @@ const CrateJob = () => {
     }
     if (curStep === 2) {
       sendCreateJobReq(params)
-        .then((r => {
+        .then(r => {
           setCurStatusStep(1);
-          runCreatedJob(r.id);
-        }), (e) => {
-          setCurStatusStep(1);
-          setError(true);
-          console.log(e);
+          return runCreatedJob(r.id);
         })
-        .then((r => {
+        .then(r => {
           setCurStatusStep(2);
-        }), e => {
-          setCurStatusStep(2);
-          setError(true);
-          console.log(e);
         })
-        .catch(e => console.log(e));
+        .catch( (e) => {setError(true);}
+        );
     }
     setStep(curStep + 1);
   };
   const handlePrev = () => {
     setStep(curStep - 1);
   };
-  const curTab = useMemo(() => {
-    const stepAry = [
-      <FirstTab handleNext={ handleNext }/>,
-      <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>,
-      <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>,
-      <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>,
-    ];
-    return stepAry[curStep];
-  }, [curStep, curStatusStep, isError]);
 
   return (
     <div className="create-job-container">
-      {curTab}
+      {curStep === 0 && <FirstTab handleNext={ handleNext }/>}
+      {curStep === 1 && <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>}
+      {curStep === 2 && <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>}
+      {curStep === 3 && <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>}
     </div>
   );
 };

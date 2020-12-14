@@ -50,7 +50,7 @@ const columns = [
     defaultSortOrder: 'descend'
   }
 ];
-const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
+const btnToModal = ['Stop', 'Start', 'Delete', 'Download'];
 const statusNumToString = [
   [0, 'Init'],
   [1, 'Created'],

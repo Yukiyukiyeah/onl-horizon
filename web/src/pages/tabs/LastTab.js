@@ -13,11 +13,11 @@ const LastTab = (props) => {
         <Row style={{marginTop: 100}}>
           <Steps current={curStatusStep} status={error ? "error" : "finish"}>
             <Step title="Finished" description="Job configure has been completed" />
-            <Step title="Created" description="Job is created successfully" />
-            <Step title="Running" description="Job is running" />
+            <Step title="Created" description={error ? "Failed to create" : "Job is created successfully"}/>
+            <Step title="Running" description={curStatusStep === 2 ? (error ? "Failed to run" : "Job is running") : "Wait to run"} />
           </Steps>,
         </Row>
-        {curStatusStep > 0 && (<Row justify="center">
+        {curStatusStep > 0 && !error && (<Row justify="center">
           <div className="link-text">
             <span>You can find your job in the</span>
             <Link to="/jobs"><span className="link"> Job List</span></Link>
