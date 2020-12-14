@@ -12,6 +12,8 @@ const CrateJob = () => {
   const [title, setTitle] = useState('');
   const [appType, setType] = useState('');
   const [params, setParams] = useState({});
+  const [isError, setError] = useState(false);
+  const [curStatusStep, setCurStatusStep] = useState(0);
 
   const runCreatedJob = (jobId) => {
     let runParams = null;
@@ -76,10 +78,7 @@ const CrateJob = () => {
       }
       runParams = runIperfParams;
     }
-
-    runApp(jobId, Setting.appTypeMap[appType], runParams)
-      .then(r => console.log(r))
-      .catch(e => console.log(e));
+    return runApp(jobId, appType, runParams);
   };
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
@@ -89,8 +88,20 @@ const CrateJob = () => {
     }
     if (curStep === 2) {
       sendCreateJobReq(params)
-        .then(r => {
+        .then((r => {
+          setCurStatusStep(1);
           runCreatedJob(r.id);
+        }), (e) => {
+          setCurStatusStep(1);
+          setError(true);
+          console.log(e);
+        })
+        .then((r => {
+          setCurStatusStep(2);
+        }), e => {
+          setCurStatusStep(2);
+          setError(true);
+          console.log(e);
         })
         .catch(e => console.log(e));
     }
@@ -104,10 +115,10 @@ const CrateJob = () => {
       <FirstTab handleNext={ handleNext }/>,
       <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>,
       <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>,
-      <LastTab  title={ title } />,
+      <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>,
     ];
     return stepAry[curStep];
-  }, [curStep]);
+  }, [curStep, curStatusStep, isError]);
 
   return (
     <div className="create-job-container">

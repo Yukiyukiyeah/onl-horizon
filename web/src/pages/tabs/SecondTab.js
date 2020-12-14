@@ -21,10 +21,10 @@ const SecondTab = (props) => {
     return !(!experimentTime || isNaN(experimentTime) || experimentTime > 600 || experimentTime < 30);
   }, [experimentTime]);
   const expirationTimeValid = useMemo(() => {
-    return !(!experimentTime || isNaN(experimentTime) || experimentTime > 6000 || experimentTime < 300);
+    return !(!expirationTime || isNaN(expirationTime) || expirationTime > 6000 || expirationTime < 300);
   }, [expirationTime]);
   const bweValid = useMemo(() => {
-    return !(!bwe || isNaN(bwe) || bwe > 1000 || experimentTime < 10);
+    return !(!bwe || isNaN(bwe) || bwe > 1000 || bwe < 10);
   }, [bwe]);
   const alphaNextValid = useMemo(() => {
     return experimentTimeValid && experimentTimeValid && bweValid;

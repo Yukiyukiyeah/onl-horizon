@@ -24,7 +24,7 @@ const columns = [
     }
   },
   {
-    title: 'Running time',
+    title: 'Running time / mins',
     dataIndex: 'duration',
     sorter: (a, b) =>  a.duration - b.duration
   },
