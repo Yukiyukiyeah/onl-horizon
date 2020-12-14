@@ -6,6 +6,7 @@ import '../styles/JobListPage.scss';
 import * as momenttz from 'moment-timezone';
 import * as moment from 'moment';
 import Modal from '../components/Modal';
+import * as Setting from "../utils/Setting";
 
 const columns = [
   {
@@ -17,7 +18,10 @@ const columns = [
   {
     title: 'Type',
     dataIndex: 'type',
-    sorter:(a, b) => a.type.localeCompare(b.type)
+    sorter:(a, b) => a.type.localeCompare(b.type),
+    render: (text, record, index) => {
+      return Setting.appTypeMapR[text];
+    }
   },
   {
     title: 'Running time',

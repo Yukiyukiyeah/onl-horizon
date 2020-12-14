@@ -312,7 +312,7 @@ const SecondTab = (props) => {
   const advancedFullConfig = [description, application, jsonConfig, advancedTimeout];
   const onClickNext = () => {
     let config = {};
-    if (type === 'WebRTC') {
+    if (type === 'AlphaRTC') {
       if (!alphaNextValid) {
         setCheckValid(true);
         return;
@@ -324,7 +324,7 @@ const SecondTab = (props) => {
       }
       handleNext(config);
     }
-    else if (type === 'Iperf') {
+    else if (type === 'Probing') {
       if (!probingNextValid) {
         setCheckValid(true);
         return;
@@ -384,8 +384,8 @@ const SecondTab = (props) => {
           </div>
         </Row>
         <Row className="content-zone">
-          { type === 'WebRTC' && alphaConfig }
-          { type === 'Iperf' && probingConfig }
+          { type === 'AlphaRTC' && alphaConfig }
+          { type === 'Probing' && probingConfig }
           { type === 'Advanced' && advancedConfig }
         </Row>
       </Col>

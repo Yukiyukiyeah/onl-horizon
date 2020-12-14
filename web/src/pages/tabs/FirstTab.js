@@ -42,11 +42,11 @@ const FirstTab = (props) => {
           <div className="type">
             <p className="sub-title">Type</p>
             <Select className="type-select"  defaultValue={appType}  size="large"  onChange={(value) => setType(value)}>
-              <Option value="WebRTC">
-                WebRTC
+              <Option value="AlphaRTC">
+                AlphaRTC
               </Option>
-              <Option value="Iperf">
-                Iperf
+              <Option value="Probing">
+                Probing
               </Option>
               <Option value="Advanced">
               Advanced

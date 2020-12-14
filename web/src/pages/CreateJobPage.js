@@ -5,6 +5,7 @@ import SecondTab from "./tabs/SecondTab";
 import ThirdTab from "./tabs/ThirdTab";
 import LastTab from "./tabs/LastTab";
 import {sendCreateJobReq, runApp} from "../backend/api";
+import * as Setting from "../utils/Setting";
 
 const CrateJob = () => {
   const [curStep, setStep] = useState(0);
@@ -14,7 +15,7 @@ const CrateJob = () => {
 
   const runCreatedJob = (jobId) => {
     let runParams = null;
-    if (appType === 'WebRTC') {
+    if (appType === 'AlphaRTC') {
       runParams = {
         AppParams: {
           NetParams: {
@@ -52,7 +53,7 @@ const CrateJob = () => {
         TimeoutSec: "500"
       };
     }
-    if (appType === 'Iperf') {
+    if (appType === 'Probing') {
       const runIperfParams = {
         AppParams: {
           NetParams: {
@@ -75,7 +76,8 @@ const CrateJob = () => {
       }
       runParams = runIperfParams;
     }
-    runApp(jobId, appType, runParams)
+
+    runApp(jobId, Setting.appTypeMap[appType], runParams)
       .then(r => console.log(r))
       .catch(e => console.log(e));
   };

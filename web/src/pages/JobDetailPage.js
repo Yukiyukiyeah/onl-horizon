@@ -7,6 +7,7 @@ import '../styles/JobDetailPage.scss';
 import Modal from "../components/Modal";
 import {useHistory} from "react-router-dom";
 import {LeftOutlined} from "@ant-design/icons";
+import * as Setting from "../utils/Setting";
 
 const columns = [
   {
@@ -111,6 +112,8 @@ const JobDetail = (props) => {
         const utc = initJobInfo['createTime'].slice(0, 19) + 'Z';
         const timezone = moment.tz.guess();
         curKey['value'] = momenttz(utc).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
+      } if (tar === 'Type') {
+        curKey['value'] = Setting.appTypeMapR[value];
       } else {
         curKey['value'] = value;
       }
