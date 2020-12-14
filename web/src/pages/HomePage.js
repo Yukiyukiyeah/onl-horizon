@@ -187,7 +187,7 @@ const HomePage = () => {
     };
 
     return (
-      <div key="bingMap" className="map__card" style={{height: "500px", overflow: "hidden"}}>
+      <div key="bingMap" className="map__card" style={{height: "500px", width:"100%", overflow: "hidden", minWidth:"200px", maxWidth:"800px"}}>
         <ReactBingmaps
           bingmapKey="Av03W3HiiT7J8Py8b1742QwqC7NuBpKD3Tl9NLOI4C-4_U8AjTEMTSbx6sYVUzGJ"
           center={[35.0614, 115.78600]}
@@ -216,18 +216,32 @@ const HomePage = () => {
 
   return (
     <div style={{margin: 24 - 60}}>
-      <Row style={{margin: "20px"}} justify="space-around">
-        <Col flex="400px">
-          <InfoCard keyAry={jobAry} valueAry={[myJobStates.succeeded, myJobStates.failed, myJobStates.running]} title={<div style={{fontWeight: "bold"}}>My Jobs</div>} showIcon={true} width={400} height={760} showChart={true}/>
+      <Row justify="space-around">
+        <Col flex="350px">
+          <InfoCard
+            keyAry={jobAry}
+            valueAry={[myJobStates.succeeded, myJobStates.failed, myJobStates.running]}
+            title={<div style={{fontWeight: "bold"}}>My Jobs</div>}
+            showIcon={true}
+            width={350}
+            height={760}
+            showChart={true}/>
         </Col>
-        <Col flex="auto" style={{marginLeft: "48px"}}>
-          <Row> {renderMap()}
-          </Row>
-          <Row style={{marginTop: "32px"}}>
-            <InfoCard keyAry={jobAry} valueAry={[globalJobStates.succeeded, globalJobStates.failed, globalJobStates.running]} title={<div style={{fontWeight: "bold"}}>Global Jobs</div>} showIcon={true}/>
-            <div style={{marginLeft: "32px"}}>
-              <InfoCard keyAry={serverAry} valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]} title={<div style={{fontWeight: "bold"}}>Servers</div>} showIcon={true}/>
-            </div>
+        <Col flex="auto" style={{marginLeft: "24px"}}>
+          <Row>{renderMap()}</Row>
+          <Row style={{marginTop:32, maxWidth:800}} justify="space-between">
+            <InfoCard
+              screenWidth={"47.5%"}
+              keyAry={jobAry}
+              valueAry={[globalJobStates.succeeded, globalJobStates.failed, globalJobStates.running]}
+              title={<div style={{fontWeight: "bold"}}>Global Jobs</div>}
+              showIcon={true}/>
+            <InfoCard
+              screenWidth={"47.5%"}
+              keyAry={serverAry}
+              valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]}
+              title={<div style={{fontWeight: "bold"}}>Servers</div>}
+              showIcon={true}/>
           </Row>
         </Col>
       </Row>
