@@ -88,3 +88,7 @@ export const getGlobalJobStates = () => {
 export const getGlobalMachineStates = () => {
   return get(`${baseUrl}/display/machineStatistics`);
 };
+
+export const getMachineLocations = () => {
+  return get(`${baseUrl}/display/machineLocation`);
+};
