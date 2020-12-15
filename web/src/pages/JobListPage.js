@@ -124,9 +124,9 @@ const JobList = () => {
       Table.SELECTION_INVERT
     ]
   };
-  const handleJobInfo = (initJobInfo) => {
+  const handleJobInfo = (jobs) => {
     const tempJobData = [];
-    for (const job of initJobInfo) {
+    for (const job of jobs) {
       const curJobInfo = {};
       curJobInfo['key'] = tempJobData.length;
       keyToJobId.set(curJobInfo['key'], job.id);
@@ -142,15 +142,26 @@ const JobList = () => {
         }
 
         if (tar === 'duration') {
-          const utc = job['createTime'].slice(0, 19) + 'Z';
-          const timezone = moment.tz.guess();
-          const startDate = momenttz(utc).tz(timezone);
-          const endDate = moment();
-          curJobInfo[tar] = endDate.diff(startDate, 'minutes');
+          const startTime = job['startTime'];
+          const stopTime = job['stopTime'];
+
+          if (startTime === null) {
+            curJobInfo[tar] = "N/A";
+          } else if (stopTime === null) {
+            const timezone = moment.tz.guess();
+            const startDate = momenttz(startTime).tz(timezone);
+            const endDate = moment();
+            curJobInfo[tar] = endDate.diff(startDate, 'minutes');
+          } else {
+            const timezone = moment.tz.guess();
+            const startDate = momenttz(startTime).tz(timezone);
+            const endDate = momenttz(stopTime).tz(timezone);
+            curJobInfo[tar] = endDate.diff(startDate, 'minutes');
+          }
         } else if (tar === 'date') {
-          const utc = job['createTime'].slice(0, 19) + 'Z';
+          const createTime = job['createTime'];
           const timezone = moment.tz.guess();
-          curJobInfo[tar] = momenttz(utc).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
+          curJobInfo[tar] = momenttz(createTime).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
         } else {
           curJobInfo[tar] = value;
         }
@@ -158,7 +169,7 @@ const JobList = () => {
 
       tempJobData.push(curJobInfo);
     }
-    setData(tempJobData) ;
+    setData(tempJobData);
     setLoading(false);
 
 

@@ -91,10 +91,10 @@ const JobDetail = (props) => {
 
 
   };
-  const handleJobInfo = (initJobInfo)  =>{
+  const handleJobInfo = (job)  =>{
     const tempData = [];
-    setJob(initJobInfo);
-    setJobDesc(initJobInfo.description);
+    setJob(job);
+    setJobDesc(job.description);
     for (const entry of columnConvert.entries()) {
       const curKey = {};
       const [tar, src] = entry;
@@ -102,16 +102,16 @@ const JobDetail = (props) => {
       curKey['prop'] = tar;
       let value;
       // set default display value
-      if (initJobInfo[src] === null || initJobInfo[src] === undefined) {
+      if (job[src] === null || job[src] === undefined) {
         value = 'null';
       } else {
-        value = initJobInfo[src];
+        value = job[src];
       }
 
       if (tar === 'Time') {
-        const utc = initJobInfo['createTime'].slice(0, 19) + 'Z';
+        const createTime = job['createTime'];
         const timezone = moment.tz.guess();
-        curKey['value'] = momenttz(utc).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
+        curKey['value'] = momenttz(createTime).tz(timezone).format('YYYY-MM-DD HH:mm:ss');
       } if (tar === 'Type') {
         curKey['value'] = Setting.appTypeMapR[value];
       } else {
@@ -120,7 +120,7 @@ const JobDetail = (props) => {
       tempData.push(curKey);
     }
     setData(tempData);
-    setDownloadData([{'title': initJobInfo.title, 'files': initJobInfo.dataFiles, 'jobId': initJobInfo.id}]);
+    setDownloadData([{'title': job.title, 'files': job.dataFiles, 'jobId': job.id}]);
     setLoading(false);
   };
   const handleModalConfirm = (data) => {
