@@ -13,10 +13,10 @@ const VerifyTab = (props) => {
   };
   const steps = (
     <Steps className="steps" progressDot current={3}>
-      <Step title="Create Job" />
+      <Step title="Basic Info" />
       <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Completed" />
+      <Step title="Confirmation" />
     </Steps>
   );
   const stepsRow = (
@@ -37,7 +37,7 @@ const VerifyTab = (props) => {
     <Row className="verify-tab-container" justify="center">
       <Col span={20}>
         <Row className="title-zone">
-          <span className="title">Verify Job Config</span>
+          <span className="title">Confirmation</span>
           <div className="sub-title">
             <span> {title} </span>
             <span>   |   </span>

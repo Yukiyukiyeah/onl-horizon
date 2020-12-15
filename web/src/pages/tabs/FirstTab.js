@@ -35,10 +35,10 @@ const FirstTab = (props) => {
   }, [titleValid, appType]);
   const steps = (
     <Steps className="steps" progressDot current={0}>
-      <Step title="Create Job" />
+      <Step title="Basic Info" />
       <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Completed" />
+      <Step title="Confirmation" />
     </Steps>
   );
   const stepsRow = (
@@ -59,7 +59,7 @@ const FirstTab = (props) => {
     <div className="first-tab-container">
       <Row className="content-zone" justify="center">
         <Col span={20}>
-          <p className="title">Create Job</p>
+          <p className="title">Basic Info</p>
           <div className="name">
             <p className="sub-title">Name</p>
             <Input className="name-input" placeholder={"the name of the job"} defaultValue={title} onChange={({ target: { value } }) => setTitle(value)} maxLength={30}/>

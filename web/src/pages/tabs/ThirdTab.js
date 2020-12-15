@@ -29,10 +29,10 @@ const ThirdTab = (props) => {
   };
   const steps = (
     <Steps className="steps" progressDot current={2}>
-      <Step title="Create Job" />
+      <Step title="Basic Info" />
       <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Completed" />
+      <Step title="Confirmation" />
     </Steps>
   );
   const stepsRow = (

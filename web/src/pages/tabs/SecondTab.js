@@ -405,10 +405,10 @@ const SecondTab = (props) => {
   };
   const steps = (
     <Steps className="steps" progressDot current={1}>
-      <Step title="Create Job" />
+      <Step title="Basic Info" />
       <Step title="Job Info" />
       <Step title="Host Info" />
-      <Step title="Completed" />
+      <Step title="Confirmation" />
     </Steps>
   );
   const stepsRow = (
