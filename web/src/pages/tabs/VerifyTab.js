@@ -7,6 +7,10 @@ import ReactJson from 'react-json-view';
 const VerifyTab = (props) => {
   const { handleNext, handlePrev, type } = props;
   const {title:title} = props.params;
+
+  const onClickNext = () => {
+    handleNext({});
+  };
   const steps = (
     <Steps className="steps" progressDot current={3}>
       <Step title="Create Job" />
@@ -24,7 +28,7 @@ const VerifyTab = (props) => {
         {steps}
       </Col>
       <Col >
-        <Button type="primary" className="next-btn btn-text" onClick={handleNext} >NEXT
+        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
         </Button>
       </Col>
     </Row>
