@@ -1,6 +1,5 @@
 .first-tab-container {
-  position: relative;
-  padding-bottom: 100px;
+  padding-bottom: 150px;
   .name-input {
     width: 100%;
     min-width: 200px;
@@ -24,11 +23,17 @@
     min-width: 200px;
     max-width: 1200px;
     width: 100%;
-    border-radius: 3px;
-    position: relative;
-    z-index: 100;
     background-color: #ffffff;
+    border-radius: 3px;
     border: solid 1px #707070;
+  }
+  .description {
+    margin-top: 50px;
+  }
+  .description-textarea {
+    min-width: 200px;
+    max-width: 1200px;
+    width: 100%;
   }
   .btn-row {
     position: absolute;
@@ -42,13 +47,20 @@
     position: absolute;
     bottom: 0px;
   }
-  .btn-text {
-    width: 56px;
-    height: 19px;
-    font-size: 14px;
-    line-height: 19px;
-    letter-spacing: 1px;
-    color: #ffffff;
-    font-weight: bold;
+  .steps-container {
+    width: 100%;
+    min-width: 800px;
+    max-width: 1500px;
+    position: absolute;
+    bottom: 0;
+    .prev-btn {
+      width: 100px;
+    }
+    .next-btn {
+      width: 100px;
+    }
+    .steps {
+      width: 600px;
+    }
   }
 }

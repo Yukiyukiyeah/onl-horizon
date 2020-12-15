@@ -1,19 +1,23 @@
 import {Button, Col, Input, Row, Select, Steps} from "antd";
 import React, {useMemo, useState} from "react";
+const { Step } = Steps;
 import '../../styles/FirstTab.scss';
 import ValidError from "../../components/ValidError";
 const { Option } = Select;
+const { TextArea } = Input;
 
 const FirstTab = (props) => {
   const [title, setTitle] = useState('');
   const [appType, setType] = useState('');
   const [checkValid, setCheckValid] = useState(false);
+  const [description, setDescription] = useState('');
   const { handleNext } = props;
 
   const onClickNext = () => {
     const param = {
       'title': title,
-      'appType': appType
+      'appType': appType,
+      'description': description
     };
     if (nextValid) {
       handleNext(param);
@@ -28,7 +32,28 @@ const FirstTab = (props) => {
   const nextValid = useMemo(() => {
     return titleValid && !!appType;
   }, [titleValid, appType]);
-
+  const steps = (
+    <Steps className="steps" progressDot current={0}>
+      <Step title="Create Job" />
+      <Step title="Job Info" />
+      <Step title="Host Info" />
+      <Step title="Completed" />
+    </Steps>
+  );
+  const stepsRow = (
+    <Row className="steps-container" justify="space-between">
+      <Col >
+        <Button type="primary" className="prev-btn btn-text" disabled >PREV</Button>
+      </Col>
+      <Col >
+        {steps}
+      </Col>
+      <Col >
+        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
+        </Button>
+      </Col>
+    </Row>
+  );
   return (
     <div className="first-tab-container">
       <Row className="content-zone" justify="center">
@@ -52,16 +77,20 @@ const FirstTab = (props) => {
               Advanced
               </Option>
             </Select>
+            {checkValid && !appType && <ValidError errorText={"Please choose job type"}/>}
           </div>
-          {checkValid && !appType && <ValidError errorText={"Please choose job type"}/>}
+          <div className="description">
+            <p className="sub-title">Description (optional)</p>
+            <TextArea
+              placeholder={"the description of the job"}
+              defaultValue={ description }
+              showCount
+              autoSize = {{ minRows: 2, maxRows: 6 }}
+              onChange={({ target: { value } }) => setDescription(value)}
+              className="description-textarea" maxLength={100}/>
+          </div>
         </Col>
-        <Row className="btn-row" justify="center">
-          <Col span={20}>
-            <Button type="primary" className="" onClick={() => onClickNext()}>
-              <span className="btn-text">NEXT</span>
-            </Button>
-          </Col>
-        </Row>
+        { stepsRow }
       </Row>
     </div>
   );
