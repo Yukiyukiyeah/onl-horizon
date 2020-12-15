@@ -2,7 +2,7 @@ import {Button, Col, Row, Table} from "antd";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import * as momenttz from 'moment-timezone';
-import { getJobInfo } from '../backend/api';
+import {downloadMultipleFiles, getJobInfo} from '../backend/api';
 import '../styles/JobDetailPage.scss';
 import Modal from "../components/Modal";
 import {useHistory} from "react-router-dom";
@@ -78,18 +78,7 @@ const JobDetail = (props) => {
     if (!data || data.length === 0) {
       return;
     }
-    for (const obj of data) {
-      const url = 'https://api.opennetlab.org/api' + '/results/download/' + obj.id + '?filename=' + obj.file;
-      var temporaryDownloadLink = document.createElement("a");
-      temporaryDownloadLink.style.display = 'none';
-      document.body.appendChild(temporaryDownloadLink);
-      temporaryDownloadLink.setAttribute('href', url);
-      temporaryDownloadLink.setAttribute('download', obj.file);
-      temporaryDownloadLink.click();
-      document.body.removeChild(temporaryDownloadLink);
-    }
-
-
+    downloadMultipleFiles(data);
   };
   const handleJobInfo = (job)  =>{
     const tempData = [];

@@ -92,3 +92,16 @@ export const getGlobalMachineStates = () => {
 export const getMachineLocations = () => {
   return get(`${baseUrl}/display/machineLocation`);
 };
+
+export const downloadMultipleFiles = (data) => {
+  for (const obj of data) {
+    const url = `${baseUrl}/results/download/${obj.id}?filename=${obj.file}`;
+    var temporaryDownloadLink = document.createElement("a");
+    temporaryDownloadLink.style.display = 'none';
+    document.body.appendChild(temporaryDownloadLink);
+    temporaryDownloadLink.setAttribute('href', url);
+    temporaryDownloadLink.setAttribute('download', obj.file);
+    temporaryDownloadLink.click();
+    document.body.removeChild(temporaryDownloadLink);
+  }
+};

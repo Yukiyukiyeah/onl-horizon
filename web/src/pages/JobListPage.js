@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Row, Table, Switch, Space } from "antd";
-import { allJobInfo, downloadDataset, stopJob, restartJob, deleteJob } from '../backend/api';
+import {allJobInfo, downloadDataset, stopJob, restartJob, deleteJob, downloadMultipleFiles} from '../backend/api';
 import '../styles/JobListPage.scss';
 import * as momenttz from 'moment-timezone';
 import * as moment from 'moment';
@@ -195,18 +195,7 @@ const JobList = () => {
     if (!data || data.length === 0) {
       return;
     }
-    for (const obj of data) {
-      const url = 'https://api.opennetlab.org/api' + '/results/download/' + obj.id + '?filename=' + obj.file;
-      var temporaryDownloadLink = document.createElement("a");
-      temporaryDownloadLink.style.display = 'none';
-      document.body.appendChild(temporaryDownloadLink);
-      temporaryDownloadLink.setAttribute('href', url);
-      temporaryDownloadLink.setAttribute('download', obj.file);
-      temporaryDownloadLink.click();
-      document.body.removeChild(temporaryDownloadLink);
-    }
-
-
+    downloadMultipleFiles(data);
   };
   const deleteSelectedJob = () => {
 
