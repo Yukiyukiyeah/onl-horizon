@@ -133,6 +133,9 @@ const HomePage = () => {
   useEffect(() => {
     getMyJobStates()
       .then((info) => {
+        if (info.running === undefined) {
+          info.running = 0;
+        }
         setMyJobStates(info);
       });
 
