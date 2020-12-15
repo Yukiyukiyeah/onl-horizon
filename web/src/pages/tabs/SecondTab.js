@@ -134,7 +134,7 @@ const SecondTab = (props) => {
     return !(!buffer || isNaN(buffer) || experimentTime > 1000 || experimentTime < 1);
   }, [buffer]);
   const probingTimeoutValid = useMemo(() => {
-    return !(!probingTimeout || isNaN(probingTimeout) || experimentTime > 60 || experimentTime < 1);
+    return !(!probingTimeout || isNaN(probingTimeout) || probingTimeout > 60 || probingTimeout < 1);
   }, [probingTimeout]);
   const tcpWindowSizeValid = useMemo(() => {
     return !(!tcpWindowSize || isNaN(tcpWindowSize) || tcpWindowSize > 2048 || tcpWindowSize < 1);
