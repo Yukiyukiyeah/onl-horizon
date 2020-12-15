@@ -147,7 +147,7 @@ const JobDetail = (props) => {
         title={btnToModal[btnId]}
         height={+btnId === 3 ? "600px" : "250px"}
         existTable={+btnId === 3 }
-        data={downloadData}
+        jobs={downloadData}
       />
       <Button className="back-btn" size="small" onClick={handleBackBtn}>
         <LeftOutlined /><span style={{fontWeight: "bold"}}> BACK</span>

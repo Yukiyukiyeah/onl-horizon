@@ -1,5 +1,6 @@
 import {get, post, deleteData, patch} from './http';
 import * as Setting from "../utils/Setting";
+const multiDownload = require('multi-download');
 
 // local test
 // const baseUrl = '/api'
@@ -94,14 +95,6 @@ export const getMachineLocations = () => {
 };
 
 export const downloadMultipleFiles = (data) => {
-  for (const obj of data) {
-    const url = `${baseUrl}/results/download/${obj.id}?filename=${obj.file}`;
-    var temporaryDownloadLink = document.createElement("a");
-    temporaryDownloadLink.style.display = 'none';
-    document.body.appendChild(temporaryDownloadLink);
-    temporaryDownloadLink.setAttribute('href', url);
-    temporaryDownloadLink.setAttribute('download', obj.file);
-    temporaryDownloadLink.click();
-    document.body.removeChild(temporaryDownloadLink);
-  }
+  const urls = data.map(dataItem => `${baseUrl}/results/download/${dataItem.id}?filename=${dataItem.file}`);
+  multiDownload(urls);
 };

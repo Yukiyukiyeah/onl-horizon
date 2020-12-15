@@ -267,7 +267,7 @@ const JobList = () => {
         title={btnToModalTitle[btnId]}
         height={+btnId === 3 ? "600px" : "250px"}
         existTable={+btnId === 3 }
-        data={downloadData}
+        jobs={downloadData}
       />
       <Row justify="space-between">
         <p className="title">Job List</p>

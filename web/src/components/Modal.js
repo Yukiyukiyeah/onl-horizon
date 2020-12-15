@@ -5,7 +5,7 @@ import {Button, Space, Switch, Table} from "antd";
 
 const Modal = (props) => {
   const [checkStrictly, setCheckStrictly] = React.useState(false);
-  const {handleConfirm, confirmText, handleCancel, cancelText, data, description, title, visible, height="250px", existTable} = props;
+  const {handleConfirm, confirmText, handleCancel, cancelText, jobs, description, title, visible, height="250px", existTable} = props;
   const tableStyle = {
     display: 'block',
     height: 400,
@@ -19,33 +19,33 @@ const Modal = (props) => {
 
   useEffect(() => {
     const allRowKeys = [];
-    for (let i in data) {
-      for (let file of data[i].files) {
-        allRowKeys.push(allRowKeys.length);
+    for (let i in jobs) {
+      for (let j in jobs[i].files) {
+        allRowKeys.push(`${i}-${j}`);
       }
     }
 
     updateWillDownloadFiles(allRowKeys);
     setSelectedRowKeys(allRowKeys);
-  }, [data]);
+  }, [jobs]);
 
   const handleRowData = () => {
     const retData = [];
-    for (let i in data) {
+    for (let i in jobs) {
       const curJob = {};
-      curJob.key = parseInt(i);
-      curJob.name = data[i].title;
-      curJob.id = data[i].jobId;
+      curJob.key = `${i}`;
+      curJob.name = jobs[i].title;
+      curJob.id = jobs[i].jobId;
       const filesPath = [];
-      for (let file of data[i].files) {
+      for (let file of jobs[i].files) {
         const fileObj = {};
-        fileObj.key = parseInt(curJob.key + '' + filesPath.length);
+        fileObj.key = `${i}-${filesPath.length}`;
         fileObj.name = file;
         fileObj.isFile = true;
         fileObj.id = curJob.id;
         filesPath.push(fileObj);
         keyToFile.set(fileObj.key, file);
-        keyToId.set(fileObj.key,  fileObj.id);
+        keyToId.set(fileObj.key, fileObj.id);
       }
       curJob.children = filesPath;
       retData.push(curJob);
@@ -53,16 +53,16 @@ const Modal = (props) => {
     return retData;
   };
 
-  const convertedData = handleRowData(data);
+  const convertedData = handleRowData(jobs);
 
   const updateWillDownloadFiles = (selectedRowKeys) => {
     setWillDownloadFiles([]);
     const temp = [];
     for (const key of selectedRowKeys) {
-      if (keyToFile.has(+key)) {
+      if (keyToFile.has(key) === true) {
         temp.push({
-          id: keyToId.get(+key),
-          file: keyToFile.get(+key)
+          id: keyToId.get(key),
+          file: keyToFile.get(key)
         });
       }
     }
