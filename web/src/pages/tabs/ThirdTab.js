@@ -5,7 +5,8 @@ import '../../styles/ThirdTab.scss';
 
 const ThirdTab = (props) => {
   const [hostChoice, setHostChoice] = useState(1);
-  const { handleNext, handlePrev, title, type } = props;
+  const { handleNext, handlePrev, type } = props;
+  const {title:title} = props.params;
   const onHostChoiceChange = (e) => {
     setHostChoice(e.target.value);
   };

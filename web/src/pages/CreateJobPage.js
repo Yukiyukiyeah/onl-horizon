@@ -4,8 +4,10 @@ import FirstTab from './tabs/FirstTab';
 import SecondTab from "./tabs/SecondTab";
 import ThirdTab from "./tabs/ThirdTab";
 import LastTab from "./tabs/LastTab";
+import VerifyTab from "./tabs/VerifyTab";
 import {sendCreateJobReq, runApp} from "../backend/api";
 import * as Setting from "../utils/Setting";
+
 
 const CrateJob = () => {
   const [curStep, setStep] = useState(0);
@@ -89,7 +91,7 @@ const CrateJob = () => {
       setType(Setting.appTypeMapR[param.appType]);
       setTitle(param.title);
     }
-    if (curStep === 2) {
+    if (curStep === 3) {
       sendCreateJobReq(params)
         .then(r => {
           setCurStatusStep(1);
@@ -115,10 +117,11 @@ const CrateJob = () => {
 
   return (
     <div className="create-job-container">
-      {curStep === 0 && <FirstTab handleNext={ handleNext }/>}
-      {curStep === 1 && <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>}
-      {curStep === 2 && <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev } title={ title } type = { appType }/>}
-      {curStep === 3 && <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>}
+      {curStep === 0 && <FirstTab handleNext={ handleNext } params={params}/>}
+      {curStep === 1 && <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType }/>}
+      {curStep === 2 && <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev }  params={params} type={ appType }/>}
+      {curStep === 3 && <VerifyTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType } />}
+      {curStep === 4 && <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>}
     </div>
   );
 };

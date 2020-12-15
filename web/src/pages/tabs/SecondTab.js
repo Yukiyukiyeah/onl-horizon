@@ -7,15 +7,16 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 const SecondTab = (props) => {
-  const { handleNext, handlePrev, title, type } = props;
+  const { handleNext, handlePrev, type } = props;
+  const {title:title, experimentTime: initExperimentTime, expirationTime: initExpirationTime, bweDuration:initBwe} = props.params;
   const [checkValid, setCheckValid] = useState(false);
   // alphaRTC job config
   const [parties, setParties] = useState('2');
-  const [experimentTime, setExperimentTime] = useState();
-  const [expirationTime, setExpirationTime] = useState();
+  const [experimentTime, setExperimentTime] = useState(initExperimentTime ? initExperimentTime : 30);
+  const [expirationTime, setExpirationTime] = useState(initExpirationTime ? initExpirationTime : 22);
   // eslint-disable-next-line no-unused-vars
   const [model, setModel] = useState('default');
-  const [bwe, setBwe] = useState();
+  const [bwe, setBwe] = useState(initBwe ? initBwe : 10);
   const experimentTimeValid = useMemo(() => {
     return !(!experimentTime || isNaN(experimentTime) || experimentTime > 600 || experimentTime < 30);
   }, [experimentTime]);
@@ -53,6 +54,8 @@ const SecondTab = (props) => {
             overlayClassName="numeric-input"
           >
             <InputNumber
+              min={30}
+              max={600}
               className="default-width input"
               defaultValue={experimentTime}
               onChange={ (value) => setExperimentTime(value) }
@@ -69,12 +72,14 @@ const SecondTab = (props) => {
             overlayClassName="numeric-input"
           >
             <p className="title-row">Expiration (s)</p>
-            <Input
+            <InputNumber
+              min={300}
+              max={6000}
               defaultValue={ expirationTime }
               className=" default-width input"
               onChange={ (value) => setExpirationTime(value)}
               placeholder="300-6000">
-            </Input>
+            </InputNumber>
           </Tooltip>
           {checkValid && !expirationTimeValid && <ValidError errorText={"Incorrect expiration"}/>}
         </Col>
@@ -96,6 +101,8 @@ const SecondTab = (props) => {
           >
             <InputNumber
               defaultValue={bwe}
+              min={10}
+              max={1000}
               className="default-width input"
               onChange={(value) => setBwe(value)}
               placeholder="10-1000">
@@ -107,16 +114,19 @@ const SecondTab = (props) => {
     </div>
   );
   // probing job Config
-  const [interval, setInterval] = useState(1);
-  const [buffer, setBuffer] = useState(8);
-  const [probingTimeout, setProbingTimeout] = useState(10);
-  const [mode, setMode] = useState('TCP');
+  const {interval: initInterval, bufferLen: initBufferLen,
+    timeout:initTimeout, mode:initMode, tcpWindowSize:initTcpWindowSize,
+    tcpControl: initTcpControl, mss: initMss, bandwidth: initBandWidth} = props.params;
+  const [interval, setInterval] = useState(initInterval ? initInterval : 1);
+  const [buffer, setBuffer] = useState( initBufferLen ? initBufferLen : 8);
+  const [probingTimeout, setProbingTimeout] = useState(initTimeout ? initTimeout: 10);
+  const [mode, setMode] = useState(initMode ? initMode : 'tcp');
   // probing -> TCP
-  const [tcpWindowSize, setTcpWindowSize] = useState(2048);
-  const [mss, setMss] = useState(1400);
-  const [tcpControl, setTcpControl] = useState('CTCP');
+  const [tcpWindowSize, setTcpWindowSize] = useState(initTcpWindowSize ? initTcpWindowSize : 2048);
+  const [mss, setMss] = useState(initMss ? initMss : 1400);
+  const [tcpControl, setTcpControl] = useState(initTcpControl ? initTcpControl : 'CTCP');
   // probing -> UDP
-  const [bandwidth, setBandwidth] = useState(10000);
+  const [bandwidth, setBandwidth] = useState(initBandWidth ? initBandWidth : 10000);
   const intervalTimeValid = useMemo(() => {
     return !(!interval || isNaN(interval) || interval > 10 || experimentTime < 1);
   }, [interval]);
@@ -189,7 +199,7 @@ const SecondTab = (props) => {
         <p className="title-row">TCP Control</p>
         <Select
           defaultValue={tcpControl}
-          className=" default-width input"
+          className="default-width input"
           onChange={(value) => setTcpControl(value)}
         >
           <Option value="CTCP">
@@ -213,12 +223,21 @@ const SecondTab = (props) => {
     <Row className="fourth-row-config config-row">
       <Col>
         <p className="title-row">Bandwidth (Kbit/s)</p>
-        <Input
-          defaultValue={ bandwidth }
-          className="default-width input"
-          onChange={ ({ target: { value } }) => setBandwidth(value) }
-          placeholder="1-100000"
-        />
+        <Tooltip
+          trigger={['focus']}
+          title={"1-1024"}
+          placement="bottomLeft"
+          overlayClassName="numeric-input"
+        >
+          <InputNumber
+            min={1}
+            max={100000}
+            defaultValue={ bandwidth }
+            className="default-width input"
+            onChange={ (value) => setBandwidth(value) }
+            placeholder="1-100000"
+          />
+        </Tooltip>
         {checkValid && !bandwidthValid  && <ValidError errorText={"Incorrect bandwidth"}/>}
       </Col>
     </Row>);
@@ -288,7 +307,7 @@ const SecondTab = (props) => {
           <p className="title-row">Mode</p>
           <Select
             className="input default-width"
-            defaultValue={ mode }  size="large"
+            defaultValue={ mode }
             onChange={(value) => { setMode(value);}}>
             <Option value='tcp'>
               TCP

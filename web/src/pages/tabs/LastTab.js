@@ -1,8 +1,8 @@
 import { Col, Row, Steps } from "antd";
 import React from "react";
-import submitImg from  '../../assets/submit-img.png';
 import { Link } from "react-router-dom";
 const { Step } = Steps;
+import '../../styles/LastTab.scss';
 
 const LastTab = (props) => {
   const { title, error, curStatusStep } = props;

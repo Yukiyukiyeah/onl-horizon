@@ -7,10 +7,11 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 const FirstTab = (props) => {
-  const [title, setTitle] = useState('');
-  const [appType, setType] = useState('');
+  const {title:initTitle, description:initDescription, appType: initAppType} = props.params;
+  const [title, setTitle] = useState(initTitle ? initTitle : '');
+  const [appType, setType] = useState(initAppType ? initAppType : '');
   const [checkValid, setCheckValid] = useState(false);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(initDescription ? initDescription : '');
   const { handleNext } = props;
 
   const onClickNext = () => {
