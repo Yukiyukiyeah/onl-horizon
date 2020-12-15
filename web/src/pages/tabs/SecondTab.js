@@ -9,7 +9,6 @@ const { TextArea } = Input;
 const SecondTab = (props) => {
   const { handleNext, handlePrev, title, type } = props;
   const [checkValid, setCheckValid] = useState(false);
-  const [description, setDescription] = useState('');
   // alphaRTC job config
   const [parties, setParties] = useState('2');
   const [experimentTime, setExperimentTime] = useState();
@@ -31,18 +30,6 @@ const SecondTab = (props) => {
   }, [expirationTimeValid, experimentTimeValid, bweValid]);
   const alphaConfig = (
     <div className="alpha">
-      <Row className="description">
-        <Col>
-          <p className="title-row">Description (optional)</p>
-          <TextArea
-            placeholder={"the description of the job"}
-            defaultValue={ description }
-            showCount
-            autoSize = {{ minRows: 2, maxRows: 6 }}
-            onChange={({ target: { value } }) => setDescription(value)}
-            className="description-textarea" maxLength={100}/>
-        </Col>
-      </Row>
       <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col>
           <p className="title-row">Participants</p>
@@ -59,40 +46,61 @@ const SecondTab = (props) => {
         </Col>
         <Col>
           <p className="title-row">Experiment Time (s)</p>
-          <Input
-            className="default-width input"
-            defaultValue={experimentTime}
-            onChange={ ({ target: { value } }) => setExperimentTime(value) }
-            placeholder="30-600">
-          </Input>
+          <Tooltip
+            trigger={['focus']}
+            title={"30-600"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <InputNumber
+              className="default-width input"
+              defaultValue={experimentTime}
+              onChange={ (value) => setExperimentTime(value) }
+              placeholder="30-600">
+            </InputNumber>
+          </Tooltip>
           {checkValid && !experimentTimeValid  && <ValidError errorText={"Incorrect experiment time"}/>}
         </Col>
         <Col>
-          <p className="title-row">Expiration (s)</p>
-          <Input
-            defaultValue={ expirationTime }
-            className=" default-width input"
-            onChange={({ target: { value } }) => setExpirationTime(value)}
-            placeholder="300-6000">
-          </Input>
+          <Tooltip
+            trigger={['focus']}
+            title={"300-6000"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <p className="title-row">Expiration (s)</p>
+            <Input
+              defaultValue={ expirationTime }
+              className=" default-width input"
+              onChange={ (value) => setExpirationTime(value)}
+              placeholder="300-6000">
+            </Input>
+          </Tooltip>
           {checkValid && !expirationTimeValid && <ValidError errorText={"Incorrect expiration"}/>}
         </Col>
       </Row>
       <Row className="third-row-config config-row">
         <Col>
           <p className="title-row">Model Upload (optional)</p>
-          <Input disabled className="file-path"/>
+          <Input disabled className="default-width file-path"/>
         </Col>
       </Row>
       <Row className="fourth-row-config config-row">
         <Col>
           <p className="title-row">bwe-feedback-duration (s)</p>
-          <Input
-            defaultValue={bwe}
-            className="bwe-select input"
-            onChange={({ target: { value } }) => setBwe(value)}
-            placeholder="10-1000">
-          </Input>
+          <Tooltip
+            trigger={['focus']}
+            title={"10-1000"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <InputNumber
+              defaultValue={bwe}
+              className="default-width input"
+              onChange={(value) => setBwe(value)}
+              placeholder="10-1000">
+            </InputNumber>
+          </Tooltip>
           {checkValid && !bweValid && <ValidError errorText={"Incorrect bwe"}/>}
         </Col>
       </Row>
@@ -101,14 +109,14 @@ const SecondTab = (props) => {
   // probing job Config
   const [interval, setInterval] = useState(1);
   const [buffer, setBuffer] = useState(8);
-  const [probingTimeout, setProbingTimeout] = useState();
-  const [mode, setMode] = useState('');
+  const [probingTimeout, setProbingTimeout] = useState(10);
+  const [mode, setMode] = useState('TCP');
   // probing -> TCP
-  const [tcpWindowSize, setTcpWindowSize] = useState();
-  const [mss, setMss] = useState();
-  const [tcpControl, setTcpControl] = useState();
+  const [tcpWindowSize, setTcpWindowSize] = useState(2048);
+  const [mss, setMss] = useState(1400);
+  const [tcpControl, setTcpControl] = useState('CTCP');
   // probing -> UDP
-  const [bandwidth, setBandwidth] = useState();
+  const [bandwidth, setBandwidth] = useState(10000);
   const intervalTimeValid = useMemo(() => {
     return !(!interval || isNaN(interval) || interval > 10 || experimentTime < 1);
   }, [interval]);
@@ -141,22 +149,40 @@ const SecondTab = (props) => {
     <Row className="fourth-row-config config-row" style={{marginTop:'20PX'}} gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
       <Col>
         <p className="title-row">TCP window size (KBytes)</p>
-        <Input
-          defaultValue={tcpWindowSize}
-          className="default-width input"
-          onChange={ ({ target: { value } }) => setTcpWindowSize(value) }
-          placeholder="1-2048"
-        />
+        <Tooltip
+          trigger={['focus']}
+          title={"1-2048"}
+          placement="bottomLeft"
+          overlayClassName="numeric-input"
+        >
+          <InputNumber
+            defaultValue={tcpWindowSize}
+            min={1}
+            max={2048}
+            className="default-width input"
+            onChange={ (value) => setTcpWindowSize(value) }
+            placeholder="1-2048"
+          />
+        </Tooltip>
         {checkValid && !tcpWindowSize  && <ValidError errorText={"Incorrect TCP window size"}/>}
       </Col>
       <Col>
         <p className="title-row">MSS</p>
-        <Input
-          className="default-width input"
-          defaultValue={mss}
-          onChange={ ({ target: { value } }) => setMss(value) }
-          placeholder="1-65336">
-        </Input>
+        <Tooltip
+          trigger={['focus']}
+          title={"1-65336"}
+          placement="bottomLeft"
+          overlayClassName="numeric-input"
+        >
+          <InputNumber
+            min={1}
+            max={65336}
+            className="default-width input"
+            defaultValue={mss}
+            onChange={ (value) => setMss(value) }
+            placeholder="1-65336">
+          </InputNumber>
+        </Tooltip>
         {checkValid && !mssValid  && <ValidError errorText={"Incorrect mss"}/>}
       </Col>
       <Col>
@@ -166,15 +192,18 @@ const SecondTab = (props) => {
           className=" default-width input"
           onChange={(value) => setTcpControl(value)}
         >
-          <Option value="Cubic">
-            Cubic
+          <Option value="CTCP">
+            CTCP
           </Option>
-          <Option value="BBR">
-            BBR
-          </Option>
-          <Option value="Reno">
-            Reno
-          </Option>
+          {/*<Option value="Cubic">*/}
+          {/*  Cubic*/}
+          {/*</Option>*/}
+          {/*<Option value="BBR">*/}
+          {/*  BBR*/}
+          {/*</Option>*/}
+          {/*<Option value="Reno">*/}
+          {/*  Reno*/}
+          {/*</Option>*/}
         </Select>
         {checkValid && !tcpControl  && <ValidError errorText={"Choose control method"}/>}
       </Col>
@@ -195,18 +224,6 @@ const SecondTab = (props) => {
     </Row>);
   const probingConfig = (
     <div className="probing">
-      <Row className="description">
-        <Col>
-          <p className="title-row">Description (optional)</p>
-          <TextArea
-            placeholder={"the description of the job"}
-            defaultValue={description}
-            showCount
-            autoSize = {{ minRows: 2, maxRows: 6 }}
-            onChange={({ target: { value } }) =>  setDescription(value) }
-            className="description-textarea" maxLength={100}/>
-        </Col>
-      </Row>
       <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col>
           <p className="title-row">Interval (s)</p>
@@ -248,12 +265,21 @@ const SecondTab = (props) => {
         </Col>
         <Col>
           <p className="title-row">Duration (s)</p>
-          <Input
-            defaultValue={probingTimeout}
-            className=" default-width input"
-            onChange={({ target: { value } }) => setProbingTimeout(value)}
-            placeholder="1-60">
-          </Input>
+          <Tooltip
+            trigger={['focus']}
+            title={"1-60"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <InputNumber
+              defaultValue={probingTimeout}
+              className=" default-width input"
+              min={1}
+              max={60}
+              onChange={(value) => setProbingTimeout(value)}
+              placeholder="1-60">
+            </InputNumber>
+          </Tooltip>
           {checkValid && !probingTimeoutValid  && <ValidError errorText={"Incorrect timeout"}/>}
         </Col>
       </Row>
@@ -287,18 +313,6 @@ const SecondTab = (props) => {
   const [advancedTimeout, setAdvancedTimeout] = useState();
   const advancedConfig = (
     <div className="probing">
-      <Row className="description">
-        <Col>
-          <p className="title-row">Description (optional)</p>
-          <TextArea
-            placeholder={"the description of the job"}
-            defaultValue={description}
-            showCount
-            autoSize = {{ minRows: 2, maxRows: 6 }}
-            onChange={({ target: { value } }) => setDescription(value)}
-            className="description-textarea" maxLength={100}/>
-        </Col>
-      </Row>
       <Row className="second-row-config config-row">
         <Col>
           <p className="title-row">Test Application (Executable File)</p>
@@ -325,12 +339,12 @@ const SecondTab = (props) => {
     </div>
   );
 
-  const alphaRTCFullConfigDic = ['description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
-  const alphaRTCFullConfig = [description, parties, expirationTime, experimentTime, model, bwe];
-  const probingFullConfigDic = ['description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
-  const probingFullConfig =    [description, interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
-  const advancedFullConfigDic = ['description', 'jsonConfig', 'application', 'timeout'];
-  const advancedFullConfig = [description, application, jsonConfig, advancedTimeout];
+  const alphaRTCFullConfigDic = ['parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
+  const alphaRTCFullConfig = [parties, expirationTime, experimentTime, model, bwe];
+  const probingFullConfigDic = ['interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
+  const probingFullConfig =    [interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
+  const advancedFullConfigDic = ['jsonConfig', 'application', 'timeout'];
+  const advancedFullConfig = [ application, jsonConfig, advancedTimeout];
   const onClickNext = () => {
     let config = {};
     if (type === 'AlphaRTC') {

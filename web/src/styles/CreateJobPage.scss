@@ -10,171 +10,171 @@
     color: #0078d4;
     font-weight: bold;
   }
-  .steps-container {
-    width: 100%;
-    min-width: 800px;
-    max-width: 1500px;
-    position: absolute;
-    bottom: 0px;
-    button {
-      width: 100px;
-    }
-    .steps {
-      width: 600px;
-    }
-  }
-  .first-tab-container {
-    position: relative;
-    padding-bottom: 100px;
-    .name-input {
-      width: 100%;
-      min-width: 200px;
-      max-width: 1200px;
-      height: 40px;
-      background-color: #ffffff;
-      border-radius: 3px;
-      border: solid 1px #707070;
-    }
-    .sub-title {
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 0px;
-      letter-spacing: 0px;
-      color: #707070;
-    }
-    .type {
-      margin-top: 50px;
-    }
-    .type-select {
-      min-width: 200px;
-      max-width: 1200px;
-      width: 100%;
-      border-radius: 3px;
-      position: relative;
-      z-index: 100;
-      background-color: #ffffff;
-      border: solid 1px #707070;
-    }
-    .btn-row {
-      position: absolute;
-      bottom: 0px;
-    }
-    .btn {
-      width: 108px;
-      height: 32px;
-      box-shadow: 0px 0px 8px 0px rgba(0, 120, 212, 0.16);
-      border-radius: 5px;
-      position: absolute;
-      bottom: 0px;
-    }
-    .btn-text {
-      width: 56px;
-      height: 19px;
-      font-size: 14px;
-      line-height: 19px;
-      letter-spacing: 1px;
-      color: #ffffff;
-    }
-  }
-  .second-tab-container {
-    .title-zone {
-      width: 600px;
-      height: 80px;
-    }
-    .title {
-      width: 600px;
-      height: 48px;
-      font-size: 48px;
-      line-height: 36px;
-      color: #0078d4;
-      font-weight: bold;
-    }
-    .sub-title {
-      font-size: 14px;
-      line-height: 19px;
-      letter-spacing: 0px;
-      color: #707070;
-      opacity: 0.5;
-    }
-    .title-row {
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 0px;
-      letter-spacing: 0px;
-      color: #707070;
-    }
-    .content-zone {
-      margin-top: 50px;
-    }
-    .input {
-      background-color: #ffffff;
-      border-radius: 3px;
-      border: solid 1px #707070;
-    }
-    .default-width {
-      width: 200px;
-    }
-    .description-textarea {
-      width: 812px;
-      max-width: 50vw;
-      background-color: #ffffff;
-      border-radius: 3px;
-      margin-top: 5px;
-    }
-    .config-row {
-      margin-top: 30px;
-    }
-    .alpha {
-      .bwe-select {
-        max-width: 260px;
-      }
-    }
-    .probing {
-      .row-container {
-        margin-top: 50px;
-      }
-    }
-  }
-  .third-tab-container {
-    .title-zone {
-      width: 600px;
-      height: 80px;
-    }
-    .sub-title {
-      font-size: 14px;
-      line-height: 0px;
-      letter-spacing: 0px;
-      color: #707070;
-      opacity: 0.5;
-    }
-    .content-zone {
-      margin-top: 50px;
-    }
-  }
-  .last-tab-container {
-    .container {
-      margin-top: 150px;
-    }
-    .taskName {
-      font-size: 18px;
-      color: #707070;
-      opacity: 0.5;
-      margin-top: 50px;
-    }
-    .status {
-      font-size: 20px;
-      font-weight: bold;
-      color: #707070;
-      margin-top: 10px;
-    }
-    .link-text {
-      font-size: 18px;
-      line-height: 24px;
-      letter-spacing: 0px;
-      color: #707070;
-      margin-top: 200px;
-
-    }
-  }
+  //.steps-container {
+  //  width: 100%;
+  //  min-width: 800px;
+  //  max-width: 1500px;
+  //  position: absolute;
+  //  bottom: 0px;
+  //  button {
+  //    width: 100px;
+  //  }
+  //  .steps {
+  //    width: 600px;
+  //  }
+  //}
+  //.first-tab-container {
+  //  position: relative;
+  //  padding-bottom: 100px;
+  //  .name-input {
+  //    width: 100%;
+  //    min-width: 200px;
+  //    max-width: 1200px;
+  //    height: 40px;
+  //    background-color: #ffffff;
+  //    border-radius: 3px;
+  //    border: solid 1px #707070;
+  //  }
+  //  .sub-title {
+  //    font-size: 14px;
+  //    font-weight: bold;
+  //    line-height: 0px;
+  //    letter-spacing: 0px;
+  //    color: #707070;
+  //  }
+  //  .type {
+  //    margin-top: 50px;
+  //  }
+  //  .type-select {
+  //    min-width: 200px;
+  //    max-width: 1200px;
+  //    width: 100%;
+  //    border-radius: 3px;
+  //    position: relative;
+  //    z-index: 100;
+  //    background-color: #ffffff;
+  //    border: solid 1px #707070;
+  //  }
+  //  .btn-row {
+  //    position: absolute;
+  //    bottom: 0px;
+  //  }
+  //  .btn {
+  //    width: 108px;
+  //    height: 32px;
+  //    box-shadow: 0px 0px 8px 0px rgba(0, 120, 212, 0.16);
+  //    border-radius: 5px;
+  //    position: absolute;
+  //    bottom: 0px;
+  //  }
+  //  .btn-text {
+  //    width: 56px;
+  //    height: 19px;
+  //    font-size: 14px;
+  //    line-height: 19px;
+  //    letter-spacing: 1px;
+  //    color: #ffffff;
+  //  }
+  //}
+  //.second-tab-container {
+  //  .title-zone {
+  //    width: 600px;
+  //    height: 80px;
+  //  }
+  //  .title {
+  //    width: 600px;
+  //    height: 48px;
+  //    font-size: 48px;
+  //    line-height: 36px;
+  //    color: #0078d4;
+  //    font-weight: bold;
+  //  }
+  //  .sub-title {
+  //    font-size: 14px;
+  //    line-height: 19px;
+  //    letter-spacing: 0px;
+  //    color: #707070;
+  //    opacity: 0.5;
+  //  }
+  //  .title-row {
+  //    font-size: 14px;
+  //    font-weight: bold;
+  //    line-height: 0px;
+  //    letter-spacing: 0px;
+  //    color: #707070;
+  //  }
+  //  .content-zone {
+  //    margin-top: 50px;
+  //  }
+  //  .input {
+  //    background-color: #ffffff;
+  //    border-radius: 3px;
+  //    border: solid 1px #707070;
+  //  }
+  //  .default-width {
+  //    width: 200px;
+  //  }
+  //  .description-textarea {
+  //    width: 812px;
+  //    max-width: 50vw;
+  //    background-color: #ffffff;
+  //    border-radius: 3px;
+  //    margin-top: 5px;
+  //  }
+  //  .config-row {
+  //    margin-top: 30px;
+  //  }
+  //  .alpha {
+  //    .bwe-select {
+  //      max-width: 260px;
+  //    }
+  //  }
+  //  .probing {
+  //    .row-container {
+  //      margin-top: 50px;
+  //    }
+  //  }
+  //}
+  //.third-tab-container {
+  //  .title-zone {
+  //    width: 600px;
+  //    height: 80px;
+  //  }
+  //  .sub-title {
+  //    font-size: 14px;
+  //    line-height: 0px;
+  //    letter-spacing: 0px;
+  //    color: #707070;
+  //    opacity: 0.5;
+  //  }
+  //  .content-zone {
+  //    margin-top: 50px;
+  //  }
+  //}
+  //.last-tab-container {
+  //  .container {
+  //    margin-top: 150px;
+  //  }
+  //  .taskName {
+  //    font-size: 18px;
+  //    color: #707070;
+  //    opacity: 0.5;
+  //    margin-top: 50px;
+  //  }
+  //  .status {
+  //    font-size: 20px;
+  //    font-weight: bold;
+  //    color: #707070;
+  //    margin-top: 10px;
+  //  }
+  //  .link-text {
+  //    font-size: 18px;
+  //    line-height: 24px;
+  //    letter-spacing: 0px;
+  //    color: #707070;
+  //    margin-top: 200px;
+  //
+  //  }
+  //}
 
 }
