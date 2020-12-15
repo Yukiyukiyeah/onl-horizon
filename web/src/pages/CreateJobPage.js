@@ -20,12 +20,13 @@ const CrateJob = () => {
   const runCreatedJob = (jobId) => {
     let runParams = null;
     if (appType === 'AlphaRTC') {
-      runParams = {
+      const runAlphaParams = {
         AppParams: {
           NetParams: {
             ListenTCPPort: 8888
           },
-          RunTime: "100",
+          RunTime: "20",
+          bwe_feedback_duration: 200,
           TestTimes: "1",
           Interval: "50",
           video_source: {
@@ -37,10 +38,10 @@ const CrateJob = () => {
             },
             video_file: {
               enabled: true,
-              height: 1080,
-              width: 1920,
-              fps: 24,
-              file_path: "C:\\Users\\Administrator\\Downloads\\webrtc\\data\\webrtc_test_video.yuv"
+              height: 240,
+              width: 320,
+              fps: 10,
+              file_path: "C:\\AlphaRTC\\corpus\\testmedia\\test.yuv"
             }
           },
           audio_source: {
@@ -49,13 +50,17 @@ const CrateJob = () => {
             },
             audio_file: {
               enabled: true,
-              file_path: "C:\\Users\\Administrator\\Downloads\\webrtc\\data\\webrtc_test_audio.wav"
+              file_path: "C:\\AlphaRTC\\corpus\\testmedia\\test.wav"
             }
           }
         },
         UserName: "test",
         TimeoutSec: "500"
       };
+      runAlphaParams.AppParams.RunTime = params && params.experimentTime;
+      runAlphaParams.TimeoutSec = params && params.expirationTime;
+      runAlphaParams.AppParams.bwe_feedback_duration = params && params.bweDuration;
+      runParams = runAlphaParams;
     }
     if (appType === 'Probing') {
       const runIperfParams = {
