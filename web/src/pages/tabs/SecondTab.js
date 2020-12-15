@@ -1,4 +1,4 @@
-import { Button, Col, Input, Row, Select, Steps } from "antd";
+import {Button, Col, Input, InputNumber, Row, Select, Steps, Tooltip} from "antd";
 import React, {useMemo, useState} from "react";
 import '../../styles/SecondTab.scss';
 import ValidError from "../../components/ValidError";
@@ -99,8 +99,8 @@ const SecondTab = (props) => {
     </div>
   );
   // probing job Config
-  const [interval, setInterval] = useState();
-  const [buffer, setBuffer] = useState();
+  const [interval, setInterval] = useState(1);
+  const [buffer, setBuffer] = useState(8);
   const [probingTimeout, setProbingTimeout] = useState();
   const [mode, setMode] = useState('');
   // probing -> TCP
@@ -199,6 +199,7 @@ const SecondTab = (props) => {
         <Col>
           <p className="title-row">Description (optional)</p>
           <TextArea
+            placeholder={"the description of the job"}
             defaultValue={description}
             showCount
             autoSize = {{ minRows: 2, maxRows: 6 }}
@@ -209,22 +210,40 @@ const SecondTab = (props) => {
       <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col>
           <p className="title-row">Interval (s)</p>
-          <Input
-            defaultValue={interval}
-            className="default-width input"
-            onChange={ ({ target: { value } }) => setInterval(value) }
-            placeholder="1-10"
-          />
+          <Tooltip
+            trigger={['focus']}
+            title={"1-10"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <InputNumber
+              defaultValue={interval}
+              min={1}
+              max={10}
+              className="default-width input"
+              onChange={ (value) => setInterval(value) }
+              placeholder="1-10"
+            />
+          </Tooltip>
           {checkValid && !intervalTimeValid  && <ValidError errorText={"Incorrect interval"}/>}
         </Col>
         <Col>
           <p className="title-row">Length of Buffer (KBytes)</p>
-          <Input
-            className="default-width input"
-            defaultValue={buffer}
-            onChange={ ({ target: { value } }) => setBuffer(value) }
-            placeholder="1-1000">
-          </Input>
+          <Tooltip
+            trigger={['focus']}
+            title={"1-1024"}
+            placement="bottomLeft"
+            overlayClassName="numeric-input"
+          >
+            <InputNumber
+              className="default-width input"
+              defaultValue={buffer}
+              min={1}
+              max={1024}
+              onChange={ (value) => setBuffer(value) }
+              placeholder="1-1024">
+            </InputNumber>
+          </Tooltip>
           {checkValid && !bufferValid  && <ValidError errorText={"Incorrect buffer"}/>}
         </Col>
         <Col>
@@ -272,6 +291,7 @@ const SecondTab = (props) => {
         <Col>
           <p className="title-row">Description (optional)</p>
           <TextArea
+            placeholder={"the description of the job"}
             defaultValue={description}
             showCount
             autoSize = {{ minRows: 2, maxRows: 6 }}
