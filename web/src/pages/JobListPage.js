@@ -29,7 +29,7 @@ const columns = [
     sorter: (a, b) =>  a.duration.toString().localeCompare(b.duration.toString())
   },
   {
-    title: 'Expiration Time (min)',
+    title: 'Expiration Time (s)',
     dataIndex: 'expirationTime',
     sorter: (a, b) => a.expirationTime - b.expirationTime
   },
