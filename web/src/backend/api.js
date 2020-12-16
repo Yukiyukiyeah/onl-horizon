@@ -23,7 +23,7 @@ export const getJobInfo = (jobId) => {
 
 // get job info list
 export const allJobInfo = (userId = Setting.getUserId()) => {
-  const param = {'userId': userId};
+  const param = {userId: userId, currentPage: 0, pageSize: 99999};
   return get(`${baseUrl}/display/jobList`, param);
 };
 
