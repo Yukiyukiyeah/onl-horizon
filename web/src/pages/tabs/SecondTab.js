@@ -13,7 +13,7 @@ const SecondTab = (props) => {
   // alphaRTC job config
   const [parties, setParties] = useState('2');
   const [experimentTime, setExperimentTime] = useState(initExperimentTime ? initExperimentTime : 30);
-  const [expirationTime, setExpirationTime] = useState(initExpirationTime ? initExpirationTime : 22);
+  const [expirationTime, setExpirationTime] = useState(initExpirationTime ? initExpirationTime : 300);
   // eslint-disable-next-line no-unused-vars
   const [model, setModel] = useState('default');
   const [bwe, setBwe] = useState(initBwe ? initBwe : 10);
