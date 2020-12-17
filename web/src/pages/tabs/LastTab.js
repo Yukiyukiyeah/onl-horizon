@@ -12,7 +12,7 @@ const LastTab = (props) => {
         <Row justify="center"><p className="taskName" >{title}</p></Row>
         <Row style={{marginTop: 100}}>
           <Steps current={curStatusStep} status={error ? "error" : "finish"}>
-            <Step title="Finished" description="Job configure has been completed" />
+            <Step title="Submitted" description="Job configure has been completed" />
             <Step title="Created" description={curStatusStep >= 1 ? (error ? "Failed to create" : "Job is created successfully") : "wait to create"}/>
             <Step title="Running" description={curStatusStep === 2 ? (error ? "Failed to run" : "Job is running") : "Wait to run"} />
           </Steps>,
