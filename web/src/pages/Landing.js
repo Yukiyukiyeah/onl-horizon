@@ -22,10 +22,10 @@ const Landing = () => {
           <p className="bg-title">OpenNetLab</p>
           <p className="bg-description">OpenNetLab is to build
             and provide a distributed networking platform with many collaborative nodes
-            and a common benchmarking dataset (a.k.a imageNet in Networking Area)
+            and a common benchmarking dataset (a.k.a ImageNet in Networking Area)
             through this platform for the researchers to collect real networking data and
-            traning/evaluating their AI models for various networking environment,
-            including Internet/cloud, Wireless and mobile network.<br/>
+            training/evaluating their AI models for various networking environment,
+            including Internet/cloud, wireless and mobile network.<br/>
           <img src={loginButton} className="login" onClick={handleLogin} />
           </p>
         </div>
