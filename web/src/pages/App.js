@@ -344,7 +344,9 @@ class App extends Component {
             </Button>,
           ]}
         >
-          Got a problem for login? Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          You should be a university/institute member before login OpenNetLab.
+
+          Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     }
@@ -356,7 +358,7 @@ class App extends Component {
           title={
             <div>
               <CloseCircleTwoTone style={{marginRight: "10px"}} twoToneColor={"rgb(225,107,88)"} />
-              You are not authorized to access this website
+              You are not authorized to access this website.
             </div>
           }
           visible={true}
@@ -367,7 +369,8 @@ class App extends Component {
             </Button>,
           ]}
         >
-          For any questions, please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          You should be a university/institute member before login OpenNetLab.
+          Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     } else {
