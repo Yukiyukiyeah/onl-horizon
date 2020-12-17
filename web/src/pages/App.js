@@ -344,7 +344,7 @@ class App extends Component {
             </Button>,
           ]}
         >
-          You should be a university/institute member before login OpenNetLab.
+          You should be a university/institute member before logging into OpenNetLab.
 
           Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
@@ -369,7 +369,7 @@ class App extends Component {
             </Button>,
           ]}
         >
-          You should be a university/institute member before login OpenNetLab.
+          You should be a university/institute member before logging into OpenNetLab.
           Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
