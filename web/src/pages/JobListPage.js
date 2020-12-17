@@ -235,13 +235,13 @@ const JobList = () => {
 
   const funcZone = (
     <div className="func-zone" onClick={showModalView}>
-      <Button type="default" id="0" className="stop-btn btn" disabled={btnDisabled || stopDisabled}>
+      <Button type="default" id="0" className="stop-btn btn" disabled={true || btnDisabled || stopDisabled}>
         <span className="btn-text" id="0">STOP</span>
       </Button>
-      <Button type="default" id="1" className="restart-btn btn" disabled={btnDisabled}>
+      <Button type="default" id="1" className="restart-btn btn" disabled={true || btnDisabled}>
         <span className="btn-text">RESTART</span>
       </Button>
-      <Button type="default" id="2" className="delete-btn btn" disabled={btnDisabled}>
+      <Button type="default" id="2" className="delete-btn btn" disabled={true || btnDisabled}>
         <span className="btn-text" id="2">DELETE</span>
       </Button>
       <Button type="default" id="3" className="download-btn btn" disabled={(btnDisabled || downloadDisabled)}>
