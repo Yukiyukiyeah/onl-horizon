@@ -130,7 +130,7 @@ const Modal = (props) => {
           />
         </div>}
         <div className="modal-operator">
-          <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>Download</Button>
+          <Button type="primary"  className="modal-operator-confirm" onClick={onHandleConfirmClick}>{confirmText}</Button>
           <Button  className="modal-operator-close" onClick={handleCancel}>{cancelText}</Button>
         </div>
       </div>
