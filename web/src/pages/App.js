@@ -344,9 +344,8 @@ class App extends Component {
             </Button>,
           ]}
         >
-          You should be a university/institute member before logging into OpenNetLab.
-
-          Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.
+          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute, please email us: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     }
@@ -369,8 +368,9 @@ class App extends Component {
             </Button>,
           ]}
         >
-          You should be a university/institute member before logging into OpenNetLab.
-          Please contact: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.
+          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute,
+          please email us: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
         </Modal>
       );
     } else {
