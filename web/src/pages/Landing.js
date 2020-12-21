@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import loginButton from '../assets/login-button.png';
 import chat from '../assets/landing-chat.png';
 import data from '../assets/landing-data.png';
-import realtime from '../assets/landing-data.png';
+import realtime from '../assets/landing-realtime.png';
 import map from '../assets/landing-map.png';
 import { useHistory } from "react-router-dom";
 
