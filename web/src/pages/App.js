@@ -344,8 +344,9 @@ class App extends Component {
             </Button>,
           ]}
         >
-          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.
-          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute, please email us: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.<br/>
+          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute,<br/>
+          please email us: feedback(at)opennetlab.org
         </Modal>
       );
     }
@@ -368,9 +369,9 @@ class App extends Component {
             </Button>,
           ]}
         >
-          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.
-          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute,
-          please email us: <a href={"mailto:feedback@opennetlab.org"}>feedback@opennetlab.org</a>
+          The OpenNetLab is now open for internal preview. Please check us at the end of January 2021 for the Grand Challenge Release.<br/>
+          If you are a university professor or an institute researcher and willing to participate in the OpenNetLab project as a university/institute,<br/>
+          please email us: feedback(at)opennetlab.org
         </Modal>
       );
     } else {
