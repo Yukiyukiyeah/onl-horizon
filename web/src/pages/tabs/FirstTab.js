@@ -3,6 +3,7 @@ import React, {useMemo, useState} from "react";
 const { Step } = Steps;
 import '../../styles/FirstTab.scss';
 import ValidError from "../../components/ValidError";
+import AdvInput from "../../components/AdvInput";
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -61,34 +62,45 @@ const FirstTab = (props) => {
         <Col span={20}>
           <p className="title">Basic Info</p>
           <div className="name">
-            <p className="sub-title">Name</p>
-            <Input className="name-input" placeholder={"the name of the job"} defaultValue={title} onChange={({ target: { value } }) => setTitle(value)} maxLength={30}/>
-            {checkValid && !titleValid && <ValidError errorText={"Type job name"}/>}
+            <AdvInput
+              type="normal"
+              title="Name"
+              placeholder="the name of the job"
+              value={title}
+              handleChange={setTitle}
+              showError={checkValid && !titleValid}
+              errorText="Type job name"
+              isAdaptive={true}
+              widthRange={[200, 1200]}
+              height="40px"
+            />
           </div>
           <div className="type">
-            <p className="sub-title">Type</p>
-            <Select className="type-select" defaultValue={appType} size="large" onChange={(value) => setType(value)}>
-              <Option value="WebRTC">
-                AlphaRTC
-              </Option>
-              <Option value="Iperf">
-                Probing
-              </Option>
-              <Option value="Advanced">
-              Advanced
-              </Option>
-            </Select>
-            {checkValid && !appType && <ValidError errorText={"Please choose job type"}/>}
+            <AdvInput
+              type="select"
+              title="Type"
+              value={appType}
+              size="large"
+              handleChange={setType}
+              options={['AlphaRTC', 'Probing', 'Advanced']}
+              optionsValue={['WebRTC', 'Iperf', 'Advanced']}
+              errorText={"Please choose job type"}
+              showError={checkValid && !appType}
+              isAdaptive={true}
+              widthRange={[200, 1200]}
+            />
           </div>
           <div className="description">
-            <p className="sub-title">Description (optional)</p>
-            <TextArea
+            <AdvInput
+              title='Description (optional)'
+              type='text'
+              isAdaptive={true}
+              widthRange={[200, 1200]}
               placeholder={"the description of the job"}
-              defaultValue={ description }
-              showCount
-              autoSize = {{ minRows: 2, maxRows: 6 }}
-              onChange={({ target: { value } }) => setDescription(value)}
-              className="description-textarea" maxLength={100}/>
+              value={ description }
+              onChange={setDescription}
+              maxLength={100}
+            />
           </div>
         </Col>
         { stepsRow }
