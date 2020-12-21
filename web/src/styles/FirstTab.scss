@@ -1,39 +1,10 @@
 .first-tab-container {
   padding-bottom: 150px;
-  .name-input {
-    width: 100%;
-    min-width: 200px;
-    max-width: 1200px;
-    height: 40px;
-    background-color: #ffffff;
-    border-radius: 3px;
-    border: solid 1px #707070;
-  }
-  .sub-title {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 0px;
-    letter-spacing: 0px;
-    color: #707070;
-  }
   .type {
     margin-top: 50px;
   }
-  .type-select {
-    min-width: 200px;
-    max-width: 1200px;
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 3px;
-    border: solid 1px #707070;
-  }
   .description {
     margin-top: 50px;
-  }
-  .description-textarea {
-    min-width: 200px;
-    max-width: 1200px;
-    width: 100%;
   }
   .btn-row {
     position: absolute;

@@ -2,6 +2,7 @@ import {Button, Col, Input, InputNumber, Row, Select, Steps, Tooltip} from "antd
 import React, {useMemo, useState} from "react";
 import '../../styles/SecondTab.scss';
 import ValidError from "../../components/ValidError";
+import AdvInput from "../../components/AdvInput";
 const { Step } = Steps;
 const { Option } = Select;
 const { TextArea } = Input;
@@ -33,82 +34,65 @@ const SecondTab = (props) => {
     <div className="alpha">
       <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col>
-          <p className="title-row">Participants</p>
-          <Select
-            disabled
-            className="default-width input"
-            onChange={(value) => setParties(value) }
-            defaultValue={parties}
-          >
-            <Option value="1">
-              1
-            </Option>
-          </Select>
+          <AdvInput
+            type="select"
+            title="Participants"
+            placeholder="2"
+            value={parties}
+            handleChange={setParties}
+            showError={false}
+            errorText="Select Parties"
+            disabled={true}
+          />
         </Col>
         <Col>
-          <p className="title-row">Experiment Time (s)</p>
-          <Tooltip
-            trigger={['focus']}
-            title={"30-600"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <InputNumber
-              min={30}
-              max={600}
-              className="default-width input"
-              defaultValue={experimentTime}
-              onChange={ (value) => setExperimentTime(value) }
-              placeholder="30-600">
-            </InputNumber>
-          </Tooltip>
-          {checkValid && !experimentTimeValid  && <ValidError errorText={"Incorrect experiment time"}/>}
+          <AdvInput
+            type="numb"
+            title="Experiment Time (s)"
+            value={experimentTime}
+            inputRange={[30, 600]}
+            tipText={"30-600"}
+            handleChange={setExperimentTime}
+            showError={checkValid && !experimentTimeValid}
+            errorText="Incorrect experiment time"
+          />
         </Col>
         <Col>
-          <Tooltip
-            trigger={['focus']}
-            title={"300-6000"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <p className="title-row">Expiration (s)</p>
-            <InputNumber
-              min={300}
-              max={6000}
-              defaultValue={ expirationTime }
-              className=" default-width input"
-              onChange={ (value) => setExpirationTime(value)}
-              placeholder="300-6000">
-            </InputNumber>
-          </Tooltip>
-          {checkValid && !expirationTimeValid && <ValidError errorText={"Incorrect expiration"}/>}
+          <AdvInput
+            type="numb"
+            title="Expiration (s)"
+            value={expirationTime}
+            inputRange={[300, 6000]}
+            tipText={"300-6000"}
+            handleChange={setExpirationTime}
+            showError={checkValid && !expirationTimeValid}
+            errorText="Incorrect expiration"
+          />
         </Col>
       </Row>
       <Row className="third-row-config config-row">
         <Col>
-          <p className="title-row">Model Upload (optional)</p>
-          <Input disabled className="default-width file-path"/>
+          <AdvInput
+            type="normal"
+            title="Model Upload (optional)"
+            value={model}
+            handleChange={setModel}
+            disabled={true}
+          />
         </Col>
       </Row>
       <Row className="fourth-row-config config-row">
         <Col>
-          <p className="title-row">bwe-feedback-duration (s)</p>
-          <Tooltip
-            trigger={['focus']}
-            title={"10-1000"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <InputNumber
-              defaultValue={bwe}
-              min={10}
-              max={1000}
-              className="default-width input"
-              onChange={(value) => setBwe(value)}
-              placeholder="10-1000">
-            </InputNumber>
-          </Tooltip>
-          {checkValid && !bweValid && <ValidError errorText={"Incorrect bwe"}/>}
+          <AdvInput
+            type="numb"
+            title="bwe-feedback-duration (s)"
+            value={bwe}
+            inputRange={[10, 1000]}
+            tipText={"10-1000"}
+            handleChange={setBwe}
+            showError={checkValid && !bweValid}
+            errorText="Incorrect bwe"
+          />
         </Col>
       </Row>
     </div>
@@ -158,165 +142,110 @@ const SecondTab = (props) => {
   const tcpConfig = (
     <Row className="fourth-row-config config-row" style={{marginTop:'20PX'}} gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
       <Col>
-        <p className="title-row">TCP window size (KBytes)</p>
-        <Tooltip
-          trigger={['focus']}
-          title={"1-2048"}
-          placement="bottomLeft"
-          overlayClassName="numeric-input"
-        >
-          <InputNumber
-            defaultValue={tcpWindowSize}
-            min={1}
-            max={2048}
-            className="default-width input"
-            onChange={ (value) => setTcpWindowSize(value) }
-            placeholder="1-2048"
-          />
-        </Tooltip>
-        {checkValid && !tcpWindowSize  && <ValidError errorText={"Incorrect TCP window size"}/>}
+        <AdvInput
+          type="numb"
+          title="TCP window size (KBytes)"
+          value={tcpWindowSize}
+          inputRange={[1, 2048]}
+          tipText={"1-2048"}
+          handleChange={setTcpWindowSize}
+          showError={checkValid && !tcpWindowSize}
+          errorText="Incorrect TCP window size"
+        />
       </Col>
       <Col>
-        <p className="title-row">MSS</p>
-        <Tooltip
-          trigger={['focus']}
-          title={"1-65336"}
-          placement="bottomLeft"
-          overlayClassName="numeric-input"
-        >
-          <InputNumber
-            min={1}
-            max={65336}
-            className="default-width input"
-            defaultValue={mss}
-            onChange={ (value) => setMss(value) }
-            placeholder="1-65336">
-          </InputNumber>
-        </Tooltip>
-        {checkValid && !mssValid  && <ValidError errorText={"Incorrect mss"}/>}
+        <AdvInput
+          type="numb"
+          title="MSS"
+          value={mss}
+          inputRange={[1, 65336]}
+          tipText={"1-65336"}
+          handleChange={setMss}
+          showError={checkValid && !mssValid}
+          errorText="Incorrect mss"
+        />
       </Col>
       <Col>
-        <p className="title-row">TCP Control</p>
-        <Select
-          defaultValue={tcpControl}
-          className="default-width input"
-          onChange={(value) => setTcpControl(value)}
-        >
-          <Option value="CTCP">
-            CTCP
-          </Option>
-          {/*<Option value="Cubic">*/}
-          {/*  Cubic*/}
-          {/*</Option>*/}
-          {/*<Option value="BBR">*/}
-          {/*  BBR*/}
-          {/*</Option>*/}
-          {/*<Option value="Reno">*/}
-          {/*  Reno*/}
-          {/*</Option>*/}
-        </Select>
-        {checkValid && !tcpControl  && <ValidError errorText={"Choose control method"}/>}
+        <AdvInput
+          type="select"
+          title="TCP Control"
+          value={tcpControl}
+          handleChange={setTcpControl}
+          showError={checkValid && !tcpControl}
+          errorText="Choose control method"
+          options={["CTCP"]}
+          optionsValue={["CTCP"]}
+        />
       </Col>
     </Row>
   );
   const udpConfig = (
     <Row className="fourth-row-config config-row">
       <Col>
-        <p className="title-row">Bandwidth (Kbit/s)</p>
-        <Tooltip
-          trigger={['focus']}
-          title={"1-1024"}
-          placement="bottomLeft"
-          overlayClassName="numeric-input"
-        >
-          <InputNumber
-            min={1}
-            max={100000}
-            defaultValue={ bandwidth }
-            className="default-width input"
-            onChange={ (value) => setBandwidth(value) }
-            placeholder="1-100000"
-          />
-        </Tooltip>
-        {checkValid && !bandwidthValid  && <ValidError errorText={"Incorrect bandwidth"}/>}
+        <AdvInput
+          type="numb"
+          title="Bandwidth (Kbit/s)"
+          value={bandwidth}
+          handleChange={setBandwidth}
+          showError={checkValid && !bandwidthValid}
+          errorText="Incorrect bandwidth"
+          inputRange={[1, 100000]}
+          tipText={"1-100000"}
+        />
       </Col>
     </Row>);
   const probingConfig = (
     <div className="probing">
       <Row className="second-row-config config-row" gutter={[32, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col>
-          <p className="title-row">Interval (s)</p>
-          <Tooltip
-            trigger={['focus']}
-            title={"1-10"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <InputNumber
-              defaultValue={interval}
-              min={1}
-              max={10}
-              className="default-width input"
-              onChange={ (value) => setInterval(value) }
-              placeholder="1-10"
-            />
-          </Tooltip>
-          {checkValid && !intervalTimeValid  && <ValidError errorText={"Incorrect interval"}/>}
+          <AdvInput
+            type="numb"
+            title="Interval (s)"
+            value={interval}
+            inputRange={[1, 10]}
+            tipText={"1-10"}
+            handleChange={setInterval}
+            showError={checkValid && !intervalTimeValid}
+            errorText="Incorrect interval"
+          />
         </Col>
         <Col>
-          <p className="title-row">Length of Buffer (KBytes)</p>
-          <Tooltip
-            trigger={['focus']}
-            title={"1-1024"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <InputNumber
-              className="default-width input"
-              defaultValue={buffer}
-              min={1}
-              max={1024}
-              onChange={ (value) => setBuffer(value) }
-              placeholder="1-1024">
-            </InputNumber>
-          </Tooltip>
-          {checkValid && !bufferValid  && <ValidError errorText={"Incorrect buffer"}/>}
+          <AdvInput
+            type="numb"
+            title="Length of Buffer (KBytes)"
+            value={buffer}
+            inputRange={[1, 1024]}
+            tipText={"1-1024"}
+            handleChange={setBuffer}
+            showError={checkValid && !bufferValid}
+            errorText="Incorrect buffer"
+          />
         </Col>
         <Col>
-          <p className="title-row">Duration (s)</p>
-          <Tooltip
-            trigger={['focus']}
-            title={"1-60"}
-            placement="bottomLeft"
-            overlayClassName="numeric-input"
-          >
-            <InputNumber
-              defaultValue={probingTimeout}
-              className=" default-width input"
-              min={1}
-              max={60}
-              onChange={(value) => setProbingTimeout(value)}
-              placeholder="1-60">
-            </InputNumber>
-          </Tooltip>
-          {checkValid && !probingTimeoutValid  && <ValidError errorText={"Incorrect timeout"}/>}
+          <AdvInput
+            type="numb"
+            title="Duration (s)"
+            value={probingTimeout}
+            inputRange={[1, 60]}
+            tipText={"1-60"}
+            handleChange={setProbingTimeout}
+            showError={checkValid && !probingTimeoutValid}
+            errorText="Incorrect timeout"
+          />
         </Col>
       </Row>
       <Row className="third-row-config config-row">
         <Col>
-          <p className="title-row">Mode</p>
-          <Select
-            className="input default-width"
-            defaultValue={ mode }
-            onChange={(value) => { setMode(value);}}>
-            <Option value='tcp'>
-              TCP
-            </Option>
-            <Option value='udp'>
-              UDP
-            </Option>
-          </Select>
-          {checkValid && !mode  && <ValidError errorText={"Choose mode"}/>}
+          <AdvInput
+            type="select"
+            title="Mode"
+            value={mode}
+            handleChange={setMode}
+            showError={checkValid && !mode}
+            errorText="Choose mode"
+            options={['TCP', 'UDP']}
+            optionsValue={['tcp', 'udp']}
+          />
         </Col>
       </Row>
       {mode === 'tcp' && tcpConfig}
