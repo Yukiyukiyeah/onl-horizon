@@ -1,11 +1,8 @@
-import {Button, Col, Input, Row, Select, Steps} from "antd";
+import {Col, Row} from "antd";
 import React, {useMemo, useState} from "react";
-const { Step } = Steps;
 import '../../styles/FirstTab.scss';
-import ValidError from "../../components/ValidError";
 import AdvInput from "../../components/AdvInput";
-const { Option } = Select;
-const { TextArea } = Input;
+import CusStep from "../../components/CusSteps";
 
 const FirstTab = (props) => {
   const {title:initTitle, description:initDescription, appType: initAppType} = props.params;
@@ -34,28 +31,7 @@ const FirstTab = (props) => {
   const nextValid = useMemo(() => {
     return titleValid && !!appType;
   }, [titleValid, appType]);
-  const steps = (
-    <Steps className="steps" progressDot current={0}>
-      <Step title="Basic Info" />
-      <Step title="Job Info" />
-      <Step title="Host Info" />
-      <Step title="Confirmation" />
-    </Steps>
-  );
-  const stepsRow = (
-    <Row className="steps-container" justify="space-between">
-      <Col >
-        <Button type="primary" className="prev-btn btn-text" disabled >PREV</Button>
-      </Col>
-      <Col >
-        {steps}
-      </Col>
-      <Col >
-        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
-        </Button>
-      </Col>
-    </Row>
-  );
+
   return (
     <div className="first-tab-container">
       <Row className="content-zone" justify="center">
@@ -103,8 +79,12 @@ const FirstTab = (props) => {
             />
           </div>
         </Col>
-        { stepsRow }
       </Row>
+      <CusStep
+        curStep={0}
+        onHandleClickNext={onClickNext}
+        prevDisabled={true}
+      />
     </div>
   );
 };

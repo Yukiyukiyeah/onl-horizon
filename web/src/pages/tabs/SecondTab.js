@@ -1,11 +1,8 @@
-import {Button, Col, Input, InputNumber, Row, Select, Steps, Tooltip} from "antd";
+import {Col, Input, Row} from "antd";
 import React, {useMemo, useState} from "react";
 import '../../styles/SecondTab.scss';
-import ValidError from "../../components/ValidError";
 import AdvInput from "../../components/AdvInput";
-const { Step } = Steps;
-const { Option } = Select;
-const { TextArea } = Input;
+import CusStep from "../../components/CusSteps";
 
 const SecondTab = (props) => {
   const { handleNext, handlePrev, type } = props;
@@ -332,48 +329,32 @@ const SecondTab = (props) => {
       handleNext(config);
     }
   };
-  const steps = (
-    <Steps className="steps" progressDot current={1}>
-      <Step title="Basic Info" />
-      <Step title="Job Info" />
-      <Step title="Host Info" />
-      <Step title="Confirmation" />
-    </Steps>
-  );
-  const stepsRow = (
-    <Row className="steps-container" justify="space-between">
-      <Col >
-        <Button type="primary" className="prev-btn btn-text" onClick={handlePrev} >PREV</Button>
-      </Col>
-      <Col >
-        {steps}
-      </Col>
-      <Col >
-        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
-        </Button>
-      </Col>
-    </Row>
-  );
 
   return (
-    <Row className="second-tab-container" justify="center">
-      <Col span={20}>
-        <Row className="title-zone">
-          <span className="title">{type} Job Info</span>
-          <div className="sub-title">
-            <span> {title} </span>
-            <span >   |   </span>
-            <span> {type}</span>
-          </div>
-        </Row>
-        <Row className="content-zone">
-          { type === 'AlphaRTC' && alphaConfig }
-          { type === 'Probing' && probingConfig }
-          { type === 'Advanced' && advancedConfig }
-        </Row>
-      </Col>
-      { stepsRow }
-    </Row>
+    <div className="second-tab-container">
+      <Row className="content-zone" justify="center">
+        <Col span={20}>
+          <Row className="title-zone">
+            <span className="title">{type} Job Info</span>
+            <div className="sub-title">
+              <span> {title} </span>
+              <span >   |   </span>
+              <span> {type}</span>
+            </div>
+          </Row>
+          <Row style={{marginTop:50}}>
+            { type === 'AlphaRTC' && alphaConfig }
+            { type === 'Probing' && probingConfig }
+            { type === 'Advanced' && advancedConfig }
+          </Row>
+        </Col>
+      </Row>
+      <CusStep
+        curStep={1}
+        onHandleClickNext={onClickNext}
+        onHandleClickPrev={handlePrev}
+      />
+    </div>
   );
 };
 export  default  SecondTab;
