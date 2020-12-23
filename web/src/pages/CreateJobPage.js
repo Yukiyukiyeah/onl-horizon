@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useState} from "react";
 import '../styles/CreateJobPage.scss';
 import FirstTab from './tabs/FirstTab';
 import SecondTab from "./tabs/SecondTab";
@@ -7,7 +7,6 @@ import LastTab from "./tabs/LastTab";
 import VerifyTab from "./tabs/VerifyTab";
 import {sendCreateJobReq, runApp} from "../backend/api";
 import * as Setting from "../utils/Setting";
-
 
 const CrateJob = () => {
   const [curStep, setStep] = useState(0);
@@ -89,6 +88,7 @@ const CrateJob = () => {
     }
     return runApp(jobId, params.appType, runParams);
   };
+
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
     if (curStep === 0) {

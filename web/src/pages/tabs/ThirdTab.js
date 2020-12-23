@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import {Row, Col, Radio, Steps, Button} from "antd";
-const { Step } = Steps;
+import {Row, Col, Radio} from "antd";
 import '../../styles/ThirdTab.scss';
+import CusStep from "../../components/CusSteps";
 
 const ThirdTab = (props) => {
   const [hostChoice, setHostChoice] = useState(1);
@@ -27,45 +27,30 @@ const ThirdTab = (props) => {
     };
     handleNext(config);
   };
-  const steps = (
-    <Steps className="steps" progressDot current={2}>
-      <Step title="Basic Info" />
-      <Step title="Job Info" />
-      <Step title="Host Info" />
-      <Step title="Confirmation" />
-    </Steps>
-  );
-  const stepsRow = (
-    <Row className="steps-container" justify="space-between">
-      <Col >
-        <Button type="primary" className="prev-btn btn-text" onClick={handlePrev} >PREV</Button>
-      </Col>
-      <Col >
-        {steps}
-      </Col>
-      <Col >
-        <Button type="primary" className="next-btn btn-text" onClick={onClickNext} >NEXT
-        </Button>
-      </Col>
-    </Row>
-  );
+
   return (
-    <Row className="third-tab-container" justify="center">
-      <Col span={20}>
-        <Row className="title-zone">
-          <span className="title">Host Info</span>
-          <div className="sub-title">
-            <span> {title} </span>
-            <span>   |   </span>
-            <span> {type}</span>
-          </div>
-        </Row>
-        <Row className="content-zone">
-          {hostDetail}
-        </Row>
-      </Col>
-      { stepsRow }
-    </Row>
+    <div className="third-tab-container">
+      <Row justify="center">
+        <Col span={20}>
+          <Row className="title-zone">
+            <span className="title">Host Info</span>
+            <div className="sub-title">
+              <span> {title} </span>
+              <span>   |   </span>
+              <span> {type}</span>
+            </div>
+          </Row>
+          <Row style={{marginTop:50}}>
+            {hostDetail}
+          </Row>
+        </Col>
+      </Row>
+      <CusStep
+        curStep={2}
+        onHandleClickNext={onClickNext}
+        onHandleClickPrev={handlePrev}
+      />
+    </div>
   );
 };
 
