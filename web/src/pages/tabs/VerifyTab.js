@@ -5,12 +5,41 @@ import ReactJson from 'react-json-view';
 import CusStep from "../../components/CusSteps";
 
 const VerifyTab = (props) => {
-  const { handleNext, handlePrev, type } = props;
-  const {title:title} = props.params;
+  const { handleNext, handlePrev, type, params } = props;
+  const {title:title} = params;
   const onClickNext = () => {
     handleNext({});
   };
+  const alphaRTCFullConfigDic = ['title', 'appType', 'description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration', 'modeChoice'];
+  const probingFullConfigDicTCP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'modeChoice'];
+  const probingFullConfigDicUDP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'bandwidth', 'modeChoice'];
+  const paramsFilter = (p) => {
+    const filteredParams = {};
+    let filterDic = [];
+    if (type === 'AlphaRTC') {
+      filterDic = alphaRTCFullConfigDic;
+    }
+    else if (type === 'Probing') {
+      if (p.mode === 'tcp') {
+        filterDic = probingFullConfigDicTCP;
+      }
+      else if (p.mode === 'udp') {
+        filterDic = probingFullConfigDicUDP;
+      }
+    }
+    else {
+      return p;
+    }
+    for (const key of filterDic) {
+      if (key === 'modeChoice') {
+        filteredParams[key] = 'auto selection';
+        continue;
+      }
+      filteredParams[key] = params[key];
+    }
+    return filteredParams;
 
+  };
   return (
     <div className="verify-tab-container">
       <Row justify="center">
@@ -24,7 +53,7 @@ const VerifyTab = (props) => {
             </div>
           </Row>
           <Row style={{marginTop:50}}>
-            <ReactJson src={props.params}/>
+            <ReactJson src={paramsFilter(params)}/>
           </Row>
         </Col>
       </Row>

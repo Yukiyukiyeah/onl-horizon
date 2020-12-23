@@ -88,7 +88,6 @@ const CrateJob = () => {
     }
     return runApp(jobId, params.appType, runParams);
   };
-
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
     if (curStep === 0) {
