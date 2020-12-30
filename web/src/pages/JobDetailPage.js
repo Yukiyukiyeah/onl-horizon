@@ -41,7 +41,8 @@ const JobDetail = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [btnId, setBtnId] = useState(0);
   const [downloadData, setDownloadData] = useState([]);
-  const btnToModal = ['Stop', 'Start', 'Delete', 'Download Dataset'];
+  const btnToModalBtn = ['Stop', 'Start', 'Delete', 'Download'];
+  const btnToModalTitle = ['Stop Job', 'Start Job', 'Delete Job', 'Download Dataset'];
   const slots = [
     'These jobs will stop. Are you sure?',
     'These jobs will start. Are you sure?',
@@ -141,10 +142,10 @@ const JobDetail = (props) => {
         visible={showModal}
         handleConfirm={handleModalConfirm}
         handleCancel={handleModalCancel}
-        confirmText={btnToModal[btnId]}
+        confirmText={btnToModalBtn[btnId]}
         cancelText={"Cancel"}
         description={slots[btnId]}
-        title={btnToModal[btnId]}
+        title={btnToModalTitle[btnId]}
         height={+btnId === 3 ? "600px" : "250px"}
         existTable={+btnId === 3 }
         jobs={downloadData}

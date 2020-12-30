@@ -5,7 +5,12 @@ const multiDownload = require('multi-download');
 // local test
 // const baseUrl = '/api'
 // vm test
+
+// Production Env
 const baseUrl = 'https://api.opennetlab.org/api';
+
+// DEV Env
+// const baseUrl = 'https://dev-api.opennetlab.org/api';
 
 // create job
 export const sendCreateJobReq = (params = {}) => {
