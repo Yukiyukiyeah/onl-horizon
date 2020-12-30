@@ -60,7 +60,7 @@ const HomePage = () => {
             <InfoCard
               screenWidth={"47.5%"}
               keyAry={serverAry}
-              valueAry={[globalMachineStates.available, globalMachineStates.error, globalMachineStates.busy]}
+              valueAry={[globalMachineStates.available, globalMachineStates.error || 0, globalMachineStates.busy]}
               title={<div style={{fontWeight: "bold"}}>Servers</div>}
               showIcon={true}/>
           </Row>

@@ -12,10 +12,9 @@ const Map = () => {
         setLocations(info);
       });
   }, []);
-
   const renderLocation = (location) => {
     return {
-      "location": [location.lat, location.lng],
+      "location": [+location.lat || 0, +location.lng || 0],
       "addHandler": "mouseover", //on mouseover the pushpin, infobox shown
       "infoboxOption": {
         // title: location.title,
@@ -35,11 +34,11 @@ const Map = () => {
             <br/>
             <br/>
             {
-              `Physical Machine Count: ${location.pmCount}`
+              `Physical Machine Count: ${location.pmCount || 0}`
             }
             <br/>
             {
-              `Virtual Machine Count: ${location.vmCount}`
+              `Virtual Machine Count: ${location.vmCount || 0}`
             }
           </div>
         ),
