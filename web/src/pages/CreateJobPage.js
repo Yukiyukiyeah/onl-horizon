@@ -7,15 +7,16 @@ import LastTab from "./tabs/LastTab";
 import VerifyTab from "./tabs/VerifyTab";
 import {sendCreateJobReq, runApp} from "../backend/api";
 import * as Setting from "../utils/Setting";
+import {SubmitStatus as ST, StepToTab as STAB} from '../utils/BaseVar';
 
 const CrateJob = () => {
-  const [curStep, setStep] = useState(0);
+  const [curStep, setStep] = useState(STAB.STEP_FIRST);
   const [title, setTitle] = useState('');
   const [appType, setType] = useState('');
   const [params, setParams] = useState({});
-  const [isError, setError] = useState(false);
-  const [curStatusStep, setCurStatusStep] = useState(1);
-
+  const [sendStatus, setSendStatus] = useState(ST.SUBMIT_SUCCEEDED);
+  const [submitTime, setSubmitTime] = useState(Date.now());
+  const statusFlow = [ST.SUBMIT_PROCESSING, ST.SUBMIT_SUCCEEDED, ST.CREATE_PROCESSING];
   const runCreatedJob = (jobId) => {
     let runParams = null;
     if (appType === 'AlphaRTC') {
@@ -86,46 +87,61 @@ const CrateJob = () => {
       }
       runParams = runIperfParams;
     }
+    statusFlow.push(ST.RUN_PROCESSING);
     return runApp(jobId, params.appType, runParams);
   };
   const handleNext = (param) => {
     setParams(Object.assign(params, param)) ;
-    if (curStep === 0) {
+    if (curStep === STAB.STEP_FIRST) {
       // iperf -> probing , webrtc -> alphartc
       setType(Setting.appTypeMapR[param.appType]);
       setTitle(param.title);
     }
-    if (curStep === 3) {
-      sendCreateJobReq(params)
-        .then(r => {
-          setCurStatusStep(1);
-          return runCreatedJob(r.id);
-        }, e => {
-          setCurStatusStep(1);
-          setError(true);
-          return new Promise(()=>{});
-        })
-        .then(r => {
-          setCurStatusStep(2);
-        }, e => {
-          setCurStatusStep(2);
-          setError(true);
-        });
-
+    if (curStep === STAB.STEP_VERIFY) {
+      lastTabFunc();
     }
     setStep(curStep + 1);
   };
   const handlePrev = () => {
     setStep(curStep - 1);
   };
-
+  const lastTabFunc = () => {
+    setSubmitTime(Date.now());
+    const statusTimer = setInterval(() => {
+      if (statusFlow.length > 0) {
+        const curStatus = statusFlow.shift();
+        setSendStatus(curStatus);
+        if (curStatus === ST.RUN_SUCCEEDED || curStatus === ST.RUN_FAILED || curStatus === ST.CREATE_FAILED) {
+          clearInterval(statusTimer);
+        }
+      }
+    }, 1500);
+    sendCreateJobReq(params)
+      .then(r => {
+        statusFlow.push(ST.CREATE_SUCCEEDED);
+        return runCreatedJob(r.id);
+      }, e => {
+        statusFlow.push(ST.CREATE_FAILED);
+        return new Promise(()=>{});
+      })
+      .then(r => {
+        statusFlow.push(ST.RUN_SUCCEEDED);
+      }, e => {
+        statusFlow.push(ST.RUN_FAILED);
+      })
+      .catch(e => console.log(e));
+  };
+  const setFirst = () => {
+    console.log('xxxx');
+    setStep(STAB.STEP_FIRST);
+  };
   return (
     <div className="create-job-container">
-      {curStep === 0 && <FirstTab handleNext={ handleNext } params={params}/>}
-      {curStep === 1 && <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType }/>}
-      {curStep === 2 && <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev }  params={params} type={ appType }/>}
-      {curStep === 3 && <VerifyTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType } />}
-      {curStep === 4 && <LastTab  title={ title } error={isError} curStatusStep={curStatusStep}/>}
+      {curStep === STAB.STEP_FIRST && <FirstTab handleNext={ handleNext } params={params}/>}
+      {curStep === STAB.STEP_SECOND && <SecondTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType }/>}
+      {curStep === STAB.STEP_THIRD && <ThirdTab handleNext={ handleNext } handlePrev={ handlePrev }  params={params} type={ appType }/>}
+      {curStep === STAB.STEP_VERIFY && <VerifyTab handleNext={ handleNext } handlePrev={ handlePrev } params={params} type={ appType } />}
+      {curStep === STAB.STEP_LAST && <LastTab  title={ title } sendStatus={sendStatus} setFirst={setFirst} startTime={submitTime}/>}
     </div>
   );
 };
