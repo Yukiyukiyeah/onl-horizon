@@ -74,7 +74,7 @@ const FirstTab = (props) => {
               widthRange={[200, 1200]}
               placeholder={"the description of the job"}
               value={ description }
-              onChange={setDescription}
+              handleChange={setDescription}
               maxLength={100}
             />
           </div>
