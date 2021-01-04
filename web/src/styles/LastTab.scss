@@ -1,12 +1,20 @@
 .last-tab-container {
-  .container {
-    margin-top: 150px;
+  position: relative;
+  .task-name-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: -48px;
   }
-  .taskName {
-    font-size: 18px;
-    color: #707070;
-    opacity: 0.5;
-    margin-top: 50px;
+  .steps-container {
+    padding-top: 200px;
+    margin-left: 40%;
+  }
+  .task-name {
+    font-size: 32px;
+    color: #555555;
+    font-weight: bold;
   }
   .status {
     font-size: 20px;
@@ -18,8 +26,58 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: 0px;
+    color: #0078d4;
+    cursor: pointer;
+  }
+  .img-container{
+    padding-top: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .first-title-container {
+    display: flex;
+    justify-content: center;
+    height: 49px;
+    font-size: 37px;
+    line-height: 49px;
+    letter-spacing: 0;
     color: #707070;
-    margin-top: 200px;
-
+  }
+  .second-title-container {
+    display: flex;
+    justify-content: center;
+    color: #707070;
+    font-size: 24px;
+  }
+  .submit-text-wrapper {
+    margin-top: 50px;
+    padding-bottom: 200px;
+  }
+  .move-exit{
+    opacity: 1;
+  }
+  .move-exit-active{
+    opacity: 0.5;
+    transition: opacity 1s ease-in;
+  }
+  .move-exit-done {
+    opacity: 0;
+  }
+  .steps-enter,steps-appear {
+    opacity: 0;
+  }
+  .steps-enter-active,steps-appear-active {
+    opacity: 0.5;
+    transition: opacity 1s ease-in;
+  }
+  .steps-enter-done {
+    opacity: 1;
+  }
+  .footer {
+    font-size: 18px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
   }
 }

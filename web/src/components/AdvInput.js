@@ -103,7 +103,7 @@ const InternalAdvInput = (props, ref) => {
       value={ value }
       style={defaultInput}
       autoSize = {{ minRows: 2, maxRows: 6 }}
-      onChange={({ target: { value } }) => handleChange(value)}
+      onChange={ ({ target: { value } }) => handleChange(value)}
       className={classes}
       maxLength={maxLength}
       disabled={disabled}/>
