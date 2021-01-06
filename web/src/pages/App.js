@@ -6,7 +6,7 @@ import {
   DownOutlined, FileAddOutlined,
   HomeOutlined,
   InfoCircleTwoTone,
-  LogoutOutlined,
+  LogoutOutlined, PlusOutlined,
   SettingOutlined
 } from '@ant-design/icons';
 import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
@@ -18,6 +18,7 @@ import CreateJobPage from "./CreateJobPage";
 import JobListPage from "./JobListPage";
 import AccountPage from "./AccountPage";
 import JobDetail from "./JobDetailPage";
+import ChallengePage from "./ChallengePage";
 
 import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";
@@ -253,6 +254,14 @@ class App extends Component {
             Job List
           </div>
         </Menu.Item>
+        <SubMenu key="3" title="Activity" icon={<PlusOutlined/>} style={{paddingLeft: "10px", fontWeight: "bold"}}>
+          <Menu.Item key="4" onClick={() => this.props.history.push("/challenge")}>
+              Challenge
+          </Menu.Item>
+          <Menu.Item key="5" onClick={() => this.props.history.push("/course")}>
+              Course
+          </Menu.Item>
+        </SubMenu>
       </Menu>
     );
   }
@@ -301,6 +310,7 @@ class App extends Component {
                 <Route exact path="/jobs" component={JobListPage}/>
                 <Route path="/jobs/detail/:id" component={JobDetail}/>
                 <Route exact path="/account" component={AccountPage}/>
+                <Route exact path="/challenge" component={ChallengePage}/>
               </Switch>
             </Content>
           </Layout>
