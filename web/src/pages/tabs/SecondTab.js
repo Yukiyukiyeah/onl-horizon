@@ -9,7 +9,7 @@ const SecondTab = (props) => {
   const {title:title, experimentTime: initExperimentTime, expirationTime: initExpirationTime, bweDuration:initBwe} = props.params;
   const [checkValid, setCheckValid] = useState(false);
   // alphaRTC job config
-  const [parties, setParties] = useState('2');
+  const [participants, setParticipants] = useState('2');
   const [experimentTime, setExperimentTime] = useState(initExperimentTime ? initExperimentTime : 30);
   const [expirationTime, setExpirationTime] = useState(initExpirationTime ? initExpirationTime : 300);
   // eslint-disable-next-line no-unused-vars
@@ -35,10 +35,10 @@ const SecondTab = (props) => {
             type="select"
             title="Participants"
             placeholder="2"
-            value={parties}
-            handleChange={setParties}
+            value={participants}
+            handleChange={setParticipants}
             showError={false}
-            errorText="Select Parties"
+            errorText="Select Participants"
             disabled={true}
           />
         </Col>
@@ -285,7 +285,7 @@ const SecondTab = (props) => {
   );
 
   const alphaRTCFullConfigDic = ['parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
-  const alphaRTCFullConfig = [parties, expirationTime, experimentTime, model, bwe];
+  const alphaRTCFullConfig = [participants, expirationTime, experimentTime, model, bwe];
   const probingFullConfigDic = ['interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
   const probingFullConfig =    [interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
   const advancedFullConfigDic = ['jsonConfig', 'application', 'timeout'];
