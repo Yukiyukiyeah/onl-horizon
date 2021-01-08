@@ -102,3 +102,7 @@ export const downloadMultipleFiles = (data) => {
   const urls = data.map(dataItem => `${baseUrl}/results/download/${dataItem.id}?filename=${dataItem.file}`);
   multiDownload(urls);
 };
+
+export const getMachineList = () => {
+  return get(`${baseUrl}/availableMachineList`);
+};
