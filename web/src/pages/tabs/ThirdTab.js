@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import {Row, Col, Radio} from "antd";
 import '../../styles/ThirdTab.scss';
 import CusStep from "../../components/CusSteps";
+import MachineSelector from "../../components/MachineSelector";
 
 const ThirdTab = (props) => {
   const [hostChoice, setHostChoice] = useState(1);
-  const { handleNext, handlePrev, type } = props;
+  const { handleNext, handlePrev, type, participants = 2 } = props;
   const {title:title} = props.params;
   const onHostChoiceChange = (e) => {
     setHostChoice(e.target.value);
@@ -27,6 +28,13 @@ const ThirdTab = (props) => {
     };
     handleNext(config);
   };
+  const getMachineSelector = () => {
+    const machineSelectors = [];
+    for (let i = 1; i <= participants; i++) {
+      machineSelectors.push(<MachineSelector order={i}/>);
+    }
+    return machineSelectors;
+  };
 
   return (
     <div className="third-tab-container">
@@ -41,7 +49,7 @@ const ThirdTab = (props) => {
             </div>
           </Row>
           <Row style={{marginTop:50}}>
-            {hostDetail}
+            {getMachineSelector()}
           </Row>
         </Col>
       </Row>
