@@ -10,7 +10,7 @@ import * as Setting from "../utils/Setting";
 import {SubmitStatus as ST, StepToTab as STAB} from '../utils/BaseVar';
 
 const CrateJob = () => {
-  const [curStep, setStep] = useState(STAB.STEP_THIRD);
+  const [curStep, setStep] = useState(STAB.STEP_FIRST);
   const [title, setTitle] = useState('');
   const [appType, setType] = useState('');
   const [params, setParams] = useState({});
@@ -91,6 +91,7 @@ const CrateJob = () => {
     return runApp(jobId, params.appType, runParams);
   };
   const handleNext = (param) => {
+    console.log(param);
     setParams(Object.assign(params, param)) ;
     if (curStep === STAB.STEP_FIRST) {
       // iperf -> probing , webrtc -> alphartc

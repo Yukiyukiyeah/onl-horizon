@@ -104,5 +104,6 @@ export const downloadMultipleFiles = (data) => {
 };
 
 export const getMachineList = () => {
-  return get(`${baseUrl}/availableMachineList`);
+  return get('https://private-b088c9-v2onlapi.apiary-mock.com/api/availableMachineList');
+  // return get(`${baseUrl}/availableMachineList`);
 };
