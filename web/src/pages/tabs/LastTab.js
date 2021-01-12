@@ -27,10 +27,10 @@ const LastTab = (props) => {
     if (sendStatus === ST.CREATE_PROCESSING) {
       return "Job is creating!";
     }
-    if (sendStatus === ST.SUBMIT_SUCCEEDED || curStatusStep > ST.SEND_STEP_CREATE) {
+    if (curStatusStep > ST.SEND_STEP_CREATE) {
       return "Job is created successfully!";
     }
-    return "Job is created successfully!";
+    return "Job is waiting to create";
   })();
   const createIcon = (() => {
     if (sendStatus === ST.CREATE_FAILED) {
