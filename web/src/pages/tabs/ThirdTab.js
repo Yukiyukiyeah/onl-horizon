@@ -101,7 +101,6 @@ const ThirdTab = (props) => {
     let config = {
       "machineFilters": machineFilters
     };
-    console.log(config);
     handleNext(config);
   };
   const getMachineSelector = () => {
