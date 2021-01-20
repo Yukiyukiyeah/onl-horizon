@@ -114,6 +114,28 @@ export function post(url, params) {
 }
 
 /**
+ * post file method
+ * @param {String} url [request url]
+ * @param {Object} params [request parameters]
+ */
+export function postFile(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, params, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': Setting.getAuthorizationHeader()
+      }
+    })
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err.data);
+      });
+  });
+}
+
+/**
  * deleteData method
  * @param {String} url [request url]
  * @param {Object} params [request parameters]

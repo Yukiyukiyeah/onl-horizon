@@ -1,4 +1,4 @@
-import {get, post, deleteData, patch} from './http';
+import {get, post, postFile, deleteData, patch} from './http';
 import * as Setting from "../utils/Setting";
 const multiDownload = require('multi-download');
 
@@ -121,11 +121,7 @@ export const getLatest3 = () => {
 };
 
 // create challenge
-export const createChallenge = (params={}) => {
-  //todo: challengeId nanoid
-  const createChallengeDefaultParams = {userId: Setting.getUserId()};
-  for (const key of Object.keys(params)) {
-    createChallengeDefaultParams[key] = params[key];
-  }
-  return post(`${baseUrl}/display/createJobChallenge`, createChallengeDefaultParams);
+export const createChallenge = (formData) => {
+  formData.append('userId', Setting.getUserId());
+  return postFile(`${baseUrl}/display/createJobChallenge`, formData);
 };

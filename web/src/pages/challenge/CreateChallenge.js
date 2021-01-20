@@ -5,7 +5,8 @@ import SubmitResult from "./SubmitResult";
 import { createChallenge, runApp } from '../../backend/api';
 
 const CreateChallenge = () => {
-  const [title, setTitle] = useState(0);
+  const [title, setTitle] = useState('Model Name');
+  const [model, setModel] = useState('Model file path');
   const [curStep, setCurStep] = useState(0);
   const [params, setParams] = useState({});
   const [sendStatus, setSendStatus] = useState(ST.SUBMIT_SUCCEEDED);
@@ -13,7 +14,7 @@ const CreateChallenge = () => {
   // status queue
   const statusFlow = [ST.SUBMIT_PROCESSING, ST.SUBMIT_SUCCEEDED, ST.CREATE_PROCESSING];
 
-  const handleNext = (param) => {
+  const handleNext = (params) => {
     // set submit time
     setSubmitTime(Date.now());
     // wait for current status
@@ -27,12 +28,12 @@ const CreateChallenge = () => {
       }
     }, 1500);
     // set title
-    setTitle(param.title);
+    setTitle(params.title);
 
 
     createChallenge(params)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         statusFlow.push(ST.CREATE_SUCCEEDED);
         return runChallenge(res.id); // todo
       }, err => {
@@ -40,7 +41,7 @@ const CreateChallenge = () => {
         return new Promise(()=>{});
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         statusFlow.push(ST.RUN_SUCCEEDED);
       }, err => {
         statusFlow.push(ST.RUN_FAILED);
@@ -61,7 +62,7 @@ const CreateChallenge = () => {
 
   return (
     <div className="create-job-container">
-      {curStep === 0 && <SubmitChallenge title = { title } handleNext={ handleNext } params={params}/>}
+      {curStep === 0 && <SubmitChallenge title = { title } model = { model } handleNext={ handleNext } params={params}/>}
       {curStep === 1 && <SubmitResult title={ title } sendStatus={sendStatus} submitTime={submitTime} setFirst={setFirst}/>}
     </div>
   );
