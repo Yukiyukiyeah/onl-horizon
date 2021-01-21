@@ -9,7 +9,7 @@ import {sendCreateJobReq, runApp} from "../backend/api";
 import * as Setting from "../utils/Setting";
 import {SubmitStatus as ST, StepToTab as STAB} from '../utils/BaseVar';
 
-const CrateJob = () => {
+const CreateJob = () => {
   const [curStep, setStep] = useState(STAB.STEP_FIRST);
   const [title, setTitle] = useState('');
   const [appType, setType] = useState('');

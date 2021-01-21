@@ -10,9 +10,12 @@ const VerifyTab = (props) => {
   const onClickNext = () => {
     handleNext({});
   };
+  // filterDics
+  // todo: advanced?
   const alphaRTCFullConfigDic = ['title', 'appType', 'description', 'parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration',  'machineFilters'];
   const probingFullConfigDicTCP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl',  'machineFilters'];
   const probingFullConfigDicUDP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'bandwidth', 'machineFilters'];
+  // todo: advanced?
   const paramsFilter = (p) => {
     const filteredParams = {};
     let filterDic = [];
@@ -31,6 +34,7 @@ const VerifyTab = (props) => {
       return p;
     }
     for (const key of filterDic) {
+      // todo: no modeChoice?
       if (key === 'modeChoice') {
         filteredParams[key] = 'auto selection';
         continue;

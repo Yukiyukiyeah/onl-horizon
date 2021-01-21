@@ -26,8 +26,26 @@ import {loginRequest} from "../auth/authConfig";
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
+// todo: divide the code
 class App extends Component {
   static contextType = MsalContext;
+
+  // state = {
+  //   selectedMenuKey: 0,
+  //   isForbidden: false,
+  // }
+
+  // error bounding
+  static getDeriveStateFromError(error) {
+    console.log(error);
+    return {
+      hasError: true,
+    };
+  }
+
+  componentDidCatch(error, info) {
+    console.log(error, info);
+  }
 
   constructor(props) {
     super(props);
@@ -40,10 +58,7 @@ class App extends Component {
     Setting.initServerUrl();
   }
 
-  componentWillMount() {
-    this.updateMenuKey();
-  }
-
+  // Deal with state: selectedMenuKey
   getMenuKey() {
     // eslint-disable-next-line no-restricted-globals
     const uri = location.pathname;
@@ -176,7 +191,8 @@ class App extends Component {
     );
   }
 
-  renderAccount() {
+  // check if account ? renderRightDropDown : Login button, inside renderContent
+  renderAccount(){
     const account = Setting.getAccount(this.context);
 
     let res = [];
@@ -319,6 +335,7 @@ class App extends Component {
     );
   }
 
+  // render the footer
   renderFooter() {
     // How to keep your footer where it belongs ?
     // https://www.freecodecamp.org/neyarnws/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/
@@ -336,8 +353,10 @@ class App extends Component {
     );
   }
 
+  // render modal (if not login)
   renderModal() {
     if (Setting.getAccount(this.context) === null) {
+      console.log(this.context);
       return (
         <Modal
           title={

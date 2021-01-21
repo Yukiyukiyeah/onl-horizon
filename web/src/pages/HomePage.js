@@ -13,6 +13,7 @@ const HomePage = () => {
   const jobAry = ['Succeeded', 'Failed', 'Running'];
   const serverAry = ['Available', 'Error', 'Busy'];
 
+  // get data from backend
   useEffect(() => {
     getMyJobStates()
       .then((info) => {

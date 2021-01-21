@@ -1,6 +1,7 @@
 import apiConfig from "./apiConfig";
 import b2cPolicies from "./policies";
 
+// todo: read the docs
 // MSAL configuration
 // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/46886ff0856ce02e0d2113525ccb05bb68f92a93/lib/msal-browser/docs/configuration.md
 export const msalConfig = {

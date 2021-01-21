@@ -144,5 +144,6 @@ const InternalSelector = (props, ref) => {
   </div>
   );
 };
+// todo: why?
 const MachineSelector = React.forwardRef(InternalSelector);
 export default MachineSelector;

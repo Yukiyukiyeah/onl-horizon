@@ -6,6 +6,8 @@ import CusStep from "../../components/CusSteps";
 import MachineSelector from "../../components/MachineSelector";
 
 const labels = ['location', 'networkType', 'machineType'];
+
+//todo: what is the data struc of machineData?
 class TrieNode {
   constructor(value, label, depth = -1) {
     this.value = value;
@@ -22,11 +24,12 @@ class TrieNode {
     return null;
   }
 }
+
 class Trie {
   constructor() {
     this.root = new TrieNode(null, null, -1);
   }
-
+  // @machineInfo: Array[dt.location, dt.networkType, dt.machineType]
   insert(machineInfo) {
     let node = this.root;
     for (const info of machineInfo) {
