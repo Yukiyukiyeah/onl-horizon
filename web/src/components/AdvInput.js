@@ -12,27 +12,36 @@ const InternalAdvInput = (props, ref) => {
     wrapperClassName,
     className,
     children,
+    // the width & height of "input"
     width,
     height,
+    // ** use state as value
     value,
+    // ** use setState as handleChange
+    handleChange,
+
     title,
+    // tooltip text
     tipText,
     tipClassName,
+    // [min, max] ex:[10,100] = input range 10-100
     inputRange = null,
     // max input length = 100 chars
     maxLength = 100,
     // adaptive input
     isAdaptive = false,
+    // same as input range, work only if isAdaptive = true
     widthRange = null,
     // for select
     size = "middle",
+    // options of select, ex:[1, 2], can choose 1 , 2 from the select
     options,
+    // the values of the select' options ex: options = [1, 2] optionsValue = [a, b]. choose 1, the value is a instead of 1
     optionsValue,
     // for error alert
     showError,
     errorText,
     placeholder,
-    handleChange,
     disabled = false
   } = props;
 

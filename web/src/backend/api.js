@@ -70,6 +70,7 @@ export const runApp = (jobId, appName, params) => { //
 export const getUserId = () => {
   return get(`${baseUrl}/auth`)
     .then((res) => {
+      console.log('res', res);
       const userId = res.id;
       localStorage.setItem("userId", userId);
       const role = res.role;

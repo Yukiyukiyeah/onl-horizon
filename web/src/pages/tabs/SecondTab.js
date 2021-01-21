@@ -94,6 +94,7 @@ const SecondTab = (props) => {
       </Row>
     </div>
   );
+
   // probing job Config
   const {interval: initInterval, bufferLen: initBufferLen,
     timeout:initTimeout, mode:initMode, tcpWindowSize:initTcpWindowSize,

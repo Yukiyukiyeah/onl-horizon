@@ -68,8 +68,8 @@ const FirstTab = (props) => {
           </div>
           <div className="description">
             <AdvInput
-              title='Description (optional)'
               type='text'
+              title='Description (optional)'
               isAdaptive={true}
               widthRange={[200, 1200]}
               placeholder={"the description of the job"}

@@ -32,6 +32,7 @@ const LastTab = (props) => {
     }
     return "Job is waiting to create";
   })();
+
   const createIcon = (() => {
     if (sendStatus === ST.CREATE_FAILED) {
       return (<StepsIcon type='fail' showLarge={true}/>);
@@ -42,6 +43,7 @@ const LastTab = (props) => {
     return (<StepsIcon type='checked' showLarge={sendStatus === ST.CREATE_SUCCEEDED  || sendStatus === ST.RUN_PROCESSING}/>);
 
   })();
+
   const runText = (() => {
     if (sendStatus === ST.RUN_FAILED) {
       return "Failed to run!";
@@ -54,6 +56,7 @@ const LastTab = (props) => {
     }
     return "Job is waiting to run!";
   })();
+
   const runIcon = (() => {
     if (sendStatus === ST.RUN_FAILED) {
       return (<StepsIcon type='fail' showLarge={true}/>);
@@ -66,6 +69,7 @@ const LastTab = (props) => {
     }
     return (<StepsIcon type='wait'/>);
   })();
+
   useEffect(()=> {
     setTimeout(
       () => {
@@ -75,6 +79,7 @@ const LastTab = (props) => {
       setShowSteps(true);
     }, 1500);
   }, []);
+
   useEffect(() => {
     if (sendStatus === ST.RUN_SUCCEEDED || sendStatus === ST.RUN_FAILED || sendStatus === ST.CREATE_FAILED) {
       return;
@@ -84,6 +89,7 @@ const LastTab = (props) => {
     }, 1000);
     return () => clearInterval(timerId);
   }, [countTime]);
+
   useEffect(() => {
     if (sendStatus < ST.CREATE_SUCCEEDED) {
       setCurStatusStep(ST.SEND_STEP_SUBMIT);
@@ -95,6 +101,7 @@ const LastTab = (props) => {
       setCurStatusStep(ST.SEND_STEP_RUN);
     }
   }, [sendStatus]);
+
   return (
     <div className="last-tab-container">
       <div className="task-name-container">

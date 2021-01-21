@@ -22,10 +22,12 @@ export function parseJson(s) {
   }
 }
 
+// 会向发出新的http请求
 export function goToLink(link) {
   window.location.href = link;
 }
 
+// 不发出新的HTTP调用
 export function goToLinkSoft(history, link) {
   history.push(link);
 }
@@ -71,6 +73,12 @@ export function getAvatarColor(s) {
   return colorList[random % 4];
 }
 
+// context:{
+// accounts: []
+// inProgress: "none"
+// instance: PublicClientApplication {isBrowserEnvironment: true, config: {…}, browserCrypto: CryptoOps, networkClient: FetchClient, logger: Logger, …}
+// __proto__: Object
+// }
 export function getAccount(context) {
   if (context.accounts.length > 0) {
     return context.accounts[0];

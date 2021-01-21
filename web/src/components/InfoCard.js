@@ -10,7 +10,10 @@ import PieChart from "./PieChart";
 import * as Setting from "../utils/Setting";
 import {PlayCircleOutlined} from "@ant-design/icons";
 
+
 const InfoCard = (props) => {
+  // keyAry, valueAry: data
+  // todo: showChart control both Explore and Chart
   const {title, showIcon, valueAry, keyAry, showChart = false, height, width, screenWidth} = props;
 
   let history = useHistory();
