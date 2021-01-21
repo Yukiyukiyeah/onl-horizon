@@ -17,7 +17,7 @@ export const sendCreateJobReq = (params = {}) => {
   for (const key of Object.keys(params)) {
     createJobDefaultParams[key] = params[key];
   }
-  return post(`${baseUrl}/jobs`, createJobDefaultParams);
+  return post(`${baseUrl}/display/createJob`, createJobDefaultParams);
 };
 
 // get one job info
