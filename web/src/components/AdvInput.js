@@ -19,7 +19,6 @@ const InternalAdvInput = (props, ref) => {
     value,
     // ** use setState as handleChange
     handleChange,
-
     title,
     // tooltip text
     tipText,
