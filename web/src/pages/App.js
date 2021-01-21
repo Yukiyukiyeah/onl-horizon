@@ -288,6 +288,14 @@ class App extends Component {
     );
   }
 
+  // check if the page is start page
+  isStartPages = () => {
+    return window.location.pathname.startsWith('/login') ||
+        window.location.pathname.startsWith('/register') ||
+        window.location.pathname === '/';
+  }
+
+  // render the whole page
   renderContent() {
     return (
       <Layout>
@@ -417,7 +425,6 @@ class App extends Component {
   render() {
     return (
       <div id="parent-area">
-        <BackTop />
         <div>
           {
             this.renderContent()

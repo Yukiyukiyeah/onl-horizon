@@ -17,6 +17,60 @@ const CreateJob = () => {
   const [sendStatus, setSendStatus] = useState(ST.SUBMIT_SUCCEEDED);
   const [submitTime, setSubmitTime] = useState(Date.now());
   const statusFlow = [ST.SUBMIT_PROCESSING, ST.SUBMIT_SUCCEEDED, ST.CREATE_PROCESSING];
+
+  // next button's callback func
+  const handleNext = (param) => {
+    // return {title: '', appType: '',  description:''}
+    // console.log('handleNext - param', param);
+    setParams(Object.assign(params, param)) ;
+    if (curStep === STAB.STEP_FIRST) {
+      // iperf -> probing , webrtc -> alphartc
+      setType(Setting.appTypeMapR[param.appType]);
+      setTitle(param.title);
+    }
+    if (curStep === STAB.STEP_VERIFY) {
+      lastTabFunc();
+    }
+    setStep(curStep + 1);
+  };
+
+  // prev button's callback func
+  const handlePrev = () => {
+    setStep(curStep - 1);
+  };
+
+  // call when last Tab
+  const lastTabFunc = () => {
+    // set submit time
+    setSubmitTime(Date.now());
+    // wait for current status
+    const statusTimer = setInterval(() => {
+      if (statusFlow.length > 0) {
+        const curStatus = statusFlow.shift();
+        setSendStatus(curStatus);
+        if (curStatus === ST.RUN_SUCCEEDED || curStatus === ST.RUN_FAILED || curStatus === ST.CREATE_FAILED) {
+          clearInterval(statusTimer);
+        }
+      }
+    }, 1500);
+
+    // send to backend(api) and run
+    sendCreateJobReq(params)
+      .then(r => {
+        statusFlow.push(ST.CREATE_SUCCEEDED);
+        return runCreatedJob(r.id);
+      }, e => {
+        statusFlow.push(ST.CREATE_FAILED);
+        return new Promise(()=>{});
+      })
+      .then(r => {
+        statusFlow.push(ST.RUN_SUCCEEDED);
+      }, e => {
+        statusFlow.push(ST.RUN_FAILED);
+      })
+      .catch(e => console.log(e));
+  };
+
   const runCreatedJob = (jobId) => {
     let runParams = null;
     if (appType === 'AlphaRTC') {
@@ -90,52 +144,13 @@ const CreateJob = () => {
     statusFlow.push(ST.RUN_PROCESSING);
     return runApp(jobId, params.appType, runParams);
   };
-  const handleNext = (param) => {
-    console.log(param);
-    setParams(Object.assign(params, param)) ;
-    if (curStep === STAB.STEP_FIRST) {
-      // iperf -> probing , webrtc -> alphartc
-      setType(Setting.appTypeMapR[param.appType]);
-      setTitle(param.title);
-    }
-    if (curStep === STAB.STEP_VERIFY) {
-      lastTabFunc();
-    }
-    setStep(curStep + 1);
-  };
-  const handlePrev = () => {
-    setStep(curStep - 1);
-  };
-  const lastTabFunc = () => {
-    setSubmitTime(Date.now());
-    const statusTimer = setInterval(() => {
-      if (statusFlow.length > 0) {
-        const curStatus = statusFlow.shift();
-        setSendStatus(curStatus);
-        if (curStatus === ST.RUN_SUCCEEDED || curStatus === ST.RUN_FAILED || curStatus === ST.CREATE_FAILED) {
-          clearInterval(statusTimer);
-        }
-      }
-    }, 1500);
-    sendCreateJobReq(params)
-      .then(r => {
-        statusFlow.push(ST.CREATE_SUCCEEDED);
-        return runCreatedJob(r.id);
-      }, e => {
-        statusFlow.push(ST.CREATE_FAILED);
-        return new Promise(()=>{});
-      })
-      .then(r => {
-        statusFlow.push(ST.RUN_SUCCEEDED);
-      }, e => {
-        statusFlow.push(ST.RUN_FAILED);
-      })
-      .catch(e => console.log(e));
-  };
+
+  // set the Tab to first
   const setFirst = () => {
-    console.log('xxxx');
+    // console.log('xxxx');
     setStep(STAB.STEP_FIRST);
   };
+
   return (
     <div className="create-job-container">
       {curStep === STAB.STEP_FIRST && <FirstTab handleNext={ handleNext } params={params}/>}

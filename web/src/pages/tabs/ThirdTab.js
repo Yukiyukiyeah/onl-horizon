@@ -46,26 +46,50 @@ class Trie {
 
 const ThirdTab = (props) => {
   const [hostChoice, setHostChoice] = useState(1);
+  // todo: participants?
   const { handleNext, handlePrev, type, participants = 2 } = props;
   const {title:title} = props.params;
   const [rowMachineData, setRowMachineData] = useState(null);
   const [machineData, setMachineData] = useState(null);
+
+  // todo: call when render?
+  let machineFilters = new Array(participants).fill({});
+
+  // todo:call when render? participants = 2
+  const ary = new Array(participants).fill(1);
+
+  // todo: call when DidMount/ DidUpdate?
+  useEffect(() => {
+    getMachineList() // todo: get rowdata from backend?
+      .then((r) => {
+        handleRowData(r);
+      })
+      .catch(e => {console.log(e);});
+  }, []);
+
+  // setRowMachineData, setMachineData
   const handleRowData = (rowData) => {
-    setRowMachineData(rowData.machineList);
+    setRowMachineData(rowData.machineList); // rowMachineData: Array(4) existed combinations of filters
+    // console.log('rowMachineData:', rowMachineData);
     if (!rowData) {
       return null;
     }
-    initMachineFilters();
-    const nt = new Trie();
+    initMachineFilters(); // machineFilters = rowMachineData
+    const nt = new Trie(); // create a tree of machine list
     for (const dt of rowData.machineList) {
       nt.insert([dt.location, dt.networkType, dt.machineType]);
     }
-    setMachineData(nt);
+    setMachineData(nt); // machineData: Trie(), all machine's data
+    // console.log('machineData:', machineData);
   };
-  let machineFilters = new Array(participants).fill({});
+
   const initMachineFilters = () => {
     machineFilters = rowMachineData;
+    // console.log('initMachineFilters', machineFilters);
   };
+
+  // todo: call when user finish one line's input ?
+  // machineFilter is the result of user's selection
   const handleMachineFilters = (location, networkType, machineType, idx) => {
     const insertIdx = idx - 1;
     const filterObj = {
@@ -75,43 +99,45 @@ const ThirdTab = (props) => {
     };
     machineFilters[insertIdx] = JSON.stringify(filterObj);
 
-    console.log(machineFilters);
+    console.log('handle - MachineFilters:', machineFilters);
+    console.log('handle - rowMachineData:', rowMachineData);
+    console.log('handle - initMachineFilters', machineFilters);
+    console.log('handle - machineData:', machineData);
+
   };
 
-  useEffect(() => {
-    getMachineList()
-      .then((r) => {
-        handleRowData(r);
-      })
-      .catch(e => {console.log(e);});
-  }, []);
-  const ary = new Array(participants).fill(1);
+  // todo: when to use? seems to be appear in online version
   const onHostChoiceChange = (e) => {
     setHostChoice(e.target.value);
   };
+
   const radioStyle = {
     display: 'block',
     height: '30px',
     lineHeight: '30px',
   };
+
   const hostDetail = (
     <Radio.Group className="radio-group" onChange={onHostChoiceChange} value={hostChoice}>
       <Radio style={radioStyle} value={1}>Auto-selection</Radio>
       <Radio style={radioStyle} disabled value={2}>Customized</Radio>
     </Radio.Group>
   );
-  const onClickNext = () => {
-    let config = {
-      "machineFilters": machineFilters
-    };
-    handleNext(config);
-  };
+
+  // todo: when to use? seems to appear in local version
   const getMachineSelector = () => {
     const machineSelectors = [];
     for (let i = 1; i <= participants; i++) {
       machineSelectors.push(<MachineSelector key={i} order={i} data={machineData}/>);
     }
     return machineSelectors;
+  };
+
+  const onClickNext = () => {
+    let config = {
+      "machineFilters": machineFilters
+    };
+    handleNext(config);
   };
 
   return (
