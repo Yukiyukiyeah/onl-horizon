@@ -13,12 +13,12 @@ import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
 import {getUserId} from "../backend/api";
-import HomePage from "./HomePage";
-import CreateJobPage from "./CreateJobPage";
-import JobListPage from "./JobListPage";
-import AccountPage from "./AccountPage";
-import JobDetail from "./JobDetailPage";
-import ChallengePage from "./ChallengePage";
+import HomePage from "./home/HomePage";
+import CreateJobPage from "./create-job/CreateJobPage";
+import JobListPage from "./job-list/JobListPage";
+import AccountPage from "./account/AccountPage";
+import JobDetail from "./job-list/JobDetailPage";
+import ChallengePage from "./challenge/ChallengePage";
 
 import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";

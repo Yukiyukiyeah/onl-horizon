@@ -1,8 +1,8 @@
 import {Col, Input, Row} from "antd";
 import React, {useMemo, useState} from "react";
-import '../../styles/SecondTab.scss';
-import AdvInput from "../../components/AdvInput";
-import CusStep from "../../components/CusSteps";
+import '../../../styles/SecondTab.scss';
+import AdvInput from "../../../components/AdvInput";
+import CusStep from "../../../components/CusSteps";
 
 const SecondTab = (props) => {
   const { handleNext, handlePrev, type } = props;

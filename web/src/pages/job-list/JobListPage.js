@@ -1,12 +1,12 @@
 import React, {useEffect, useState, useRef} from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Row, Table, Switch, Space } from "antd";
-import {allJobInfo, downloadDataset, stopJob, restartJob, deleteJob, downloadMultipleFiles} from '../backend/api';
-import '../styles/JobListPage.scss';
+import {allJobInfo, downloadDataset, stopJob, restartJob, deleteJob, downloadMultipleFiles} from '../../backend/api';
+import '../../styles/JobListPage.scss';
 import * as momenttz from 'moment-timezone';
 import * as moment from 'moment';
-import Modal from '../components/Modal';
-import * as Setting from "../utils/Setting";
+import Modal from '../../components/Modal';
+import * as Setting from "../../utils/Setting";
 
 const columns = [
   {

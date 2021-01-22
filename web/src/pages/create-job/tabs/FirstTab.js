@@ -1,8 +1,8 @@
 import {Col, Row} from "antd";
 import React, {useMemo, useState} from "react";
-import '../../styles/FirstTab.scss';
-import AdvInput from "../../components/AdvInput";
-import CusStep from "../../components/CusSteps";
+import '../../../styles/FirstTab.scss';
+import AdvInput from "../../../components/AdvInput";
+import CusStep from "../../../components/CusSteps";
 
 const FirstTab = (props) => {
   const {title:initTitle, description:initDescription, appType: initAppType} = props.params;

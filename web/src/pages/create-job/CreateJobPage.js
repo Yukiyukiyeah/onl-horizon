@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import '../styles/CreateJobPage.scss';
+import '../../styles/CreateJobPage.scss';
 import FirstTab from './tabs/FirstTab';
 import SecondTab from "./tabs/SecondTab";
 import ThirdTab from "./tabs/ThirdTab";
 import LastTab from "./tabs/LastTab";
 import VerifyTab from "./tabs/VerifyTab";
-import {sendCreateJobReq, runApp} from "../backend/api";
-import * as Setting from "../utils/Setting";
-import {SubmitStatus as ST, StepToTab as STAB} from '../utils/BaseVar';
+import {sendCreateJobReq, runApp} from "../../backend/api";
+import * as Setting from "../../utils/Setting";
+import {SubmitStatus as ST, StepToTab as STAB} from '../../utils/BaseVar';
 
 const CreateJob = () => {
   const [curStep, setStep] = useState(STAB.STEP_FIRST);

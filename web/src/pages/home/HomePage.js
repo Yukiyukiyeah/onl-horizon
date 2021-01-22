@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col} from "antd";
-import '../styles/HomePage.scss';
-import InfoCard from "../components/InfoCard";
-import {getGlobalJobStates, getGlobalMachineStates, getMyJobStates} from "../backend/api";
-import Map from "../components/Map";
+import '../../styles/HomePage.scss';
+import InfoCard from "../../components/InfoCard";
+import {getGlobalJobStates, getGlobalMachineStates, getMyJobStates} from "../../backend/api";
+import Map from "../../components/Map";
 
 const HomePage = () => {
   const [myJobStates, setMyJobStates] = useState({failed: 0, succeeded: 0, running: 0});

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Radio} from "antd";
-import '../../styles/ThirdTab.scss';
-import {getMachineList}  from '../../backend/api';
-import CusStep from "../../components/CusSteps";
-import MachineSelector from "../../components/MachineSelector";
+import '../../../styles/ThirdTab.scss';
+import {getMachineList}  from '../../../backend/api';
+import CusStep from "../../../components/CusSteps";
+import MachineSelector from "../../../components/MachineSelector";
 
 const labels = ['location', 'networkType', 'machineType'];
 

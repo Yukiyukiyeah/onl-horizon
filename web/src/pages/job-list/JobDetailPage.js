@@ -2,12 +2,12 @@ import {Button, Col, Row, Table} from "antd";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import * as momenttz from 'moment-timezone';
-import {downloadMultipleFiles, getJobInfo} from '../backend/api';
-import '../styles/JobDetailPage.scss';
-import Modal from "../components/Modal";
+import {downloadMultipleFiles, getJobInfo} from '../../backend/api';
+import '../../styles/JobDetailPage.scss';
+import Modal from "../../components/Modal";
 import {useHistory} from "react-router-dom";
 import {LeftOutlined} from "@ant-design/icons";
-import * as Setting from "../utils/Setting";
+import * as Setting from "../../utils/Setting";
 
 const columns = [
   {
