@@ -265,7 +265,7 @@ const JobList = () => {
         cancelText={"Cancel"}
         description={slots[btnId]}
         title={btnToModalTitle[btnId]}
-        height={+btnId === 3 ? "600px" : "250px"}
+        height={btnId === 3 ? "600px" : "250px"}
         existTable={+btnId === 3 }
         jobs={downloadData}
       />

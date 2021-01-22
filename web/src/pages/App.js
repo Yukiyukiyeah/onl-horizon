@@ -18,7 +18,8 @@ import CreateJobPage from "./create-job/CreateJobPage";
 import JobListPage from "./job-list/JobListPage";
 import AccountPage from "./account/AccountPage";
 import JobDetail from "./job-list/JobDetailPage";
-import ChallengePage from "./challenge/ChallengePage";
+import ChallengeDashboard from './challenge/ChallengeDashboard';
+import CreateChallenge from './challenge/CreateChallenge';
 
 import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";
@@ -340,7 +341,8 @@ class App extends Component {
                 <Route exact path="/jobs" component={JobListPage}/>
                 <Route path="/jobs/detail/:id" component={JobDetail}/>
                 <Route exact path="/account" component={AccountPage}/>
-                <Route exact path="/challenge" component={ChallengePage}/>
+                <Route exact path="/challenge" component={ChallengeDashboard}/>
+                <Route exact path="/challenge/create" component={CreateChallenge}/>
               </Switch>
             </Content>
           </Layout>
