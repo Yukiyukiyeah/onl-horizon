@@ -7,42 +7,43 @@ import '../../styles/SubmitChallenge.scss';
 const SubmitChallenge = (props) => {
   const { title: initTitle, model: initModel, handleNext } = props;
   const [title, setTitle] = useState(initTitle ? initTitle : '');
-  const [modelFileName, setModelFileName] = useState(initModel ? initModel: '');
+  const [modelFileName, setModelFileName] = useState(initModel ? initModel: 'Model Path');
   const [isModel, setIsModel] = useState(false);
-  const [modelFile, setModelFile] = useState('');
+  const [modelFile, setModelFile] = useState(null);
   const [checkValid, setCheckValid] = useState(false);
 
   const onClickNext = () => {
     if (titleValid && modelValid) {
-      const formData = new FormData();
-      formData.append('challengeId', nanoid());
-      formData.append('name', title);
-      formData.append('model', modelFile);
-      handleNext(formData);
+      const params = {};
+      params['challengeId'] = nanoid();
+      params['name'] = title;
+      const filereader = new FileReader();
+      filereader.readAsDataURL(modelFile);
+      filereader.onload = e => {
+        const model = filereader.result.split(',')[1];
+        params['model'] = model;
+        handleNext(params);
+      };
     } else {
       setCheckValid(true);
     }
-    // const param = {};
-    // params['challengeId'] = nanoid();
-    // params['name'] = title;
-    // params['model'] = modelFile;
-    // handleNext(params);
   };
 
-  // todo: upload the binary model
   const uploadParams = {
     name: 'file',
     beforeUpload: (file) => {
+      setModelFile(file);
+      setModelFileName(file.name);
       return false;
     },
     onChange(info) {
-      setModelFileName(info.file.name);
       if (info.fileList.length > 0) {
         setIsModel(true);
       } else {
         setIsModel(false);
       }
     },
+
   };
 
   const titleValid = useMemo(() => {
@@ -76,7 +77,7 @@ const SubmitChallenge = (props) => {
             <AdvInput
               type="normal"
               title="Model Upload"
-              placeholder="Model path"
+              placeholder={modelFileName}
               widthRange={[200, 400]}
               showError={checkValid && !modelValid}
               errorText="Please upload your model"

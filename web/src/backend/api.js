@@ -121,7 +121,7 @@ export const getLatest3 = () => {
 };
 
 // create challenge
-export const createChallenge = (formData) => {
-  formData.append('userId', Setting.getUserId());
-  return postFile(`${baseUrl}/display/createJobChallenge`, formData);
+export const createChallenge = (params) => {
+  params['userId'] = Setting.getUserId();
+  return post(`${baseUrl}/display/createJobChallenge`, params);
 };
