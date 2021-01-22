@@ -146,4 +146,4 @@ const CreateJob = () => {
     </div>
   );
 };
-export default CrateJob;
+export default CreateJob;

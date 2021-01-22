@@ -77,7 +77,13 @@ class App extends Component {
     this.setState({ selectedMenuKey: this.getMenuKey() });
   }
 
-  login() {
+  //todo: change hook render?
+  componentWillMount() {
+    this.updateMenuKey();
+  }
+
+  // login and out
+  login = () => {
     localStorage.removeItem("avatar");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
@@ -103,11 +109,11 @@ class App extends Component {
         // this.props.history.push(window.location.url);
       })
       .catch(error => {
-        // Setting.showMessage("error", `Siging in failed: ${error}`);
+        // Setting.showMessage("error", `Signing in failed: ${error}`);
       });
   }
 
-  logout() {
+  logout = () => {
     const logoutRequest = {
       account: Setting.getAccount(this.context)
     };
@@ -133,7 +139,8 @@ class App extends Component {
     //   });
   }
 
-  handleRightDropdownClick(e) {
+  // handle account menu in header
+  handleRightDropdownClick = e => {
     if (e.key === '0') {
       this.props.history.push(`/account`);
     } else if (e.key === '1') {
@@ -141,6 +148,7 @@ class App extends Component {
     }
   }
 
+  // Avatar in RightDropDown, inside renderRightDropdown
   renderAvatar() {
     const account = Setting.getAccount(this.context);
     const imageSrc = Setting.getAvatarSrc();
@@ -158,11 +166,12 @@ class App extends Component {
     }
   }
 
+  // account menu in header, inside renderAccount
   renderRightDropdown() {
     const account = Setting.getAccount(this.context);
 
     const menu = (
-      <Menu onClick={this.handleRightDropdownClick.bind(this)}>
+      <Menu onClick={this.handleRightDropdownClick}>
         <Menu.Item key='0'>
           <SettingOutlined />
           My Account
@@ -209,7 +218,7 @@ class App extends Component {
       // );
       res.push(
         <Menu.Item key="2" style={{float: 'right'}}>
-          <div onClick={() => this.login()}>
+          <div onClick={this.login}>
             Login
           </div>
         </Menu.Item>
@@ -226,23 +235,20 @@ class App extends Component {
     return res;
   }
 
-  renderMenu() {
+  // todo: ?
+  //  inside RenderContent
+  renderMenu = () => {
     let res = [];
     return res;
   }
 
-  isStartPages() {
-    return window.location.pathname.startsWith('/login') ||
-      window.location.pathname.startsWith('/register') ||
-      window.location.pathname === '/';
-  }
-
+  // left nav menu, inside renderContent
   renderLeftMenu() {
     return (
       <Menu
         // onClick={this.handleClick.bind(this)}
         // style={{ width: 256 }}
-        selectedKeys={[this.getMenuKey()]}
+        // selectedKeys={[this.getMenuKey()]}
         // defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
         defaultOpenKeys={['sub1']}
         mode="inline"
@@ -368,7 +374,7 @@ class App extends Component {
           visible={true}
           closable={false}
           footer={[
-            <Button key="login" type="primary" onClick={this.login.bind(this)}>
+            <Button key="login" type="primary" onClick={this.login}>
               Login
             </Button>,
           ]}
@@ -393,7 +399,7 @@ class App extends Component {
           visible={true}
           closable={false}
           footer={[
-            <Button key="logout" type="primary" onClick={this.logout.bind(this)}>
+            <Button key="logout" type="primary" onClick={this.logout}>
               Logout
             </Button>,
           ]}
@@ -420,9 +426,10 @@ class App extends Component {
             this.renderModal()
           }
         </div>
+        <BackTop />
       </div>
     );
   }
 }
 
-export default (App);
+export default App;
