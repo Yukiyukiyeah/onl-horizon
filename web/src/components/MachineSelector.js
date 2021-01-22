@@ -3,14 +3,14 @@ import AdvInput from "./AdvInput";
 import {Col, Row} from "antd";
 import '../styles/MachineSelector.scss';
 
-
+// todo：solve the display problems
 const InternalSelector = (props, ref) => {
   const {
     data = {},
     defaultData = {},
     order = 0,
     handleMachineFilters
-  }= props;
+  } = props;
   const [location, setLocation] = useState(null);
   const [locationOptions, setLocationOptions] = useState([]);
   const [networkType, setNetworkType] = useState(null);
@@ -44,14 +44,17 @@ const InternalSelector = (props, ref) => {
       setMachineTypeOptions(childrenNodes);
     }
   };
+
   const getNodesValue = (nodes) => {
     return nodes.map((item) => {return item.value;});
   };
+
   useEffect(() => {
     if (data) {
       getChildrenNodeOptionsByDepth(data);
     }
   }, [data, defaultData]);
+
   useEffect(() => {
     // set machineType and networkType as null when changing the location
     setMachineType(null);
@@ -66,10 +69,12 @@ const InternalSelector = (props, ref) => {
       }
     }
   }, [location]);
+
   // set null when changing the network type
   useEffect(() => {
     setMachineType(null);
   }, [networkType]);
+
   useEffect(() => {
     if (location && networkType) {
       setMachineTypeDisabled(false);
@@ -81,11 +86,13 @@ const InternalSelector = (props, ref) => {
       }
     }
   }, [location, networkType]);
+
   useEffect(() => {
     if (location && networkType && machineType) {
       handleMachineFilters(location, networkType, machineType, order);
     }
   }, [location, networkType, machineType]);
+
   const selectGroup = (
     <div className="selector-wrapper">
       <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
@@ -144,6 +151,7 @@ const InternalSelector = (props, ref) => {
   </div>
   );
 };
+
 // todo: why?
 const MachineSelector = React.forwardRef(InternalSelector);
 export default MachineSelector;

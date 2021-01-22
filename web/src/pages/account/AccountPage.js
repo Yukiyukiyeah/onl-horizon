@@ -1,9 +1,9 @@
 import React from "react";
 import {Avatar, Descriptions} from "antd";
-import * as Setting from "../utils/Setting";
+import * as Setting from "../../utils/Setting";
 
 import {MsalContext} from "@hsluoyz/msal-react";
-import {getUserId} from "../backend/api";
+import {getUserId} from "../../backend/api";
 
 class AccountPage extends React.Component {
   static contextType = MsalContext;

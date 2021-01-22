@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import btnBg from '../assets/btn-bg.png';
-import '../styles/ChallengePage.scss';
+import btnBg from '../../assets/btn-bg.png';
+import '../../styles/ChallengePage.scss';
+import Top10 from './Top10';
+import Self from './Self.js';
+
 // todo： change
 const ChallengePage = () => {
   return (
@@ -26,6 +29,12 @@ const ChallengePage = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="top10-wrapper">
+        <Top10 />
+      </div>
+      <div className="self-wrapper">
+        <Self />
       </div>
     </div>);
 };

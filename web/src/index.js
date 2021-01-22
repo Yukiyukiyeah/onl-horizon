@@ -4,7 +4,7 @@ import './styles/index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Landing from "./pages/Landing";
+import Landing from "./pages/landing/Landing";
 
 import { MsalProvider } from "@hsluoyz/msal-react";
 import {pca} from "./utils/Setting";

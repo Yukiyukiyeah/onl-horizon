@@ -1,8 +1,8 @@
 import React from "react";
 import {Row, Col} from "antd";
-import '../../styles/VerifyTab.scss';
+import '../../../styles/VerifyTab.scss';
 import ReactJson from 'react-json-view';
-import CusStep from "../../components/CusSteps";
+import CusStep from "../../../components/CusSteps";
 
 const VerifyTab = (props) => {
   const { handleNext, handlePrev, type, params } = props;

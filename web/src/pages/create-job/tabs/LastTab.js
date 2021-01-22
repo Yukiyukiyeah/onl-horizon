@@ -1,11 +1,11 @@
 import { Steps } from "antd";
 import React, {useEffect, useState} from "react";
 const { Step } = Steps;
-import '../../styles/LastTab.scss';
-import succeed from '../../assets/submit-img.png';
-import {SubmitStatus as ST} from '../../utils/BaseVar';
+import '../../../styles/LastTab.scss';
+import succeed from '../../../assets/submit-img.png';
+import {SubmitStatus as ST} from '../../../utils/BaseVar';
 import { CSSTransition } from 'react-transition-group';
-import StepsIcon from '../../components/StepsIcon';
+import StepsIcon from '../../../components/StepsIcon';
 const LastTab = (props) => {
   const { title, setFirst, sendStatus, startTime} = props;
   const [showSubmit, setShowSubmit] = useState(true);
