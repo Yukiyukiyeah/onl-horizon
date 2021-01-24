@@ -11,6 +11,7 @@ const multiDownload = require('multi-download');
 
 // DEV Env
 const baseUrl = 'https://dev-api.opennetlab.org/api';
+
 // create job
 export const sendCreateJobReq = (params = {}) => {
   const createJobDefaultParams = {"RequiredMachineNumber": 2, "userId": Setting.getUserId()};
@@ -107,4 +108,24 @@ export const downloadMultipleFiles = (data) => {
 export const getMachineList = () => {
   return get('https://private-b088c9-v2onlapi.apiary-mock.com/api/availableMachineList');
   // return get(`${baseUrl}/availableMachineList`);
+};
+
+// get Top 10 records
+export const getTop10 = () => {
+  return get(`${baseUrl}/getChallengeRecord`);
+};
+
+// get latest 3 self records
+export const getLatest3 = () => {
+  return get(`${baseUrl}/getLatest3`);
+};
+
+// create challenge
+export const createChallenge = (params={}) => {
+  //todo: challengeId
+  const createChallengeDefaultParams = {userId: Setting.getUserId()};
+  for (const key of Object.keys(params)) {
+    createChallengeDefaultParams[key] = params[key];
+  }
+  return post(`${baseUrl}/display/createJobChallenge`, createChallengeDefaultParams);
 };
