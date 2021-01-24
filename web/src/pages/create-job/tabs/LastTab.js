@@ -6,6 +6,7 @@ import succeed from '../../../assets/submit-img.png';
 import {SubmitStatus as ST} from '../../../utils/BaseVar';
 import { CSSTransition } from 'react-transition-group';
 import StepsIcon from '../../../components/StepsIcon';
+
 const LastTab = (props) => {
   const { title, setFirst, sendStatus, startTime} = props;
   const [showSubmit, setShowSubmit] = useState(true);

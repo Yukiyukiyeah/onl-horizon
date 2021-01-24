@@ -8,18 +8,21 @@ import {SubmitStatus as ST} from '../../utils/BaseVar';
 import { CSSTransition } from 'react-transition-group';
 import StepsIcon from '../../components/StepsIcon';
 const SubmitResult = (props) => {
-  const { title, setFirst, sendStatus, startTime} = props;
+  const { title, sendStatus, submitTime, setFirst } = props;
   const [showSubmit, setShowSubmit] = useState(true);
-  const [showSteps, setShowSteps] = useState(false);
   const [countTime, setCountTime] = useState(0);
   const [curStatusStep, setCurStatusStep] = useState(0);
+  const [showSteps, setShowSteps] = useState(false);
 
   const showTryAgain = (sendStatus === ST.CREATE_FAILED) || (sendStatus === ST.RUN_FAILED);
-  // submit
+
   let submitIcon = <StepsIcon type='checked' showLarge={sendStatus === ST.SUBMIT_SUCCEEDED || sendStatus === ST.CREATE_PROCESSING || sendStatus === ST.CREATE_WAITING}/>;
+
+  // submit
   const submitText = (() => {
     return "Job configure has been completed!";
   })();
+
   // create
   const createText = (() => {
     if (sendStatus === ST.CREATE_FAILED) {
@@ -86,7 +89,7 @@ const SubmitResult = (props) => {
       return;
     }
     const timerId = setInterval(() => {
-      setCountTime(Math.round((Date.now() - startTime) / 1000));
+      setCountTime(Math.round((Date.now() - submitTime) / 1000));
     }, 1000);
     return () => clearInterval(timerId);
   }, [countTime]);
@@ -147,7 +150,7 @@ const SubmitResult = (props) => {
         </CSSTransition>
       </div>
       <div className="footer">
-        {showTryAgain ? (<div>Please  <span onClick={()=>setFirst()} className="link-text">Create</span> again later</div>) : (<p>{countTime}s</p>)}
+        {showTryAgain ? (<div>Please  <span className="link-text" onClick={ setFirst }>Create</span> again later</div>) : (<p>{countTime}s</p>)}
       </div>
     </div>
   );
