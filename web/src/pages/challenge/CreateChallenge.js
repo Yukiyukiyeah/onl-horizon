@@ -5,12 +5,13 @@ import SubmitResult from "./SubmitResult";
 import { createChallenge, runApp } from '../../backend/api';
 
 const CreateChallenge = () => {
-  const [title, setTitle] = useState('Model Name');
-  const [model, setModel] = useState('Model file path');
+  const [title, setTitle] = useState('');
+  const [model, setModel] = useState('');
   const [curStep, setCurStep] = useState(0);
   const [params, setParams] = useState({});
   const [sendStatus, setSendStatus] = useState(ST.SUBMIT_SUCCEEDED);
   const [submitTime, setSubmitTime] = useState(Date.now());
+
   // status queue
   const statusFlow = [ST.SUBMIT_PROCESSING, ST.SUBMIT_SUCCEEDED, ST.CREATE_PROCESSING];
 
@@ -28,8 +29,7 @@ const CreateChallenge = () => {
       }
     }, 1500);
     // set title
-    console.log(params.get('name'));
-    setTitle(params.get('name'));
+    setTitle(params['name']);
 
     createChallenge(params)
       .then(res => {
@@ -62,7 +62,7 @@ const CreateChallenge = () => {
 
   return (
     <div className="create-job-container">
-      {curStep === 0 && <SubmitChallenge title = { title } model = { model } handleNext={ handleNext } params={params}/>}
+      {curStep === 0 && <SubmitChallenge title={ title } model={ model } handleNext={ handleNext } params={params}/>}
       {curStep === 1 && <SubmitResult title={ title } sendStatus={sendStatus} submitTime={submitTime} setFirst={setFirst}/>}
     </div>
   );

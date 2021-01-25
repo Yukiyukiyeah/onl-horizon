@@ -9,7 +9,9 @@ const InternalSelector = (props, ref) => {
     data = {},
     defaultData = {},
     order = 0,
-    handleMachineFilters
+    handleMachineFilters,
+    checkValid,
+    isFieldsValid
   } = props;
   const [location, setLocation] = useState(null);
   const [locationOptions, setLocationOptions] = useState([]);
@@ -24,30 +26,10 @@ const InternalSelector = (props, ref) => {
   const DEPTH_NETWORKTYPE = 0;
   const DEPTH_MACHINETYPE = 1;
 
-  const getChildrenNodeOptionsByDepth = (node) => {
-    if (!node) {
-      return ;
-    }
-    const childrenNodes = [];
-    const childrenOptions = [];
-    for (const child of node.children) {
-      childrenNodes.push(child);
-      childrenOptions.push(child.value);
-    }
-    if (node.depth === DEPTH_LOCATION) {
-      setLocationOptions(childrenNodes);
-    }
-    if (node.depth === DEPTH_NETWORKTYPE) {
-      setNetworkTypeOptions(childrenNodes);
-    }
-    if (node.depth === DEPTH_MACHINETYPE) {
-      setMachineTypeOptions(childrenNodes);
-    }
-  };
-
-  const getNodesValue = (nodes) => {
-    return nodes.map((item) => {return item.value;});
-  };
+  useEffect(() => {
+    const isNext = !!(networkType && machineType);
+    isFieldsValid(isNext);
+  }, [networkType, machineType]);
 
   useEffect(() => {
     if (data) {
@@ -93,6 +75,31 @@ const InternalSelector = (props, ref) => {
     }
   }, [location, networkType, machineType]);
 
+  const getChildrenNodeOptionsByDepth = (node) => {
+    if (!node) {
+      return ;
+    }
+    const childrenNodes = [];
+    const childrenOptions = [];
+    for (const child of node.children) {
+      childrenNodes.push(child);
+      childrenOptions.push(child.value);
+    }
+    if (node.depth === DEPTH_LOCATION) {
+      setLocationOptions(childrenNodes);
+    }
+    if (node.depth === DEPTH_NETWORKTYPE) {
+      setNetworkTypeOptions(childrenNodes);
+    }
+    if (node.depth === DEPTH_MACHINETYPE) {
+      setMachineTypeOptions(childrenNodes);
+    }
+  };
+
+  const getNodesValue = (nodes) => {
+    return nodes.map((item) => {return item.value;});
+  };
+
   const selectGroup = (
     <div className="selector-wrapper">
       <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
@@ -116,7 +123,7 @@ const InternalSelector = (props, ref) => {
             value={networkType}
             handleChange={setNetworkType}
             disabled={networkTypeDisabled}
-            showError={networkTypeDisabled}
+            showError={checkValid && networkTypeDisabled}
             errorText="Choose location first"
             options={getNodesValue(networkTypeOptions)}
             optionsValue={getNodesValue(networkTypeOptions)}
@@ -129,7 +136,7 @@ const InternalSelector = (props, ref) => {
             width={"122px"}
             value={machineType}
             handleChange={setMachineType}
-            showError={machineTypeDisabled}
+            showError={checkValid && machineTypeDisabled}
             disabled={machineTypeDisabled}
             errorText="Choose location and network type first"
             options={getNodesValue(machineTypeOptions)}

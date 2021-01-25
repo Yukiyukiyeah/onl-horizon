@@ -51,14 +51,21 @@ const ThirdTab = (props) => {
   const {title:title} = props.params;
   const [rowMachineData, setRowMachineData] = useState(null);
   const [machineData, setMachineData] = useState(null);
+  const [checkValid, setCheckValid] = useState(false);
+  const [isNext, setIsNext] = useState(false);
+  const [machineFilters, setMachineFilters] = useState([]);
+
+  const isFieldsValid = (res) => {
+    setIsNext(res);
+    return res;
+  };
 
   // todo: call when render?
-  let machineFilters = new Array(participants).fill({});
+  // let machineFilters = new Array(participants).fill({});
 
   // todo:call when render? participants = 2
   const ary = new Array(participants).fill(1);
 
-  // todo: call when DidMount/ DidUpdate?
   useEffect(() => {
     getMachineList() // todo: get rowdata from backend?
       .then((r) => {
@@ -84,7 +91,7 @@ const ThirdTab = (props) => {
   };
 
   const initMachineFilters = () => {
-    machineFilters = rowMachineData;
+    // setMachineFilters(rowMachineData);
     // console.log('initMachineFilters', machineFilters);
   };
 
@@ -97,8 +104,12 @@ const ThirdTab = (props) => {
       "networkType": networkType,
       "machineType": machineType,
     };
-    machineFilters[insertIdx] = JSON.stringify(filterObj);
-
+    // machineFilters[insertIdx] = JSON.stringify(filterObj);
+    console.log(machineFilters);
+    setMachineFilters(()=> {
+      machineFilters[insertIdx] = JSON.stringify(filterObj);
+      return machineFilters;
+    });
     console.log('handle - MachineFilters:', machineFilters);
     console.log('handle - rowMachineData:', rowMachineData);
     console.log('handle - initMachineFilters', machineFilters);
@@ -134,10 +145,14 @@ const ThirdTab = (props) => {
   };
 
   const onClickNext = () => {
-    let config = {
-      "machineFilters": machineFilters
-    };
-    handleNext(config);
+    if (isNext) {
+      let config = {
+        "machineFilters": machineFilters
+      };
+      handleNext(config);
+    } else {
+      setCheckValid(true);
+    }
   };
 
   return (
@@ -160,7 +175,10 @@ const ThirdTab = (props) => {
                   order={idx + 1}
                   data={(machineData && machineData.root) ? machineData.root : null}
                   defaultData={(rowMachineData && idx < participants) ? rowMachineData[idx] : null}
-                  handleMachineFilters={handleMachineFilters}/>
+                  handleMachineFilters={handleMachineFilters}
+                  checkValid={checkValid}
+                  isFieldsValid={isFieldsValid}
+                />
               ))
             }
           </Row>

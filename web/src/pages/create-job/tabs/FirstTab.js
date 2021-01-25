@@ -28,6 +28,7 @@ const FirstTab = (props) => {
   const titleValid = useMemo(() => {
     return !(!title || title.length > 100);
   }, [title]);
+
   const nextValid = useMemo(() => {
     return titleValid && !!appType;
   }, [titleValid, appType]);

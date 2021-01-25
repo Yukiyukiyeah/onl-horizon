@@ -191,6 +191,7 @@ const JobList = () => {
   useEffect(() => {
     loadJobList();
   }, []);
+
   const download = (data) => {
     if (!data || data.length === 0) {
       return;
