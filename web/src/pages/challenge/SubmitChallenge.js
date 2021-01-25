@@ -4,7 +4,20 @@ import AdvInput from "../../components/AdvInput";
 import '../../styles/SubmitChallenge.scss';
 
 const SubmitChallenge = (props) => {
-  const [modelName, setModelName] = useState("");
+  const { title: initTitle, handleNext } = props;
+  const [title, setTitle] = useState(initTitle ? initTitle : '');
+
+  const onClickNext = () => {
+    const param = {
+      'title': title,
+    };
+
+    handleNext(param);
+  };
+
+
+
+  // todo: upload the binary model
   return(
     <div className="submit-challenge-container">
       <Row className="content-zone" justify="center">
@@ -15,6 +28,7 @@ const SubmitChallenge = (props) => {
               type="normal"
               title="Name"
               placeholder="the name of model"
+              handleChange={setTitle}
               widthRange={[200, 1200]}
               isAdaptive={true}
               height="40px"
@@ -25,7 +39,7 @@ const SubmitChallenge = (props) => {
             <AdvInput
               type="normal"
               title="Model Upload"
-              placeholder={modelName}
+              placeholder={'Please upload your model'}
               widthRange={[200, 400]}
               isAdaptive={false}
               height="40px"
@@ -40,7 +54,7 @@ const SubmitChallenge = (props) => {
       </Row>
       <Row justify="end">
         <Col span={4}>
-          <Button type="primary" onClick={props.handleNext}>NEXT</Button>
+          <Button type="primary" onClick={onClickNext}>NEXT</Button>
         </Col>
       </Row>
     </div>

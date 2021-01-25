@@ -122,7 +122,7 @@ export const getLatest3 = () => {
 
 // create challenge
 export const createChallenge = (params={}) => {
-  //todo: challengeId
+  //todo: challengeId nanoid
   const createChallengeDefaultParams = {userId: Setting.getUserId()};
   for (const key of Object.keys(params)) {
     createChallengeDefaultParams[key] = params[key];

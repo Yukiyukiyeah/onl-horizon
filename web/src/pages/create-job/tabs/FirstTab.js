@@ -5,7 +5,7 @@ import AdvInput from "../../../components/AdvInput";
 import CusStep from "../../../components/CusSteps";
 
 const FirstTab = (props) => {
-  const {title:initTitle, description:initDescription, appType: initAppType} = props.params;
+  const {title: initTitle, description: initDescription, appType: initAppType} = props.params;
   const [title, setTitle] = useState(initTitle ? initTitle : '');
   const [appType, setType] = useState(initAppType ? initAppType : '');
   const [checkValid, setCheckValid] = useState(false);
