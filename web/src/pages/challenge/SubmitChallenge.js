@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {Button, Upload, message, Col, Row} from "antd";
 import AdvInput from "../../components/AdvInput";
 import { nanoid } from 'nanoid';
@@ -10,13 +10,18 @@ const SubmitChallenge = (props) => {
   const [modelFileName, setModelFileName] = useState(initModel ? initModel: '');
   const [isModel, setIsModel] = useState(false);
   const [modelFile, setModelFile] = useState('');
+  const [checkValid, setCheckValid] = useState(false);
 
   const onClickNext = () => {
-    const formData = new FormData();
-    formData.append('challengeId', nanoid());
-    formData.append('name', title);
-    formData.append('model', modelFile);
-    handleNext(formData);
+    if (titleValid && modelValid) {
+      const formData = new FormData();
+      formData.append('challengeId', nanoid());
+      formData.append('name', title);
+      formData.append('model', modelFile);
+      handleNext(formData);
+    } else {
+      setCheckValid(true);
+    }
     // const param = {};
     // params['challengeId'] = nanoid();
     // params['name'] = title;
@@ -31,18 +36,22 @@ const SubmitChallenge = (props) => {
       return false;
     },
     onChange(info) {
-      console.log(info.fileList);
       setModelFileName(info.file.name);
       if (info.fileList.length > 0) {
         setIsModel(true);
       } else {
         setIsModel(false);
       }
-      console.log(info.fileList[0]);
-      console.log(info.file);
-      setModelFile(info.fileList);
     },
   };
+
+  const titleValid = useMemo(() => {
+    return title;
+  }, [title]);
+
+  const modelValid = useMemo(() => {
+    return isModel;
+  }, [isModel]);
 
   return(
     <div className="submit-challenge-container">
@@ -53,9 +62,11 @@ const SubmitChallenge = (props) => {
             <AdvInput
               type="normal"
               title="Name"
-              placeholder={title}
+              placeholder="Model Name"
               handleChange={setTitle}
               widthRange={[200, 1200]}
+              showError={checkValid && !titleValid}
+              errorText="Please enter your name"
               isAdaptive={true}
               height="40px"
             />
@@ -65,9 +76,10 @@ const SubmitChallenge = (props) => {
             <AdvInput
               type="normal"
               title="Model Upload"
-              placeholder={modelFileName}
-              value={modelFileName}
+              placeholder="Model path"
               widthRange={[200, 400]}
+              showError={checkValid && !modelValid}
+              errorText="Please upload your model"
               isAdaptive={false}
               height="40px"
               disabled={true}

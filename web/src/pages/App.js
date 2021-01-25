@@ -372,7 +372,6 @@ class App extends Component {
   // render modal (if not login)
   renderModal() {
     if (Setting.getAccount(this.context) === null) {
-      console.log(this.context);
       return (
         <Modal
           title={
