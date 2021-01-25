@@ -28,8 +28,8 @@ const CreateChallenge = () => {
       }
     }, 1500);
     // set title
-    setTitle(params.title);
-
+    console.log(params.get('name'));
+    setTitle(params.get('name'));
 
     createChallenge(params)
       .then(res => {
