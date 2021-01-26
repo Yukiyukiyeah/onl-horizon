@@ -139,7 +139,7 @@ export const createChallenge = (title) => {
   return post(`${baseUrl}/display/createJob`, params);
 };
 
-export const runChallenge = (runChallengeParams) => {
+export const runChallengeApp = (runChallengeParams) => {
   runChallengeParams.AppParams.challengeId = Setting.getChallengeId();
   runChallengeParams.AppParams.userId = Setting.getUserId();
   console.log(runChallengeParams);

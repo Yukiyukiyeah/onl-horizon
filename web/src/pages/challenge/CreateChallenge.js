@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {SubmitStatus as ST} from "../../utils/BaseVar";
 import SubmitChallenge from "./SubmitChallenge";
 import SubmitResult from "./SubmitResult";
-import { createChallenge, runApp } from '../../backend/api';
+import { createChallenge, runChallengeApp } from '../../backend/api';
 
 const CreateChallenge = () => {
   const [title, setTitle] = useState('');
@@ -63,7 +63,7 @@ const CreateChallenge = () => {
     runChallengeParams.AppParams.model = params['model'];
     runChallengeParams.AppParams.modelId = params['modelId'];
     statusFlow.push(ST.RUN_PROCESSING);
-    return runChallenge(runChallengeParams);
+    return runChallengeApp(runChallengeParams);
   };
 
   const setFirst = () => {
