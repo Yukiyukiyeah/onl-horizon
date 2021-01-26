@@ -23,18 +23,18 @@ const Top10 = () => {
     },
     {
       title: 'Metrics(video score)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsVideo',
+      key:'metricsVideo',
     },
     {
       title: 'Metrics(audio score)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsAudio',
+      key:'metricsAudio',
     },
     {
       title: 'Metrics(all)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsAll',
+      key:'metricsAll',
     },
   ];
   useEffect(() => {
