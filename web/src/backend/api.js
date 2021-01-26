@@ -84,6 +84,14 @@ export const getUserId = () => {
     });
 };
 
+// get challenge Id (fixed)
+export const getChallengeId = () => {
+  const challengeId = "00000000-0000-0000-0000-000000000001";
+  if(localStorage.getItem("challengeId") == null) {
+    localStorage.setItem("challengeId", challengeId);
+  }
+};
+
 export const getMyJobStates = (userId = Setting.getUserId()) => {
   return get(`${baseUrl}/display/jobStatistics?userId=${userId}`);
 };
@@ -111,13 +119,13 @@ export const getMachineList = () => {
 };
 
 // get Top 10 records
-export const getTop10 = () => {
-  return get(`${baseUrl}/getChallengeRecord`);
+export const getTop10 = (challengeId = Setting.getChallengeId()) => {
+  return get(`${baseUrl}/display/challenge/results?challengeId=${challengeId}&limit=10`);
 };
 
 // get latest 3 self records
-export const getLatest3 = () => {
-  return get(`${baseUrl}/getLatest3`);
+export const getLatest3 = (challengeId = Setting.getChallengeId(), userId = Setting.getUserId()) => {
+  return get(`${baseUrl}/display/challenge/userResults?challengeId=${challengeId}&userId=${userId}&limit=3`);
 };
 
 // create challenge

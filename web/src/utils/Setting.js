@@ -142,6 +142,10 @@ export function getAvatarSrc() {
   }
 }
 
+export function getChallengeId() {
+  return localStorage.getItem("challengeId");
+}
+
 export function getUserId() {
   // return "E0000003-0000-0000-0000-000000000003";
   return localStorage.getItem("userId");

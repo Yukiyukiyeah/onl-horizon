@@ -32,7 +32,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "set PORT=2000 && craco start",
+    "start": "export PORT=2000 && craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"

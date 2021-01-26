@@ -3,7 +3,7 @@ import {Row, Table} from "antd";
 import '../../styles/Self.scss';
 import {getLatest3} from "../../backend/api";
 
-const Self = (props) => {
+const Self = () => {
   const [data, setData] = useState([]);
 
   const columns = [
@@ -37,10 +37,9 @@ const Self = (props) => {
   useEffect(() => {
     getLatest3()
       .then(res => {
-        console.log('latest3 data', res.data);
         setData(res);
       });
-  }, [data]);
+  }, []);
 
   return (
     <div className="self-container">

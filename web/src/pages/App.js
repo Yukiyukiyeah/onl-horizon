@@ -12,7 +12,7 @@ import {
 import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
-import {getUserId} from "../backend/api";
+import {getUserId, getChallengeId} from "../backend/api";
 import HomePage from "./home/HomePage";
 import CreateJobPage from "./create-job/CreateJobPage";
 import JobListPage from "./job-list/JobListPage";
@@ -107,6 +107,8 @@ class App extends Component {
               isForbidden: true,
             });
           });
+        // set challenge ID in local storage
+        getChallengeId();
         // this.props.history.push(window.location.url);
       })
       .catch(error => {
