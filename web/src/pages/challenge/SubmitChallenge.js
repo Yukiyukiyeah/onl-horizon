@@ -15,7 +15,7 @@ const SubmitChallenge = (props) => {
   const onClickNext = () => {
     if (titleValid && modelValid) {
       const params = {};
-      params['challengeId'] = nanoid();
+      params['modelId'] = nanoid();
       params['name'] = title;
       const filereader = new FileReader();
       filereader.readAsDataURL(modelFile);

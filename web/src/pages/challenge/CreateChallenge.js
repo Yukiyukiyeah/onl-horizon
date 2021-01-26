@@ -31,17 +31,16 @@ const CreateChallenge = () => {
     // set title
     setTitle(params['name']);
 
-    createChallenge(params)
+    createChallenge(params['name'])
       .then(res => {
-        // console.log(res);
         statusFlow.push(ST.CREATE_SUCCEEDED);
-        return runChallenge(res.id); // todo
+        console.log('create', params);
+        return runChallenge(params);
       }, err => {
         statusFlow.push(ST.CREATE_FAILED);
         return new Promise(()=>{});
       })
       .then(res => {
-        // console.log(res);
         statusFlow.push(ST.RUN_SUCCEEDED);
       }, err => {
         statusFlow.push(ST.RUN_FAILED);
@@ -51,9 +50,20 @@ const CreateChallenge = () => {
     setCurStep(curStep + 1);
   };
 
-  // todo: run the challenge
-  const runChallenge = (challengeId) => {
-    console.log('run challenge', challengeId);
+  const runChallenge = (params) => {
+    const runChallengeParams = {
+      AppParams: {
+        NetParams: {
+          ListenTCPPort: 8888
+        },
+      },
+      UserName: "onl",
+      TimeoutSec: "500"
+    };
+    runChallengeParams.AppParams.model = params['model'];
+    runChallengeParams.AppParams.modelId = params['modelId'];
+    statusFlow.push(ST.RUN_PROCESSING);
+    return runChallenge(runChallengeParams);
   };
 
   const setFirst = () => {
