@@ -4,6 +4,7 @@ import Top10 from "./Top10";
 import Self from "./Self";
 
 const ChallengeDashboard = (props) => {
+
   return (
     <div className="challenge-container" style={{margin: -64}}>
       <div className="challenge-wrapper">

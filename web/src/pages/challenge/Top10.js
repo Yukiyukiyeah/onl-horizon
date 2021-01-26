@@ -3,7 +3,7 @@ import {Row, Table} from "antd";
 import {getTop10} from '../../backend/api';
 import '../../styles/Top10.scss';
 
-const Top10 = (props) => {
+const Top10 = () => {
   const [data, setData] = useState([]);
   const columns = [
     {
@@ -23,27 +23,26 @@ const Top10 = (props) => {
     },
     {
       title: 'Metrics(video score)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsVideo',
+      key:'metricsVideo',
     },
     {
       title: 'Metrics(audio score)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsAudio',
+      key:'metricsAudio',
     },
     {
       title: 'Metrics(all)',
-      dataIndex: 'rank',
-      key:'rank',
+      dataIndex: 'metricsAll',
+      key:'metricsAll',
     },
   ];
   useEffect(() => {
     getTop10()
       .then(res => {
-        console.log('top10 data', res.data);
         setData(res);
       });
-  }, [data]);
+  }, []);
   return(
     <div className="top10-container">
       <Row justify="space-between">
