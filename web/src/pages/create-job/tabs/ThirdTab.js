@@ -46,7 +46,6 @@ class Trie {
 
 const ThirdTab = (props) => {
   const [hostChoice, setHostChoice] = useState(1);
-  // todo: participants?
   const { handleNext, handlePrev, type, participants = 2 } = props;
   const {title:title} = props.params;
   const [rowMachineData, setRowMachineData] = useState(null);
@@ -67,23 +66,24 @@ const ThirdTab = (props) => {
   const ary = new Array(participants).fill(1);
 
   useEffect(() => {
-    getMachineList() // todo: get rowdata from backend?
+    getMachineList()
       .then((r) => {
         handleRowData(r);
       })
-      .catch(e => {console.log(e);});
+      .catch(e => {console.log('err', e);});
   }, []);
 
   // setRowMachineData, setMachineData
   const handleRowData = (rowData) => {
-    setRowMachineData(rowData.machineList); // rowMachineData: Array(4) existed combinations of filters
-    // console.log('rowMachineData:', rowMachineData);
+    setRowMachineData(rowData);
+    console.log('rowMachineData:', rowMachineData);
     if (!rowData) {
       return null;
     }
-    initMachineFilters(); // machineFilters = rowMachineData
+    // initMachineFilters(); // machineFilters = rowMachineData
     const nt = new Trie(); // create a tree of machine list
-    for (const dt of rowData.machineList) {
+    for (const dt of rowData) {
+      if (dt.location == null) dt.location = 'null'; //todo
       nt.insert([dt.location, dt.networkType, dt.machineType]);
     }
     setMachineData(nt); // machineData: Trie(), all machine's data
@@ -105,7 +105,6 @@ const ThirdTab = (props) => {
       "machineType": machineType,
     };
     // machineFilters[insertIdx] = JSON.stringify(filterObj);
-    console.log(machineFilters);
     setMachineFilters(()=> {
       machineFilters[insertIdx] = JSON.stringify(filterObj);
       return machineFilters;
@@ -117,7 +116,6 @@ const ThirdTab = (props) => {
 
   };
 
-  // todo: when to use? seems to be appear in online version
   const onHostChoiceChange = (e) => {
     setHostChoice(e.target.value);
   };
@@ -131,7 +129,7 @@ const ThirdTab = (props) => {
   const hostDetail = (
     <Radio.Group className="radio-group" onChange={onHostChoiceChange} value={hostChoice}>
       <Radio style={radioStyle} value={1}>Auto-selection</Radio>
-      <Radio style={radioStyle} disabled value={2}>Customized</Radio>
+      <Radio style={radioStyle} value={2}>Customized</Radio>
     </Radio.Group>
   );
 
@@ -155,6 +153,26 @@ const ThirdTab = (props) => {
     }
   };
 
+  const renderServer = () => {
+    return(
+      <Row style={{marginTop:50}}>
+        {
+          ary.map((item, idx) => (
+            <MachineSelector
+              key={idx}
+              order={idx + 1}
+              data={(machineData && machineData.root) ? machineData.root : null}
+              defaultData={(rowMachineData && idx < participants) ? rowMachineData[idx] : null}
+              handleMachineFilters={handleMachineFilters}
+              checkValid={checkValid}
+              isFieldsValid={isFieldsValid}
+            />
+          ))
+        }
+      </Row>
+    );
+  };
+
   return (
     <div className="third-tab-container">
       <Row justify="center">
@@ -167,21 +185,12 @@ const ThirdTab = (props) => {
               <span> {type}</span>
             </div>
           </Row>
-          <Row style={{marginTop:50}}>
-            {
-              ary.map((item, idx) => (
-                <MachineSelector
-                  key={idx}
-                  order={idx + 1}
-                  data={(machineData && machineData.root) ? machineData.root : null}
-                  defaultData={(rowMachineData && idx < participants) ? rowMachineData[idx] : null}
-                  handleMachineFilters={handleMachineFilters}
-                  checkValid={checkValid}
-                  isFieldsValid={isFieldsValid}
-                />
-              ))
-            }
+          <Row style={{marginTop: 50}}>
+            {hostDetail}
           </Row>
+          {
+            hostChoice === 2? renderServer() : null
+          }
         </Col>
       </Row>
       <CusStep
@@ -193,4 +202,4 @@ const ThirdTab = (props) => {
   );
 };
 
-export  default  ThirdTab;
+export default ThirdTab;
