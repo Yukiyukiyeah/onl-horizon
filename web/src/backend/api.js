@@ -139,9 +139,9 @@ export const createChallenge = (title) => {
   return post(`${baseUrl}/display/createJob`, params);
 };
 
-export const runChallengeApp = (runChallengeParams) => {
+export const runChallengeApp = (jobId, runChallengeParams) => {
   runChallengeParams.AppParams.challengeId = Setting.getChallengeId();
   runChallengeParams.AppParams.userId = Setting.getUserId();
   console.log(runChallengeParams);
-  return post(`${baseUrl}/display/runJob/bae29e81-f259-4f2a-9974-b5e4715f6f35?appName=ChallengeAlphaRTC`, runChallengeParams);
+  return post(`${baseUrl}/display/runJob/${jobId}?appName=ChallengeAlphaRTC`, runChallengeParams);
 };

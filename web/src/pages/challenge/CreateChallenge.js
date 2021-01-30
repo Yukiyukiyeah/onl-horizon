@@ -35,7 +35,7 @@ const CreateChallenge = () => {
       .then(res => {
         statusFlow.push(ST.CREATE_SUCCEEDED);
         console.log('create', params);
-        return runChallenge(params);
+        return runChallenge(res.id, params);
       }, err => {
         statusFlow.push(ST.CREATE_FAILED);
         return new Promise(()=>{});
@@ -50,7 +50,7 @@ const CreateChallenge = () => {
     setCurStep(curStep + 1);
   };
 
-  const runChallenge = (params) => {
+  const runChallenge = (jobId, params) => {
     const runChallengeParams = {
       AppParams: {
         NetParams: {
@@ -63,7 +63,7 @@ const CreateChallenge = () => {
     runChallengeParams.AppParams.model = params['model'];
     runChallengeParams.AppParams.modelId = params['modelId'];
     statusFlow.push(ST.RUN_PROCESSING);
-    return runChallengeApp(runChallengeParams);
+    return runChallengeApp(jobId, runChallengeParams);
   };
 
   const setFirst = () => {
