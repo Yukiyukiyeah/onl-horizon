@@ -6,7 +6,6 @@ import {getGlobalJobStates, getGlobalMachineStates, getMyJobStates} from "../../
 import Map from "../../components/Map";
 
 const HomePage = () => {
-  console.log('homepage render');
   const [myJobStates, setMyJobStates] = useState({failed: 0, succeeded: 0, running: 0});
   const [globalJobStates, setGlobalJobStates] = useState({failed: 0, succeeded: 0, running: 0});
   const [globalMachineStates, setGlobalMachineStates] = useState({available: 0, busy: 0, error: 0});

@@ -47,6 +47,22 @@ export function isMobile() {
   return isMobileDevice;
 }
 
+export function isChallengeAccessible() {
+  const operations = localStorage.getItem("operations");
+  if (operations !== null) {
+    return operations.includes("createChallenge");
+  }
+  return false;
+}
+
+export function isJobAccessible() {
+  const operations = localStorage.getItem("operations");
+  if (operations !== null) {
+    return operations.includes("createJob");
+  }
+  return false;
+}
+
 export function getFirstName(s) {
   return s.split(' ')[0];
 }

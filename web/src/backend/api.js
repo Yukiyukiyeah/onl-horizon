@@ -68,14 +68,15 @@ export const runApp = (jobId, appName, params) => { //
 };
 
 // get user ID
-export const getUserId = () => {
+export const getUser = () => {
   return get(`${baseUrl}/auth`)
     .then((res) => {
-      console.log('res', res);
       const userId = res.id;
-      localStorage.setItem("userId", userId);
       const role = res.role;
+      const operations = res.operations;
+      localStorage.setItem("userId", userId);
       localStorage.setItem("role", role);
+      localStorage.setItem("operations", operations);
     })
     .catch(err => {
       localStorage.setItem("userId", "forbidden");
