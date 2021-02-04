@@ -61,7 +61,7 @@ export function isChallengeAccessible() {
   if (operations != 'undefined') {
     return operations.includes("createChallenge");
   }
-  return false;
+  return true;
 }
 
 export function isJobAccessible() {
@@ -69,7 +69,7 @@ export function isJobAccessible() {
   if (operations != 'undefined') {
     return operations.includes("createJob");
   }
-  return false;
+  return true;
 }
 
 export function getFirstName(s) {

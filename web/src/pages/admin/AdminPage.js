@@ -9,7 +9,9 @@ class AdminPage extends React.Component {
 
   render() {
     return (
-      <></>
+      <>
+        Admin Page
+      </>
     );
   }
 }
