@@ -47,9 +47,18 @@ export function isMobile() {
   return isMobileDevice;
 }
 
+export function isAdmin() {
+  const operations = localStorage.getItem("operations");
+  console.log('isAdmin', operations);
+  if (operations != 'undefined') {
+    return operations.includes("admin");
+  }
+  return false;
+}
+
 export function isChallengeAccessible() {
   const operations = localStorage.getItem("operations");
-  if (operations !== null) {
+  if (operations != 'undefined') {
     return operations.includes("createChallenge");
   }
   return false;
@@ -57,7 +66,7 @@ export function isChallengeAccessible() {
 
 export function isJobAccessible() {
   const operations = localStorage.getItem("operations");
-  if (operations !== null) {
+  if (operations != 'undefined') {
     return operations.includes("createJob");
   }
   return false;

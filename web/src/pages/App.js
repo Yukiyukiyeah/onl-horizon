@@ -20,9 +20,14 @@ import AccountPage from "./account/AccountPage";
 import JobDetail from "./job-list/JobDetailPage";
 import ChallengeDashboard from './challenge/ChallengeDashboard';
 import CreateChallenge from './challenge/CreateChallenge';
+import jobRoutes from "../routes/jobRoutes";
+import challengeRoutes from "../routes/challengeRoutes";
+import adminRoutes from "../routes/adminRoutes";
+import AuthRoute from "../components/AuthRoute";
 
 import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";
+import {isJobAccessible, isChallengeAccessible, isAdmin} from "../utils/Setting";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -83,6 +88,9 @@ class App extends Component {
     this.updateMenuKey();
   }
 
+  componentDidMount() {
+    console.log(isJobAccessible());
+  }
   // login and out
   login = () => {
     localStorage.removeItem("avatar");
@@ -349,16 +357,21 @@ class App extends Component {
             >
               <Switch>
                 <Route exact path="/home" component={HomePage}/>
-                { !Setting.isJobAccessible() ? null : <>
-                  <Route exact path="/jobs/create" component={CreateJobPage}/>
-                  <Route exact path="/jobs" component={JobListPage}/>
-                  <Route path="/jobs/detail/:id" component={JobDetail}/></>
-                }
+                {jobRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isJobAccessible()} {...route} />
+                )}
+                {challengeRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isChallengeAccessible()} {...route} />
+                )}
+                {adminRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isAdmin()} {...route} />
+                )}
+                {/*<Route exact path="/jobs/create" component={CreateJobPage}/>*/}
+                {/*<Route exact path="/jobs" component={JobListPage}/>*/}
+                {/*<Route path="/jobs/detail/:id" component={JobDetail}/>*/}
                 <Route exact path="/account" component={AccountPage}/>
-                { !Setting.isChallengeAccessible() ? null : <>
-                  <Route exact path="/challenge" component={ChallengeDashboard}/>
-                  <Route exact path="/challenge/create" component={CreateChallenge}/></>
-                }
+                {/*<Route exact path="/challenge" component={ChallengeDashboard}/>*/}
+                {/*<Route exact path="/challenge/create" component={CreateChallenge}/>*/}
                 <Redirect to="/home" />
               </Switch>
             </Content>
