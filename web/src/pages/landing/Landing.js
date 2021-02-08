@@ -1,5 +1,5 @@
 import React, { /*useState*/ } from 'react';
-import { Row, Col } from 'antd';
+import {Row, Col } from 'antd';
 import loginButton from '../../assets/login-button.png';
 import chat from '../../assets/landing-chat.png';
 import data from '../../assets/landing-data.png';
@@ -8,6 +8,7 @@ import map from '../../assets/landing-map.png';
 import { useHistory } from "react-router-dom";
 
 import '../../styles/Landing.scss';
+import * as Setting from "../../utils/Setting";
 
 const Landing = () => {
   const history = useHistory();
@@ -17,6 +18,16 @@ const Landing = () => {
 
   return (
     <div className="landing-container">
+      <Row className="landing-header" justify="space-between">
+        <div>
+          {
+            Setting.isMobile() ? null : <a className="logo" href={"/"} />
+          }
+        </div>
+        <div className="contact">
+          <a href="/contact">CONTACT US</a>
+        </div>
+      </Row>
       <Row className="home-hero">
         <div className="bg">
           <p className="bg-title">OpenNetLab</p>
@@ -31,7 +42,7 @@ const Landing = () => {
         </div>
 
       </Row>
-      <Row class="chat" type="flex" justify="center" align="middle">
+      <Row className="chat" type="flex" justify="center" align="middle">
         <Col
           span={10} class="text right margin-right">
           <p className="title">Contribute to research comunity</p>

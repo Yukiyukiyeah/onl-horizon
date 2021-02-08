@@ -10,9 +10,9 @@ import {
   SettingOutlined
 } from '@ant-design/icons';
 import {Avatar, BackTop, Button, Dropdown, Layout, Menu, Modal} from 'antd';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import * as http from '../backend/http';
-import {getUserId, getChallengeId} from "../backend/api";
+import {getUser, getChallengeId} from "../backend/api";
 import HomePage from "./home/HomePage";
 import CreateJobPage from "./create-job/CreateJobPage";
 import JobListPage from "./job-list/JobListPage";
@@ -20,9 +20,14 @@ import AccountPage from "./account/AccountPage";
 import JobDetail from "./job-list/JobDetailPage";
 import ChallengeDashboard from './challenge/ChallengeDashboard';
 import CreateChallenge from './challenge/CreateChallenge';
+import jobRoutes from "../routes/jobRoutes";
+import challengeRoutes from "../routes/challengeRoutes";
+import adminRoutes from "../routes/adminRoutes";
+import AuthRoute from "../components/AuthRoute";
 
 import {MsalContext} from "@hsluoyz/msal-react";
 import {loginRequest} from "../auth/authConfig";
+import {isJobAccessible, isChallengeAccessible, isAdmin} from "../utils/Setting";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
@@ -83,6 +88,9 @@ class App extends Component {
     this.updateMenuKey();
   }
 
+  componentDidMount() {
+    console.log(isJobAccessible());
+  }
   // login and out
   login = () => {
     localStorage.removeItem("avatar");
@@ -91,7 +99,7 @@ class App extends Component {
     this.context.instance.loginPopup(loginRequest)
       .then(() => {
         // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
-        getUserId()
+        getUser()
           .then(() => {
             http.getAvatar()
               .then(() => {
@@ -267,26 +275,36 @@ class App extends Component {
             Home
           </div>
         </Menu.Item>
-        <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>
-          <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
-            <FileAddOutlined />
-            Create Job
-          </div>
-        </Menu.Item>
-        <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>
-          <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
-            <DatabaseOutlined />
-            Job List
-          </div>
-        </Menu.Item>
-        <SubMenu key="3" title="Activity" icon={<PlusOutlined/>} style={{paddingLeft: "10px", fontWeight: "bold"}}>
-          <Menu.Item key="4" onClick={() => this.props.history.push("/challenge")}>
-              Challenge
-          </Menu.Item>
-          <Menu.Item key="5" onClick={() => this.props.history.push("/course")}>
-              Course
-          </Menu.Item>
-        </SubMenu>
+        {
+          !Setting.isJobAccessible() ? null :
+            <>
+              <Menu.Item key="1" onClick={() => this.props.history.push("/jobs/create")}>
+                <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
+                  <FileAddOutlined />
+                  Create Job
+                </div>
+              </Menu.Item>
+              <Menu.Item key="2" onClick={() => this.props.history.push("/jobs")}>
+                <div style={{paddingLeft: "10px", fontWeight: "bold"}}>
+                  <DatabaseOutlined />
+                Job List
+                </div>
+              </Menu.Item>
+            </>
+        }
+        {
+          !Setting.isChallengeAccessible() ? null :
+            <>
+              <SubMenu key="3" title="Activity" icon={<PlusOutlined/>} style={{paddingLeft: "10px", fontWeight: "bold"}}>
+                <Menu.Item key="4" onClick={() => this.props.history.push("/challenge")}>
+                  Challenge
+                </Menu.Item>
+                <Menu.Item key="5" onClick={() => this.props.history.push("/course")}>
+                  Course
+                </Menu.Item>
+              </SubMenu>
+            </>
+        }
       </Menu>
     );
   }
@@ -339,12 +357,22 @@ class App extends Component {
             >
               <Switch>
                 <Route exact path="/home" component={HomePage}/>
-                <Route exact path="/jobs/create" component={CreateJobPage}/>
-                <Route exact path="/jobs" component={JobListPage}/>
-                <Route path="/jobs/detail/:id" component={JobDetail}/>
+                {jobRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isJobAccessible()} {...route} />
+                )}
+                {challengeRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isChallengeAccessible()} {...route} />
+                )}
+                {adminRoutes.map(
+                  (route) => <AuthRoute key={route.path} operation={isAdmin()} {...route} />
+                )}
+                {/*<Route exact path="/jobs/create" component={CreateJobPage}/>*/}
+                {/*<Route exact path="/jobs" component={JobListPage}/>*/}
+                {/*<Route path="/jobs/detail/:id" component={JobDetail}/>*/}
                 <Route exact path="/account" component={AccountPage}/>
-                <Route exact path="/challenge" component={ChallengeDashboard}/>
-                <Route exact path="/challenge/create" component={CreateChallenge}/>
+                {/*<Route exact path="/challenge" component={ChallengeDashboard}/>*/}
+                {/*<Route exact path="/challenge/create" component={CreateChallenge}/>*/}
+                <Redirect to="/home" />
               </Switch>
             </Content>
           </Layout>

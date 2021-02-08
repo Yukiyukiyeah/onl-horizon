@@ -47,6 +47,31 @@ export function isMobile() {
   return isMobileDevice;
 }
 
+export function isAdmin() {
+  const operations = localStorage.getItem("operations");
+  console.log('isAdmin', operations);
+  if (operations != 'undefined') {
+    return operations.includes("admin");
+  }
+  return false;
+}
+
+export function isChallengeAccessible() {
+  const operations = localStorage.getItem("operations");
+  if (operations != 'undefined') {
+    return operations.includes("createChallenge");
+  }
+  return true;
+}
+
+export function isJobAccessible() {
+  const operations = localStorage.getItem("operations");
+  if (operations != 'undefined') {
+    return operations.includes("createJob");
+  }
+  return true;
+}
+
 export function getFirstName(s) {
   return s.split(' ')[0];
 }

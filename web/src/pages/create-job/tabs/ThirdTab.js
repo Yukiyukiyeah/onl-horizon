@@ -143,7 +143,7 @@ const ThirdTab = (props) => {
   };
 
   const onClickNext = () => {
-    if (isNext) {
+    if (hostChoice === 1 || isNext) {
       let config = {
         "machineFilters": machineFilters
       };

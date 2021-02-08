@@ -25,7 +25,13 @@
     color: #ffffff;
     z-index: 100;
   }
-
+  .contact {
+    padding: 20px;
+    text-aligh: center;
+    a {
+      color: #6a6a6a;
+    }
+  }
   .login {
     margin-top: 50px;
     //float: right;
