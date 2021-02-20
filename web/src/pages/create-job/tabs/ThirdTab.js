@@ -145,7 +145,8 @@ const ThirdTab = (props) => {
   const onClickNext = () => {
     if (hostChoice === 1 || isNext) {
       let config = {
-        "machineFilters": machineFilters
+        "modeChoice": hostChoice === 1 ? 'AutoSelection' : 'Customized',
+        // "machineFilters": machineFilters
       };
       handleNext(config);
     } else {

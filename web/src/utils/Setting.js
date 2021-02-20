@@ -59,7 +59,7 @@ export function isAdmin() {
 export function isChallengeAccessible() {
   const operations = localStorage.getItem("operations");
   if (operations != 'undefined') {
-    return operations.includes("createChallenge");
+    return operations.includes("createAlphaRTCChallenge");
   }
   return true;
 }

@@ -285,8 +285,8 @@ const SecondTab = (props) => {
     </div>
   );
 
-  const alphaRTCFullConfigDic = ['parties', 'expirationTime', 'experimentTime', 'model', 'bweDuration'];
-  const alphaRTCFullConfig = [participants, expirationTime, experimentTime, model, bwe];
+  const alphaRTCFullConfigDic = ['expirationTime'];
+  const alphaRTCFullConfig = [expirationTime];
   const probingFullConfigDic = ['interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl', 'bandwidth'];
   const probingFullConfig =    [interval, buffer, probingTimeout, mode, tcpWindowSize, mss, tcpControl, bandwidth];
   const advancedFullConfigDic = ['jsonConfig', 'application', 'timeout'];
