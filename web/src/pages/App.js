@@ -96,32 +96,53 @@ class App extends Component {
     localStorage.removeItem("avatar");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
-    this.context.instance.loginPopup(loginRequest)
-      .then(() => {
-        // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
-        getUser()
-          .then(() => {
-            http.getAvatar()
-              .then(() => {
-                window.location.reload();
+    // this.context.instance.loginPopup(loginRequest)
+    //   .then(() => {
+    //     // Setting.showMessage("success", `Signed in successfully, return to the previous page..`);
+    //     getUser()
+    //       .then(() => {
+    //         http.getAvatar()
+    //           .then(() => {
+    //             window.location.reload();
+    //
+    //           })
+    //           .catch(error => {
+    //             window.location.reload();
+    //           });
+    //       })
+    //       .catch(err => {
+    //         this.setState({
+    //           isForbidden: true,
+    //         });
+    //       });
+    //     // set challenge ID in local storage
+    //     getChallengeId();
+    //     // this.props.history.push(window.location.url);
+    //   })
+    //   .catch(error => {
+    //     // Setting.showMessage("error", `Signing in failed: ${error}`);
+    //   });
+    this.context.instance.handleRedirectPromise((response)=>{
+      getUser()
+        .then(() => {
+          http.getAvatar()
+            .then(() => {
+              window.location.reload();
 
-              })
-              .catch(error => {
-                window.location.reload();
-              });
-          })
-          .catch(err => {
-            this.setState({
-              isForbidden: true,
+            })
+            .catch(error => {
+              window.location.reload();
             });
+        })
+        .catch(err => {
+          this.setState({
+            isForbidden: true,
           });
-        // set challenge ID in local storage
-        getChallengeId();
-        // this.props.history.push(window.location.url);
-      })
-      .catch(error => {
-        // Setting.showMessage("error", `Signing in failed: ${error}`);
-      });
+        });
+      // set challenge ID in local storage
+      getChallengeId();
+    });
+    this.context.instance.loginRedirect(loginRequest);
   }
 
   logout = () => {
