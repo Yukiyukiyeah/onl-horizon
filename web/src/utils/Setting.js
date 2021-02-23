@@ -49,8 +49,7 @@ export function isMobile() {
 
 export function isAdmin() {
   const operations = localStorage.getItem("operations");
-  console.log('isAdmin', operations);
-  if (operations != 'undefined') {
+  if (operations != 'undefined' && operations !== null) {
     return operations.includes("admin");
   }
   return false;
@@ -58,7 +57,7 @@ export function isAdmin() {
 
 export function isChallengeAccessible() {
   const operations = localStorage.getItem("operations");
-  if (operations != 'undefined') {
+  if (operations != 'undefined' && operations !== null) {
     return operations.includes("createAlphaRTCChallenge");
   }
   return true;
@@ -66,7 +65,7 @@ export function isChallengeAccessible() {
 
 export function isJobAccessible() {
   const operations = localStorage.getItem("operations");
-  if (operations != 'undefined') {
+  if (operations != 'undefined' && operations !== null) {
     return operations.includes("createJob");
   }
   return true;
