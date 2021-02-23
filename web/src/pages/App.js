@@ -146,6 +146,7 @@ class App extends Component {
   }
 
   logout = () => {
+    localStorage.removeItem("operations");
     const logoutRequest = {
       account: Setting.getAccount(this.context)
     };

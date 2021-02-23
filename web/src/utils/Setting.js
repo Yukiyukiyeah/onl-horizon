@@ -60,7 +60,7 @@ export function isChallengeAccessible() {
   if (operations != 'undefined' && operations !== null) {
     return operations.includes("createAlphaRTCChallenge");
   }
-  return true;
+  return false;
 }
 
 export function isJobAccessible() {
@@ -68,7 +68,7 @@ export function isJobAccessible() {
   if (operations != 'undefined' && operations !== null) {
     return operations.includes("createJob");
   }
-  return true;
+  return false;
 }
 
 export function getFirstName(s) {
