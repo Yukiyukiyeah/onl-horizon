@@ -13,8 +13,8 @@ const VerifyTab = (props) => {
   // filterDics
   // todo: advanced?
   const alphaRTCFullConfigDic = ['title', 'appType', 'description', 'expirationTime', 'machineFilter'];
-  const probingFullConfigDicTCP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl',  'machineFilters'];
-  const probingFullConfigDicUDP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'bandwidth', 'machineFilters'];
+  const probingFullConfigDicTCP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'tcpWindowSize', 'mss', 'tcpControl',  'machineFilter'];
+  const probingFullConfigDicUDP = ['title', 'appType', 'description', 'interval', 'bufferLen', 'timeout', 'mode', 'bandwidth', 'machineFilter'];
   // todo: advanced?
   const paramsFilter = (p) => {
     const filteredParams = {};
