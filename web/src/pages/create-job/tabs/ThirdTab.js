@@ -84,7 +84,7 @@ const ThirdTab = (props) => {
     const nt = new Trie(); // create a tree of machine list
     for (const dt of rowData) {
       if (dt.location == null) dt.location = 'null'; //todo
-      nt.insert([dt.location, dt.networkType, dt.machineType]);
+      nt.insert([dt.location, dt.networkType, dt.vmType]);
     }
     setMachineData(nt); // machineData: Trie(), all machine's data
     // console.log('machineData:', machineData);
@@ -146,7 +146,7 @@ const ThirdTab = (props) => {
     if (hostChoice === 1 || isNext) {
       let config = {
         "modeChoice": hostChoice === 1 ? 'AutoSelection' : 'Customized',
-        // "machineFilters": machineFilters
+        "machineFilter": '[' + String(machineFilters) + ']'
       };
       handleNext(config);
     } else {
