@@ -93,6 +93,14 @@ export const getChallengeId = () => {
   }
 };
 
+// sign up
+export const signUp = (params) => {
+  return post(`${baseUrl}/signup`, params)
+    .then((res) => {
+      this.getUser();
+    });
+};
+
 export const getMyJobStates = (userId = Setting.getUserId()) => {
   return get(`${baseUrl}/display/jobStatistics?userId=${userId}`);
 };

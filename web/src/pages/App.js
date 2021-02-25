@@ -426,7 +426,7 @@ class App extends Component {
     );
   }
 
-  // render modal (if not login)
+  // render modal
   renderModal() {
     if (Setting.getAccount(this.context) === null) {
       return (
@@ -459,14 +459,14 @@ class App extends Component {
           title={
             <div>
               <CloseCircleTwoTone style={{marginRight: "10px"}} twoToneColor={"rgb(225,107,88)"} />
-              You are not authorized to access this website.
+              Please sign up to visit the website.
             </div>
           }
           visible={true}
           closable={false}
           footer={[
-            <Button key="logout" type="primary" onClick={this.logout}>
-              Logout
+            <Button key="signup" type="primary" onClick={() => this.props.history.push("/signup")}>
+              Signup
             </Button>,
           ]}
         >

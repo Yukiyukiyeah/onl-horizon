@@ -1,17 +1,62 @@
-import React, {useState} from "react";
+import React, {useMemo, useEffect, useState, useContext} from "react";
 import AdvInput from "../../components/AdvInput";
 import {Row, Col, Button} from 'antd';
-import * as Setting from "../../utils/Setting";
+import {signUp} from "../../backend/api";
 import '../../styles/SignUpPage.scss';
+import * as Setting from '../../utils/Setting';
+import {MsalContext} from "@hsluoyz/msal-react";
 
 const SignUpPage = (props) => {
+  const msalContext = useContext(MsalContext);
+  const [email, setEmail] = useState('xxx@xxx.com');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
+  const [checkValid, setCheckValid] = useState(false);
+  const firstNameValid = useMemo(() => {
+    return !(!firstName || firstName.length > 100);
+  }, [firstName]);
+  const lastNameValid = useMemo(() => {
+    return !(!lastName || lastName.length > 100);
+  }, [lastName]);
+  const companyValid = useMemo(() => {
+    return !(!company || company.length > 100);
+  }, [company]);
+  const phoneValid = useMemo(() => {
+    return !(!phone || phone.length > 100);
+  }, [phone]);
+  const nextValid = useMemo(() => {
+    return firstNameValid && lastNameValid && companyValid && phoneValid && !!title;
+  }, [firstName, lastName, company, phone, title]);
 
-  const account = Setting.getAccount(this.context);
-  if (account === null) {
-    return "Need login first";
-  }
-  const onHandleClick = () => {};
+  console.log('msal', msalContext);
+  useEffect(()=>{
+    if (msalContext['accounts'].length >= 1) {
+      setEmail(msalContext['accounts'][0]['idTokenClaims']['emails'][0]);
+    }
+  }, [msalContext]);
+
+  const paramsDic = ["firstName", "lastName", "company", "phone", "title"];
+  const paramsVal = [firstName, lastName, company, phone, title];
+  const onHandleClick = () => {
+    if (!nextValid) {
+      setCheckValid(true);
+      return;
+    }
+    let params = {};
+    for (let i in paramsDic) {
+      const key = paramsDic[i];
+      const val = paramsVal[i];
+      params[key] = val;
+    }
+    console.log(params);
+    signUp(params)
+      .then(()=>{
+        window.history.push("/home");
+      });
+  };
 
   return(
     <div className="signup-container">
@@ -33,11 +78,13 @@ const SignUpPage = (props) => {
               <AdvInput
                 type="normal"
                 title="First Name"
-                placeholder="First Name"
                 widthRange={[200, 400]}
-                errorText="Please enter first name"
                 isAdaptive={true}
                 height="40px"
+                placeholder="First Name"
+                handleChange={setFirstName}
+                showError={checkValid && !firstNameValid}
+                errorText="Invalid Value"
               />
             </div>
             <div className="lastname">
@@ -45,9 +92,12 @@ const SignUpPage = (props) => {
                 type="normal"
                 title="Last Name"
                 widthRange={[200, 400]}
-                errorText="Please enter last name"
                 isAdaptive={true}
                 height="40px"
+                placeholder="Last Name"
+                handleChange={setLastName}
+                showError={checkValid && !lastNameValid}
+                errorText="Invalid Value"
               />
             </div>
             <div className="company">
@@ -55,9 +105,12 @@ const SignUpPage = (props) => {
                 type="normal"
                 title="University/Institution"
                 widthRange={[200, 400]}
-                errorText="Please enter university/institution"
                 isAdaptive={true}
                 height="40px"
+                placeholder="University/Institution"
+                handleChange={setCompany}
+                showError={checkValid && !companyValid}
+                errorText="Invalid Value"
               />
             </div>
           </Row>
@@ -70,21 +123,26 @@ const SignUpPage = (props) => {
                 errorText="Please enter Email"
                 isAdaptive={true}
                 height="40px"
+                placeholder={email}
+                disabled={true}
               />
             </div>
-            <div className="Phone">
+            <div className="phone">
               <AdvInput
                 type="normal"
                 title="Phone"
                 widthRange={[200, 400]}
-                errorText="Please enter phone number"
                 isAdaptive={true}
                 height="40px"
+                placeholder="Phone"
+                handleChange={setPhone}
+                showError={checkValid && !phoneValid}
+                errorText="Invalid Value"
               />
             </div>
           </Row>
           <Row className="row" justify="space-between">
-            <div className="lastname">
+            <div className="title">
               <AdvInput
                 type="select"
                 title="Title"
