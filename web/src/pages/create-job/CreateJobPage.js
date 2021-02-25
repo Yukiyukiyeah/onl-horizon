@@ -22,7 +22,7 @@ const CreateJob = () => {
   const handleNext = (param) => {
     // return {title: '', appType: '',  description:''}
     // console.log('handleNext - param', param);
-    setParams(Object.assign(params, param)) ;
+    setParams(Object.assign(params, param));
     if (curStep === STAB.STEP_FIRST) {
       // iperf -> probing , webrtc -> alphartc
       setType(Setting.appTypeMapR[param.appType]);
