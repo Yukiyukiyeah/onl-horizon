@@ -40,6 +40,10 @@ const Top10 = () => {
   useEffect(() => {
     getTop10()
       .then(res => {
+        console.log(res);
+        for(let i = 0; i < res.length; ++i) {
+          res[i]['rank'] = i + 1;
+        }
         setData(res);
       });
   }, []);
