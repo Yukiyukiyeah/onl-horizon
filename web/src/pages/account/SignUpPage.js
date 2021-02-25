@@ -1,13 +1,18 @@
 import React, {useState} from "react";
 import AdvInput from "../../components/AdvInput";
-import {Row, Column, Col, Button} from 'antd';
+import {Row, Col, Button} from 'antd';
 import * as Setting from "../../utils/Setting";
-import {getUser} from "../../backend/api";
 import '../../styles/SignUpPage.scss';
 
 const SignUpPage = (props) => {
   const [title, setTitle] = useState('');
+
+  const account = Setting.getAccount(this.context);
+  if (account === null) {
+    return "Need login first";
+  }
   const onHandleClick = () => {};
+
   return(
     <div className="signup-container">
       <Row className="landing-header" justify="space-between">

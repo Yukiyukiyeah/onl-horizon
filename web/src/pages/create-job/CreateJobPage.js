@@ -79,7 +79,7 @@ const CreateJob = () => {
           NetParams: {
             ListenTCPPort: 8888
           },
-          RunTime: "20",
+          RunTime: "30",
           bwe_feedback_duration: 200,
           TestTimes: "1",
           Interval: "50",
@@ -95,7 +95,7 @@ const CreateJob = () => {
               height: 240,
               width: 320,
               fps: 10,
-              file_path: "C:\\AlphaRTC\\corpus\\testmedia\\test.yuv"
+              file_path: "testmedia/test.yuv"
             }
           },
           audio_source: {
@@ -104,15 +104,15 @@ const CreateJob = () => {
             },
             audio_file: {
               enabled: true,
-              file_path: "C:\\AlphaRTC\\corpus\\testmedia\\test.wav"
+              file_path: "testmedia/test.wav"
             }
           }
         },
-        UserName: "test",
-        TimeoutSec: "500"
+        UserName: "onl",
+        TimeoutSec: "300",
       };
       runAlphaParams.AppParams.RunTime = params && params.experimentTime;
-      runAlphaParams.TimeoutSec = params && params.expirationTime;
+      runAlphaParams.TimeoutSec = String(params && params.expirationTime);
       runAlphaParams.AppParams.bwe_feedback_duration = params && params.bweDuration;
       runParams = runAlphaParams;
     }
