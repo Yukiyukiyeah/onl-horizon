@@ -2,7 +2,7 @@ import {Button, Col, Row, Table} from "antd";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import * as momenttz from 'moment-timezone';
-import {downloadMultipleFiles, getJobInfo} from '../../backend/api';
+import {downloadMultipleFiles, getJobInfo, getMachineDetail} from '../../backend/api';
 import '../../styles/JobDetailPage.scss';
 import Modal from "../../components/Modal";
 import {useHistory} from "react-router-dom";
@@ -22,6 +22,28 @@ const columns = [
     width: '70%'
   }
 ];
+const hostColumns = [
+  {
+    title: 'GUID',
+    dataIndex:'guid',
+    key:'guid',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Network Type',
+    dataIndex: 'networkType',
+    key: 'networkType'
+  },
+  {
+    title: 'VM Spec',
+    dataIndex: 'vmSpec',
+    key: 'vmSpec'
+  }
+];
 const columnReflect = [
   ['ID', 'id'],
   ['Name', 'title'],
@@ -35,6 +57,7 @@ const columnConvert = new Map(columnReflect);
 
 const JobDetail = (props) => {
   const [data, setData] = useState([]);
+  const [info, setInfo] = useState([]);
   const [job, setJob] = useState({});
   const [jobDescription, setJobDesc] = useState('');
   const [loading, setLoading] = useState(true);
@@ -72,7 +95,15 @@ const JobDetail = (props) => {
 
   const  initData = (id) => {
     getJobInfo(id)
-      .then((info) => handleJobInfo(info));
+      .then(
+        (info) => {
+          handleJobInfo(info);
+          console.log('1', info.machineList);
+          getMachineDetail(info.machineList);
+        })
+      .then(
+        (info) => setInfo(info)
+      );
   };
   const download = (data) => {
     console.log(data);
@@ -160,7 +191,7 @@ const JobDetail = (props) => {
         </div>
       </Row>
       <Row className="subtitle">{jobDescription}</Row>
-      <Row className="table-wrapper" style={{marginTop:'64px'}}>
+      <Row className="table-wrapper" style={{marginTop:'64px'}} gutter={[0, 50]}>
         <Col span={12}>
           <Table
             columns={columns}
@@ -168,6 +199,15 @@ const JobDetail = (props) => {
             loading={loading}
             size={"middle"}
             showHeader={false}
+            pagination={false}
+          />
+        </Col>
+        <Col span={24} >
+          <p className="host-title">Host Info</p>
+          <Table
+            columns={hostColumns}
+            dataSource={info}
+            loading={loading}
             pagination={false}
           />
         </Col>

@@ -26,6 +26,11 @@ export const getJobInfo = (jobId) => {
   return get(`${baseUrl}/display/jobDetail/${jobId}`);
 };
 
+// get machine detail for one job
+export const getMachineDetail = (machineList) => {
+  return get(`${baseUrl}/display/machines?id=${machineList}`);
+};
+
 // get job info list
 export const allJobInfo = (userId = Setting.getUserId()) => {
   const param = {userId: userId, currentPage: 0, pageSize: 99999};
