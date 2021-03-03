@@ -31,7 +31,6 @@ const SignUpPage = (props) => {
     return firstNameValid && lastNameValid && companyValid && phoneValid && !!title;
   }, [firstName, lastName, company, phone, title]);
 
-  console.log('msal', msalContext);
   useEffect(()=>{
     if (msalContext['accounts'].length >= 1) {
       setEmail(msalContext['accounts'][0]['idTokenClaims']['emails'][0]);
@@ -51,7 +50,6 @@ const SignUpPage = (props) => {
       const val = paramsVal[i];
       params[key] = val;
     }
-    console.log(params);
     signUp(params)
       .then(()=>{
         window.history.push("/home");

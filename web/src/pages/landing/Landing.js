@@ -1,31 +1,86 @@
-import React, { /*useState*/ } from 'react';
-import {Row, Col } from 'antd';
+import React, {useContext /*useState*/} from 'react';
+import {Row, Col, Avatar} from 'antd';
 import loginButton from '../../assets/login-button.png';
 import chat from '../../assets/landing-chat.png';
 import data from '../../assets/landing-data.png';
 import realtime from '../../assets/landing-realtime.png';
 import map from '../../assets/landing-map.png';
+import * as Setting from "../../utils/Setting";
 import { useHistory } from "react-router-dom";
+import {MsalContext} from "@hsluoyz/msal-react";
 
 import '../../styles/Landing.scss';
-import * as Setting from "../../utils/Setting";
+
 
 const Landing = () => {
   const history = useHistory();
+  const msalContext = useContext(MsalContext);
+  console.log(msalContext.accounts);
   const handleLogin = () => {
     history.push("/home");
+  };
+
+  const renderAvatar = () => {
+    const account = Setting.getAccount(msalContext);
+    const imageSrc = Setting.getAvatarSrc();
+    const name = account.name;
+    if (imageSrc === "") {
+      return (
+        <div>
+          <Avatar size="large" style={{ backgroundColor: Setting.getAvatarColor(account.name), verticalAlign: 'middle' }}>
+            {Setting.getFirstName(account.name)}
+          </Avatar>
+          &nbsp;
+          &nbsp;
+          <span style={{fontWeight: "bold"}}>{Setting.isMobile() ? null : name}</span>
+          &nbsp;
+          &nbsp;
+          &nbsp;
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Avatar size="large" src={imageSrc} />
+          &nbsp;
+          &nbsp;
+          <span style={{fontWeight: "bold", fontColor: "#FFFFFF"}}>{Setting.isMobile() ? null : name}</span>
+          &nbsp;
+          &nbsp;
+          &nbsp;
+        </div>
+      );
+    }
   };
 
   return (
     <div className="landing-container">
       <Row className="landing-header" justify="space-between">
-        <div>
-          {
-            Setting.isMobile() ? null : <a className="logo" href={"/"} />
-          }
-        </div>
-        <div className="contact">
-          <a href="/contact">CONTACT US</a>
+        <div className="landing-header-container">
+          <div className="landing-logo">
+            {
+              Setting.isMobile() ? null : <a className="logo" href={"/"} />
+            }
+          </div>
+          <ul className="landing-nav">
+            <li className="landing-nav-item">
+              <a href="#">RESEARCH</a>
+            </li>
+            <li className="landing-nav-item">
+              <a href="#">DATA</a>
+            </li>
+            <li className="landing-nav-item">
+              <a href="#">ABOUT US</a>
+            </li>
+            <li className="landing-nav-item">
+              <a href="#">JOIN US</a>
+            </li>
+            <li>
+              <div className="landing-profile">
+                {msalContext.accounts.length === 0 ? null : renderAvatar()}
+              </div>
+            </li>
+          </ul>
         </div>
       </Row>
       <Row className="home-hero">
