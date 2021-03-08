@@ -399,7 +399,7 @@ class App extends Component {
                 <Route exact path="/account" component={AccountPage}/>
                 {/*<Route exact path="/challenge" component={ChallengeDashboard}/>*/}
                 {/*<Route exact path="/challenge/create" component={CreateChallenge}/>*/}
-                <Redirect to="/home" />
+                <Redirect to="/" />
               </Switch>
             </Content>
           </Layout>

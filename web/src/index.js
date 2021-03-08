@@ -5,7 +5,6 @@ import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from "./pages/landing/Landing";
-import ContactPage from "./pages/contact/ContactPage";
 import SignUpPage from './pages/account/SignUpPage';
 
 import { MsalProvider } from "@hsluoyz/msal-react";
@@ -16,7 +15,6 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Landing}/>
-        <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/signup" component={SignUpPage} />
         <Route component={App}/>
       </Switch>
